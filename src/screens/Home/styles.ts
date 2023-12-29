@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
+import {verticalScale} from '../../utils/scale';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,12 +11,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     justifyContent: 'space-between',
-    gap: 24,
+    gap: verticalScale(20),
   },
   image: {
     alignSelf: 'center',
-    marginVertical: 32,
+    marginVertical: verticalScale(24),
   },
+  buttonStyle: {},
 });
 
 export default styles;

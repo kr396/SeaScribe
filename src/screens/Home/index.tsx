@@ -15,24 +15,28 @@ const Home: FC<RootStackScreenProps<'Home'>> = ({navigation}) => {
           onPress={() => {
             navigation.navigate('NewSurvey');
           }}
+          style={styles.buttonStyle}
         />
         <ThemeButton
           title="Existing Surveys"
           onPress={() => {
             navigation.navigate('ExistingSurveys');
           }}
+          style={styles.buttonStyle}
         />
         <ThemeButton
           title="Settings"
           onPress={() => {
             navigation.navigate('Settings');
           }}
+          style={styles.buttonStyle}
         />
         <ThemeButton
           title="Tools"
           onPress={() => {
             navigation.navigate('Tools');
           }}
+          style={styles.buttonStyle}
         />
       </View>
       <Image source={images.main} style={styles.image} />
