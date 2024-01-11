@@ -6,6 +6,7 @@ export type RootStackParamList = {
   ExistingSurveys: undefined;
   Settings: undefined;
   Tools: undefined;
+  NewMethodology: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

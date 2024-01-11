@@ -1,12 +1,14 @@
 import {
   Pressable,
   PressableProps,
+  PressableStateCallbackType,
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
+import React, {useMemo} from 'react';
 
 import {colors} from '../constants';
 import {scale} from '../utils/scale';
@@ -14,15 +16,39 @@ import {scale} from '../utils/scale';
 type Props = {
   title: string;
   style?: StyleProp<ViewStyle>;
+  mode?: 'defalue' | 'outlined';
 } & PressableProps;
 
-export const ThemeButton = ({title, onPress, ...props}: Props) => {
+export const ThemeButton = ({
+  title,
+  onPress,
+  mode = 'defalue',
+  ...props
+}: Props) => {
+  const pressableStyle: StyleProp<ViewStyle> = [styles.container];
+  if (props.style) {
+    pressableStyle.push(props.style);
+  }
+  if (props.disabled) {
+    pressableStyle.push(styles.disabledSBtntyle);
+  }
+  if (mode === 'outlined') {
+    pressableStyle.push(styles.outlineButton);
+  }
+  const textStyle = useMemo(() => {
+    const textStyle: StyleProp<TextStyle> = [styles.title];
+    if (mode === 'outlined') {
+      textStyle.push(styles.outlinedBtnText);
+    }
+    return textStyle;
+  }, [mode]);
+
   return (
     <Pressable
       {...props}
       onPress={onPress}
-      style={[styles.container, props.style]}>
-      <Text style={styles.title}>{title}</Text>
+      style={StyleSheet.flatten(pressableStyle)}>
+      <Text style={textStyle}>{title}</Text>
     </Pressable>
   );
 };
@@ -41,5 +67,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: scale(14),
     color: colors.white,
+  },
+  disabledSBtntyle: {
+    opacity: 0.7,
+  },
+  outlineButton: {
+    backgroundColor: colors.transparent,
+    borderWidth: 1,
+    borderColor: colors.davyGrey,
+  },
+  outlinedBtnText: {
+    color: colors.davyGrey,
   },
 });

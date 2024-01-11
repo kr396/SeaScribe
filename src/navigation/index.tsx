@@ -8,6 +8,7 @@ import NewSurvey from '../screens/NewSurvey';
 import Settings from '../screens/Settings';
 import Tools from '../screens/Tools';
 import ExistingSurveys from '../screens/ExistingSurveys';
+import NewMethodology from '../screens/NewMethodology';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -39,6 +40,11 @@ const Router = () => {
           name="Tools"
           options={{title: 'Tools'}}
           component={Tools}
+        />
+        <Stack.Screen
+          name="NewMethodology"
+          options={{title: 'New Methodology'}}
+          component={NewMethodology}
         />
       </Stack.Navigator>
     </NavigationContainer>

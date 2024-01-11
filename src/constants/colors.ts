@@ -5,4 +5,5 @@ export const colors = {
   black: '#000000',
   offWhite: 'rgb(235, 235, 235)',
   davyGrey: '#555555',
+  transparent: 'transparent',
 };

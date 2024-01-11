@@ -4,7 +4,7 @@ import styles from './styles';
 import {DropDown, InputText} from '../../components';
 import {OBSERVERS, REGIONS, SURVEY_MODES} from '../../data';
 
-const NewSurvey = () => {
+const NewSurvey = ({navigation}) => {
   const [surveyName, setsurveyName] = useState('');
   const [mode, setMode] = useState(1);
   const [numObservers, setNumObservers] = useState(1);
@@ -32,7 +32,7 @@ const NewSurvey = () => {
           showAddButton={true}
           zIndex={998}
           onAddPress={() => {
-            Alert.alert('Define route to add');
+            navigation.navigate('NewMethodology');
           }}
         />
         <DropDown
