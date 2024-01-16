@@ -6,4 +6,5 @@ export const colors = {
   offWhite: 'rgb(235, 235, 235)',
   davyGrey: '#555555',
   transparent: 'transparent',
+  black05: 'rgba(0,0,0,0.5)',
 };

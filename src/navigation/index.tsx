@@ -9,6 +9,7 @@ import Settings from '../screens/Settings';
 import Tools from '../screens/Tools';
 import ExistingSurveys from '../screens/ExistingSurveys';
 import NewMethodology from '../screens/NewMethodology';
+import AncillaryFields from '../screens/AncillaryFields';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -45,6 +46,11 @@ const Router = () => {
           name="NewMethodology"
           options={{title: 'New Methodology'}}
           component={NewMethodology}
+        />
+        <Stack.Screen
+          name="AncillaryFileds"
+          options={{title: 'Select Ancillary Fields'}}
+          component={AncillaryFields}
         />
       </Stack.Navigator>
     </NavigationContainer>

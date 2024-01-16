@@ -7,6 +7,7 @@ export type RootStackParamList = {
   Settings: undefined;
   Tools: undefined;
   NewMethodology: undefined;
+  AncillaryFileds: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

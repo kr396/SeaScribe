@@ -1,7 +1,6 @@
 import {
   Pressable,
   PressableProps,
-  PressableStateCallbackType,
   StyleProp,
   StyleSheet,
   Text,
@@ -36,11 +35,11 @@ export const ThemeButton = ({
     pressableStyle.push(styles.outlineButton);
   }
   const textStyle = useMemo(() => {
-    const textStyle: StyleProp<TextStyle> = [styles.title];
+    const textStyleObj: StyleProp<TextStyle> = [styles.title];
     if (mode === 'outlined') {
-      textStyle.push(styles.outlinedBtnText);
+      textStyleObj.push(styles.outlinedBtnText);
     }
-    return textStyle;
+    return textStyleObj;
   }, [mode]);
 
   return (

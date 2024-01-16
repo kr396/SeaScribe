@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   },
   lable: {
     flex: 1,
+    marginEnd: 5,
   },
   input: {
     flex: 2,

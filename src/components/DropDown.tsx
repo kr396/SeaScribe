@@ -50,7 +50,7 @@ export const DropDown: FC<DropDownProps<T>> = ({
   setItems,
   onAddPress,
 }) => {
-  const showRedBorder = isRequired;
+  const showRedBorder = isRequired && !value;
   const borderColor = showRedBorder ? colors.red : colors.offWhite;
   const [open, setOpen] = useState(false);
   return (
