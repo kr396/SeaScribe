@@ -1,23 +1,14 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import {colors} from '../constants';
 
-const DualListBox = () => {
-  const [availableFields, setAvailableFields] = useState([
-    {label: 'Percent Oiled (%)', value: 'oilPercent', selected: false},
-    {label: 'Sea Surface Temp (C)', value: 'seaTemp', selected: false},
-    {label: 'Salinity (%)', value: 'salinity', selected: false},
-    {label: 'Glare', value: 'glare', selected: false},
-    {label: 'Weather', value: 'weather', selected: false},
-  ]);
-  const [selectedFields, setSelectedFields] = useState([
-    {label: 'Association', value: 'association', selected: false},
-    {label: 'Flying', value: 'flying', selected: false},
-    {label: 'Flight Height (m)', value: 'flightHeight', selected: false},
-    {label: 'Oiled', value: 'oiled', selected: false},
-    {label: 'Fishing', value: 'fishing', selected: false},
-    {label: 'Test Ancillary Field', value: 'testField', selected: false},
-  ]);
+type Props = {
+  items: any[];
+};
+
+const DualListBox: FC<Props> = ({items = []}) => {
+  const [availableFields, setAvailableFields] = useState(items);
+  const [selectedFields, setSelectedFields] = useState<any[]>([]);
   // const [showAddPopup, setShowAddPopup] = useState(false);
 
   // Function to move all available fields to selected fields
@@ -62,7 +53,7 @@ const DualListBox = () => {
   const handleAvailableSelect = field => {
     let updatedFields = [...availableFields];
     updatedFields = updatedFields.map(option => {
-      if (option.value === field.value) {
+      if (option.id === field.id) {
         return {...option, selected: !field.selected};
       }
       return option;
@@ -73,7 +64,7 @@ const DualListBox = () => {
   const handleSelectedSelect = field => {
     let updatedFields = [...selectedFields];
     updatedFields = updatedFields.map(option => {
-      if (option.value === field.value) {
+      if (option.id === field.id) {
         return {...option, selected: !field.selected};
       }
       return option;
@@ -93,7 +84,7 @@ const DualListBox = () => {
         <View style={styles.itemList}>
           {availableFields.map(field => (
             <Pressable
-              key={field.value}
+              key={field.id}
               style={[
                 styles.itemButton,
                 {
@@ -103,7 +94,7 @@ const DualListBox = () => {
                 },
               ]}
               onPress={() => handleAvailableSelect(field)}>
-              <Text style={styles.itemText}>{field.label}</Text>
+              <Text style={styles.itemText}>{field.name}</Text>
             </Pressable>
           ))}
         </View>
@@ -138,7 +129,7 @@ const DualListBox = () => {
         <View style={styles.itemList}>
           {selectedFields.map(field => (
             <Pressable
-              key={field.value}
+              key={field.id}
               style={[
                 styles.itemButton,
                 {
@@ -148,7 +139,7 @@ const DualListBox = () => {
                 },
               ]}
               onPress={() => handleSelectedSelect(field)}>
-              <Text style={styles.itemText}>{field.label}</Text>
+              <Text style={styles.itemText}>{field.name}</Text>
             </Pressable>
           ))}
         </View>
@@ -159,7 +150,7 @@ const DualListBox = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
     flexDirection: 'row',
   },

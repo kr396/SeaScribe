@@ -20,7 +20,6 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   const [showNewAncillaryModal, setShowNewAncillaryModal] = useState(false);
   return (
     <View style={styles.container}>
-      <Button onPress={() => setShowNewAncillaryModal(true)} title="show" />
       <View style={styles.content}>
         <InputText
           lable="Survey Name"

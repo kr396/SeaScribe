@@ -54,7 +54,7 @@ export const ThemeButton = ({
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    // flexGrow: 1,
     height: scale(40),
     backgroundColor: colors.primary,
     justifyContent: 'center',
