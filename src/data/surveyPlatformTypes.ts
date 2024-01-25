@@ -1,4 +1,4 @@
-export const SURVEY_PLATFORM_TYPE = [
+export const SURVEY_PLATFORM_TYPES = [
   {
     value: 1,
     label: 'Watercraft',

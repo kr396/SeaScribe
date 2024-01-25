@@ -1,5 +1,6 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
+
 import {colors} from '../constants';
 
 type Props = {
@@ -19,7 +20,7 @@ const AncillaryFieldsView: FC<Props> = ({items, onPress}) => {
         ) : null}
       </View>
       <Text style={styles.itemText}>
-        {items.map(item => item.label).join(', ')}
+        {items.map(item => item.name).join(', ')}
       </Text>
     </Pressable>
   );

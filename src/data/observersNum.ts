@@ -1,4 +1,4 @@
-export const OBSERVERS = [
+export const OBSERVERS_NUM = [
   {
     label: '1',
     value: 1,

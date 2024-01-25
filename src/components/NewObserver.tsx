@@ -1,12 +1,21 @@
-import {StyleSheet, View} from 'react-native';
-import React, {useState} from 'react';
-import {InputText, ThemeButton} from '.';
+import {Alert, StyleSheet, View} from 'react-native';
+import React, {FC, useMemo, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-export const NewObserver = () => {
+import {InputText, ThemeButton} from '.';
+import {useAppDispatch, useAppSelector} from '../store';
+import {addNewObserver, getObservers} from '../store/slices/appSlice';
+
+type Props = {
+  onRequestClose: () => void;
+};
+
+export const NewObserver: FC<Props> = ({onRequestClose}) => {
+  const dispatch = useAppDispatch();
+  const observers = useAppSelector(getObservers);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [affilation, setAffilation] = useState('');
+  const [affiliation, setAffiliation] = useState('');
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
   const [city, setCity] = useState('');
@@ -14,11 +23,15 @@ export const NewObserver = () => {
   const [zip, setZip] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const disabled = useMemo(
+    () => !firstName.trim() || !lastName.trim() || !email.trim(),
+    [firstName, lastName, email],
+  );
 
   const onClearPress = () => {
     setFirstName('');
     setLastName('');
-    setAffilation('');
+    setAffiliation('');
     setAddress1('');
     setAddress2('');
     setCity('');
@@ -28,8 +41,40 @@ export const NewObserver = () => {
     setEmail('');
   };
 
+  const onSavePress = () => {
+    const label = lastName + ', ' + firstName;
+    const exist = observers.some(
+      obs => obs.firstName === firstName && obs.lastName === lastName,
+    );
+    if (exist) {
+      Alert.alert(
+        'Validation Error',
+        "The Observer's full name must be unique.",
+      );
+    } else {
+      dispatch(
+        addNewObserver({
+          id: Date.now(),
+          created: new Date(),
+          label: lastName + ', ' + firstName,
+          email,
+          firstName,
+          lastName,
+          affiliation,
+          address1,
+          address2,
+          city,
+          phone,
+          state,
+          zip,
+        }),
+      );
+      onRequestClose();
+    }
+  };
+
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView style={{flex: 1}}>
       <View style={styles.container}>
         <InputText
           lable="First Name"
@@ -37,6 +82,7 @@ export const NewObserver = () => {
             value: firstName,
             onChangeText: setFirstName,
           }}
+          isRequired={true}
         />
         <InputText
           lable="Last Name"
@@ -44,12 +90,13 @@ export const NewObserver = () => {
             value: lastName,
             onChangeText: setLastName,
           }}
+          isRequired={true}
         />
         <InputText
-          lable="Affilation"
+          lable="Affiliation"
           inputProps={{
-            value: affilation,
-            onChangeText: setAffilation,
+            value: affiliation,
+            onChangeText: setAffiliation,
           }}
         />
         <InputText
@@ -100,14 +147,17 @@ export const NewObserver = () => {
           inputProps={{
             value: email,
             onChangeText: setEmail,
+            keyboardType: 'email-address',
+            autoCapitalize: 'none',
           }}
         />
 
         <View style={styles.actionsContainer}>
           <ThemeButton
             title={'Save'}
-            onPress={() => {}}
+            onPress={onSavePress}
             style={styles.bttonStyle}
+            disabled={disabled}
           />
           <ThemeButton
             mode={'outlined'}
@@ -122,11 +172,13 @@ export const NewObserver = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     padding: 8,
+    gap: 10,
   },
   actionsContainer: {
     flexDirection: 'row',
+    alignSelf: 'center',
     marginHorizontal: '10%',
     gap: 20,
     marginVertical: '5%',

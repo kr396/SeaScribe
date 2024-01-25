@@ -2,13 +2,26 @@ import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: colors.white},
+  safearea: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
   input: {
     marginHorizontal: 8,
   },
   content: {
-    gap: 4,
+    gap: 8,
     marginHorizontal: 8,
+  },
+  observerContainer: {
+    marginBottom: 12,
+  },
+  observerText: {
+    marginBottom: 4,
   },
 });
 

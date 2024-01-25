@@ -1,15 +1,22 @@
 import {View, ScrollView} from 'react-native';
 import React, {FC, useMemo, useState} from 'react';
+
 import styles from './styles';
 import {DropDown, InputText, ThemeButton} from '../../components';
 import {TRANSACT_TYPES} from '../../data/transectType';
 import {COUNTING_METHODOLOGIES, COUNTING_PERFORMED_ON} from '../../data';
 import AncillaryFieldsView from '../../components/AncillaryFieldsView';
 import {RootStackScreenProps} from '../../navigation/types';
+import {useAppDispatch, useAppSelector} from '../../store';
+import {getSelectedAncillaryFields} from '../../store/slices/surveySlice';
+import {addNewMethodology} from '../../store/slices/appSlice';
+import {Methodology} from '../../types';
 
 const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
   navigation,
 }) => {
+  const dispatch = useAppDispatch();
+  const selectedAncillaryFields = useAppSelector(getSelectedAncillaryFields);
   const [methodologyName, setMethodologyName] = useState('');
   const [transectType, setTransectType] = useState(null);
   const [countingMethodology, setCountingMethodology] = useState(null);
@@ -34,6 +41,19 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
     navigation.navigate('AncillaryFileds');
   };
 
+  const onSavePress = () => {
+    const methodology: Methodology = {
+      id: Date.now(),
+      created: new Date(),
+      label: methodologyName,
+      transectTypeId: transectType!,
+      countingMethodologyId: countingMethodology!,
+      countingPerformedOnId: countingPerformedOn!,
+    };
+    dispatch(addNewMethodology(methodology));
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -43,6 +63,7 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
             inputProps={{
               value: methodologyName,
               onChangeText: setMethodologyName,
+              maxLength: 100,
             }}
             isRequired={true}
           />
@@ -70,7 +91,10 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
             isRequired={true}
             zIndex={997}
           />
-          <AncillaryFieldsView items={[]} onPress={onAncillaryFieldsPress} />
+          <AncillaryFieldsView
+            items={selectedAncillaryFields}
+            onPress={onAncillaryFieldsPress}
+          />
         </View>
 
         <View style={styles.buttonContainer}>
@@ -78,6 +102,7 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
             title="Save"
             style={styles.buttonStyle}
             disabled={saveDisabled}
+            onPress={onSavePress}
           />
           <ThemeButton
             title="Clear"

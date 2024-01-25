@@ -8,6 +8,8 @@ import {
   View,
 } from 'react-native';
 import React, {ReactNode} from 'react';
+import {isTablet} from 'react-native-device-info';
+
 import {colors} from '../constants';
 
 type Props = {
@@ -49,7 +51,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.black05,
   },
   container: {
-    margin: '10%',
+    flex: 1,
+    margin: isTablet() ? '10%' : undefined,
     justifyContent: 'center',
   },
   header: {
@@ -75,6 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   main: {
+    flex: 1,
     backgroundColor: colors.white,
   },
 });

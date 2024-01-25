@@ -19,7 +19,8 @@ import {createRealmPersistStorage} from '../services';
 const persistConfig = {
   key: 'root',
   storage: createRealmPersistStorage(),
-  // blacklist: ['appSlice', 'ancillaryFieldsSlice'],
+  // TODO
+  blacklist: ['appSlice', 'ancillaryFieldsSlice'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

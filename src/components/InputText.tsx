@@ -8,6 +8,8 @@ import {
   ViewStyle,
 } from 'react-native';
 import React, {FC} from 'react';
+import DeviceInfo from 'react-native-device-info';
+
 import {colors} from '../constants';
 
 type InputTextProps = {
@@ -27,8 +29,12 @@ export const InputText: FC<InputTextProps> = ({
 }) => {
   const showRedBorder = isRequired && !inputProps?.value;
   const borderColor = showRedBorder ? colors.red : colors.offWhite;
+  const deviceViseStyle: StyleProp<ViewStyle> =
+    DeviceInfo.getDeviceType() === 'Tablet'
+      ? {flexDirection: 'row'}
+      : {flexDirection: 'column', alignItems: 'flex-start'};
   return (
-    <View style={[styles.containerStyle, containerStyle]}>
+    <View style={[styles.containerStyle, containerStyle, deviceViseStyle]}>
       <View style={[styles.container, {borderColor}, style]}>
         <Text style={styles.lable}>{lable}</Text>
         <TextInput
@@ -50,7 +56,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

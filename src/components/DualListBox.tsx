@@ -1,15 +1,22 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
+
 import {colors} from '../constants';
 
 type Props = {
   items: any[];
+  onSelecedItemsChange?: (items: any[]) => void;
 };
 
-const DualListBox: FC<Props> = ({items = []}) => {
+const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
   const [availableFields, setAvailableFields] = useState(items);
   const [selectedFields, setSelectedFields] = useState<any[]>([]);
   // const [showAddPopup, setShowAddPopup] = useState(false);
+
+  useEffect(() => {
+    onSelecedItemsChange?.(selectedFields);
+    return () => {};
+  }, [selectedFields]);
 
   // Function to move all available fields to selected fields
   const handleMoveAllRight = () => {
