@@ -80,5 +80,6 @@ const styles = StyleSheet.create({
     width: 70,
     color: colors.red,
     marginHorizontal: 8,
+    marginTop: 8,
   },
 });

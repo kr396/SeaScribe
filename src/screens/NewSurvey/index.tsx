@@ -1,5 +1,5 @@
 import {View, Text, SafeAreaView} from 'react-native';
-import React, {FC, useMemo, useState} from 'react';
+import React, {FC, useEffect, useMemo, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import styles from './styles';
@@ -8,6 +8,7 @@ import {
   InputText,
   NewAncillaryField,
   NewObserver,
+  ThemeButton,
 } from '../../components';
 import {
   OBSERVERS_NUM,
@@ -27,6 +28,10 @@ import {
 } from '../../store/slices/appSlice';
 import NewSurveyPlatform from '../../components/NewSurveyPlatform';
 import AncillaryFieldsView from '../../components/AncillaryFieldsView';
+import Geolocation, {
+  GeolocationResponse,
+} from '@react-native-community/geolocation';
+import {colors} from '../../constants';
 
 const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   const methodologies = useAppSelector(getMethodologies);
@@ -52,11 +57,26 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   const [speciesList, setSpeciesList] = useState(null);
   const [showNewObserverPopup, setShowNewObserverPopup] = useState(false);
   const [showNewAncillaryModal, setShowNewAncillaryModal] = useState(false);
+  const [gpsButtonStatus, setGpsButtonStatus] = useState<
+    'pending' | 'success' | 'error'
+  >('pending');
+  const [position, setPosition] = useState<GeolocationResponse | null>(null);
 
   const regionsList = useMemo(
     () => SUB_REGIONS.filter(subR => subR.regionId === region),
     [region],
   );
+
+  useEffect(() => {
+    Geolocation.requestAuthorization(
+      () => {
+        console.log('permission granted');
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  }, []);
 
   const onSelectObserver = (
     value: number | string,
@@ -74,46 +94,62 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
     setObserversForSurvey(updatedObservers);
   };
 
+  const onGPSButtonPress = () => {
+    try {
+      Geolocation.getCurrentPosition(
+        pos => {
+          setPosition(pos);
+          setGpsButtonStatus('success');
+        },
+        error => {
+          console.log('gps error', error);
+          setGpsButtonStatus('error');
+        },
+        {enableHighAccuracy: true},
+      );
+    } catch (error) {}
+  };
+
   const getObserversList = useMemo(() => {
     return observersList.slice(10 - numObservers).map((item, index) => {
       const observer = observersForSurvey[index];
       return (
-        <View
-          key={observer.id}
-          style={[styles.observerContainer, {zIndex: 995 - index}]}>
+        <View key={observer.id}>
           <Text style={styles.observerText}>Observer {index + 1}</Text>
-          <DropDown
-            lable="Observer"
-            items={observers}
-            value={observer.observerId}
-            isRequired={true}
-            showAddButton={true}
-            zIndex={2}
-            dropdownProps={{
-              schema: {value: 'id'},
-              onSelectItem: (item: any) =>
-                onSelectObserver(item.id, index, 'observer'),
-            }}
-            onAddPress={() => setShowNewObserverPopup(true)}
-          />
-          <DropDown
-            lable="Experiance"
-            items={OBSERVER_EXPERIENCE_LEVELS}
-            value={observer.observerExperienceLevelId}
-            setValue={setNumObservers}
-            zIndex={1}
-            dropdownProps={{
-              onSelectItem: (item: any) =>
-                onSelectObserver(item.value, index, 'experiance'),
-            }}
-          />
-          <InputText
-            lable="Notes"
-            inputProps={{
-              value: observer.notes,
-              onChangeText: text => onSelectObserver(text, index, 'notes'),
-            }}
-          />
+          <View style={[styles.observerContainer, {zIndex: 995 - index}]}>
+            <DropDown
+              lable="Observer"
+              items={observers}
+              value={observer.observerId}
+              isRequired={true}
+              showAddButton={true}
+              zIndex={2}
+              dropdownProps={{
+                schema: {value: 'id'},
+                onSelectItem: (item: any) =>
+                  onSelectObserver(item.id, index, 'observer'),
+              }}
+              onAddPress={() => setShowNewObserverPopup(true)}
+            />
+            <DropDown
+              lable="Experiance"
+              items={OBSERVER_EXPERIENCE_LEVELS}
+              value={observer.observerExperienceLevelId}
+              setValue={setNumObservers}
+              zIndex={1}
+              dropdownProps={{
+                onSelectItem: (item: any) =>
+                  onSelectObserver(item.value, index, 'experiance'),
+              }}
+            />
+            <InputText
+              lable="Notes"
+              inputProps={{
+                value: observer.notes,
+                onChangeText: text => onSelectObserver(text, index, 'notes'),
+              }}
+            />
+          </View>
         </View>
       );
     });
@@ -155,7 +191,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
               setValue={setNumObservers}
               zIndex={997}
             />
-            <View style={{zIndex: 996}}>{getObserversList}</View>
+            <View style={styles.observers}>{getObserversList}</View>
             <DropDown
               lable="Survey Platform"
               items={surveyPlatforms}
@@ -195,6 +231,21 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
             />
             <AncillaryFieldsView items={[]} />
           </View>
+          <ThemeButton
+            title="Check GPS"
+            style={[
+              styles.gpsButton,
+              {
+                backgroundColor:
+                  gpsButtonStatus === 'pending'
+                    ? colors.yellow
+                    : gpsButtonStatus === 'error'
+                    ? colors.red
+                    : colors.green,
+              },
+            ]}
+            onPress={onGPSButtonPress}
+          />
         </KeyboardAwareScrollView>
         <Popup
           visible={showNewObserverPopup}

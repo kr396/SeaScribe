@@ -106,9 +106,11 @@ export const DropDown: FC<DropDownProps<T>> = ({
           </Pressable>
         ) : null}
       </View>
-      <Text style={[styles.requiredText]}>
-        {showRedBorder ? '*Required' : null}
-      </Text>
+      <View style={styles.errorView}>
+        {showRedBorder ? (
+          <Text style={[styles.requiredText]}>*Required</Text>
+        ) : null}
+      </View>
     </View>
   );
 };
@@ -119,7 +121,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -134,8 +135,6 @@ const styles = StyleSheet.create({
   },
   requiredText: {
     color: colors.red,
-    marginHorizontal: 8,
-    width: 70,
   },
   dropdownContainerStyle: {
     flex: 2,
@@ -177,4 +176,9 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   tickIconContainerStyle: {marginLeft: 0},
+  errorView: {
+    width: 70,
+    marginHorizontal: 8,
+    marginTop: 8,
+  },
 });

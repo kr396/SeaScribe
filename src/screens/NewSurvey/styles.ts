@@ -14,14 +14,25 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   content: {
-    gap: 8,
+    gap: 16,
     marginHorizontal: 8,
+    marginVertical: 8,
   },
   observerContainer: {
+    gap: 16,
     marginBottom: 12,
   },
   observerText: {
     marginBottom: 4,
+  },
+  observers: {
+    marginTop: 16,
+    zIndex: 996,
+  },
+  gpsButton: {
+    borderRadius: 0,
+    marginHorizontal: 8,
+    marginTop: 16,
   },
 });
 
