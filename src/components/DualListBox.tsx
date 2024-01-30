@@ -16,7 +16,7 @@ const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
   useEffect(() => {
     onSelecedItemsChange?.(selectedFields);
     return () => {};
-  }, [selectedFields]);
+  }, [selectedFields, onSelecedItemsChange]);
 
   // Function to move all available fields to selected fields
   const handleMoveAllRight = () => {

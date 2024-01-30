@@ -8,5 +8,5 @@ export const colors = {
   transparent: 'transparent',
   black05: 'rgba(0,0,0,0.5)',
   yellow: '#ffc900',
-  green: '33cd5f',
+  green: '#33cd5f',
 };

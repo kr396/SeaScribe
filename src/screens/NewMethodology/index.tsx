@@ -1,5 +1,5 @@
 import {View, ScrollView} from 'react-native';
-import React, {FC, useEffect, useMemo, useState} from 'react';
+import React, {FC, useMemo, useState} from 'react';
 
 import styles from './styles';
 import {DropDown, InputText, ThemeButton} from '../../components';
@@ -11,7 +11,6 @@ import {useAppDispatch, useAppSelector} from '../../store';
 import {getSelectedAncillaryFields} from '../../store/slices/surveySlice';
 import {addNewMethodology} from '../../store/slices/appSlice';
 import {Methodology} from '../../types';
-import Geolocation from '@react-native-community/geolocation';
 
 const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
   navigation,

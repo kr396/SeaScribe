@@ -10,6 +10,7 @@ import Tools from '../screens/Tools';
 import ExistingSurveys from '../screens/ExistingSurveys';
 import NewMethodology from '../screens/NewMethodology';
 import AncillaryFields from '../screens/AncillaryFields';
+import StartTransect from '../screens/StartTransect';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -51,6 +52,11 @@ const Router = () => {
           name="AncillaryFileds"
           options={{title: 'Select Ancillary Fields'}}
           component={AncillaryFields}
+        />
+        <Stack.Screen
+          name="StartTransect"
+          options={{title: 'Start Transect'}}
+          component={StartTransect}
         />
       </Stack.Navigator>
     </NavigationContainer>

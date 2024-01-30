@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import React, {FC, useState} from 'react';
 
 import {DropDown, InputText, ThemeButton} from '.';

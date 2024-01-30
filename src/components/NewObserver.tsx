@@ -42,7 +42,6 @@ export const NewObserver: FC<Props> = ({onRequestClose}) => {
   };
 
   const onSavePress = () => {
-    const label = lastName + ', ' + firstName;
     const exist = observers.some(
       obs => obs.firstName === firstName && obs.lastName === lastName,
     );
@@ -74,7 +73,7 @@ export const NewObserver: FC<Props> = ({onRequestClose}) => {
   };
 
   return (
-    <KeyboardAwareScrollView style={{flex: 1}}>
+    <KeyboardAwareScrollView style={styles.scrollview}>
       <View style={styles.container}>
         <InputText
           lable="First Name"
@@ -171,6 +170,9 @@ export const NewObserver: FC<Props> = ({onRequestClose}) => {
 };
 
 const styles = StyleSheet.create({
+  scrollview: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 8,

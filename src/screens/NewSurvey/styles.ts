@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginTop: 16,
   },
+  buttonContaimer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginBottom: 16,
+  },
 });
 
 export default styles;

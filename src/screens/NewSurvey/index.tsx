@@ -61,6 +61,10 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
     'pending' | 'success' | 'error'
   >('pending');
   const [position, setPosition] = useState<GeolocationResponse | null>(null);
+  console.log('position', position);
+  console.log('gpsButtonStatus', gpsButtonStatus);
+
+  const [checkingGPS, setCheckingGPS] = useState(false);
 
   const regionsList = useMemo(
     () => SUB_REGIONS.filter(subR => subR.regionId === region),
@@ -94,24 +98,40 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
     setObserversForSurvey(updatedObservers);
   };
 
-  const onGPSButtonPress = () => {
-    try {
-      Geolocation.getCurrentPosition(
-        pos => {
-          setPosition(pos);
-          setGpsButtonStatus('success');
-        },
-        error => {
-          console.log('gps error', error);
-          setGpsButtonStatus('error');
-        },
-        {enableHighAccuracy: true},
-      );
-    } catch (error) {}
+  const onGPSButtonPress = async () => {
+    setCheckingGPS(true);
+    Geolocation.getCurrentPosition(
+      pos => {
+        setPosition(pos);
+        setGpsButtonStatus('success');
+        setCheckingGPS(false);
+      },
+      error => {
+        console.log('gps error', error);
+        setGpsButtonStatus('error');
+        setCheckingGPS(false);
+      },
+      {enableHighAccuracy: true},
+    );
+  };
+
+  const onClearPress = () => {
+    setsurveyName('');
+    setMode(1);
+    setMethodology(null);
+    setNumObservers(1);
+    setSlelectedSurveyPlatform(null);
+    setRegion(null);
+    setSubRegion(null);
+    setSpeciesList(null);
+  };
+
+  const onStartTransectPress = () => {
+    navigation.navigate('StartTransect');
   };
 
   const getObserversList = useMemo(() => {
-    return observersList.slice(10 - numObservers).map((item, index) => {
+    return observersList.slice(10 - numObservers).map((obs, index) => {
       const observer = observersForSurvey[index];
       return (
         <View key={observer.id}>
@@ -246,6 +266,19 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
             ]}
             onPress={onGPSButtonPress}
           />
+          <View style={styles.buttonContaimer}>
+            <ThemeButton
+              title="Start Transect"
+              style={styles.gpsButton}
+              onPress={onStartTransectPress}
+            />
+            <ThemeButton
+              mode={'outlined'}
+              title="Clear"
+              style={styles.gpsButton}
+              onPress={onClearPress}
+            />
+          </View>
         </KeyboardAwareScrollView>
         <Popup
           visible={showNewObserverPopup}

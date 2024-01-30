@@ -8,3 +8,6 @@ export * from './ancillaryFields';
 export * from './observerExperienceLevels';
 export * from './surveyPlatformTypes';
 export * from './speciesLists';
+export * from './positions';
+export * from './beaufortSacaleEnteries';
+export * from './visibilities';

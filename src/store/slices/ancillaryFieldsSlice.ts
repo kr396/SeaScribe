@@ -1,4 +1,4 @@
-import {PayloadAction, createSelector, createSlice} from '@reduxjs/toolkit';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {ANCILLARY_FIELDS} from '../../data';
 import {RootState} from '..';
 
