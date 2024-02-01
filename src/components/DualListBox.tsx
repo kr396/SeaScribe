@@ -3,12 +3,18 @@ import {View, Text, Pressable, StyleSheet} from 'react-native';
 
 import {colors} from '../constants';
 
+type Item = {id: number; [x: string]: any};
 type Props = {
-  items: any[];
-  onSelecedItemsChange?: (items: any[]) => void;
+  items: Item[];
+  onSelecedItemsChange?: (items: Item[]) => void;
+  onAddPress?: () => void;
 };
 
-const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
+const DualListBox: FC<Props> = ({
+  items = [],
+  onSelecedItemsChange,
+  onAddPress,
+}) => {
   const [availableFields, setAvailableFields] = useState(items);
   const [selectedFields, setSelectedFields] = useState<any[]>([]);
   // const [showAddPopup, setShowAddPopup] = useState(false);
@@ -57,7 +63,7 @@ const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
     setSelectedFields([...selectedFields, ...newSelectedField]);
   };
 
-  const handleAvailableSelect = field => {
+  const handleAvailableSelect = (field: Item) => {
     let updatedFields = [...availableFields];
     updatedFields = updatedFields.map(option => {
       if (option.id === field.id) {
@@ -68,7 +74,7 @@ const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
     setAvailableFields(updatedFields);
   };
 
-  const handleSelectedSelect = field => {
+  const handleSelectedSelect = (field: Item) => {
     let updatedFields = [...selectedFields];
     updatedFields = updatedFields.map(option => {
       if (option.id === field.id) {
@@ -79,12 +85,14 @@ const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
     setSelectedFields(updatedFields);
   };
 
-  const handleAdd = () => {};
+  const handleAdd = () => {
+    onAddPress?.();
+  };
 
   return (
     <View style={styles.container}>
       {/* Available fields section */}
-      <View>
+      <View style={styles.column}>
         <Text style={styles.listHeader}>
           Available Ancillary Fields ({availableFields.length})
         </Text>
@@ -129,7 +137,7 @@ const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
         </Pressable>
       </View>
       {/* Selected fields section */}
-      <View>
+      <View style={styles.column}>
         <Text style={styles.listHeader}>
           Selected Ancillary Fields ({selectedFields.length})
         </Text>
@@ -158,8 +166,8 @@ const DualListBox: FC<Props> = ({items = [], onSelecedItemsChange}) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 20,
     flexDirection: 'row',
+    padding: 20,
   },
   listHeader: {
     fontSize: 16,
@@ -195,6 +203,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 14,
   },
+  column: {flex: 1},
 });
 
 export default DualListBox;

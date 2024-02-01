@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   actionButton: {
-    borderRadius: 0,
+    borderRadius: 4,
   },
 });
 

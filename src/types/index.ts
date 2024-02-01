@@ -34,3 +34,16 @@ export type SurveyPlatform = {
 };
 
 export type SurveyPlatforms = SurveyPlatform[];
+
+export type AncillaryField = {
+  id: number;
+  sort_order: number;
+  created: Date;
+  name: string;
+  input_control_id: number;
+  frequency_id: number;
+  min_value: number | null;
+  max_value: number | null;
+  max_length: number | null;
+  required: number;
+};

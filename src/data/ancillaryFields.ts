@@ -1,4 +1,6 @@
-export const ANCILLARY_FIELDS = [
+import {AncillaryField} from '../types';
+
+export const ANCILLARY_FIELDS: AncillaryField[] = [
   {
     id: 1,
     sort_order: 3,

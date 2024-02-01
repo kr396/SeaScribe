@@ -41,8 +41,6 @@ export const ThemeButton = ({
     }
     return textStyleObj;
   }, [mode]);
-  console.log('style', props.style);
-
   return (
     <Pressable
       {...props}

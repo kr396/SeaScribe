@@ -1,15 +1,12 @@
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, Alert} from 'react-native';
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Geolocation, {
+  GeolocationResponse,
+} from '@react-native-community/geolocation';
 
 import styles from './styles';
-import {
-  DropDown,
-  InputText,
-  NewAncillaryField,
-  NewObserver,
-  ThemeButton,
-} from '../../components';
+import {DropDown, InputText, NewObserver, ThemeButton} from '../../components';
 import {
   OBSERVERS_NUM,
   OBSERVER_EXPERIENCE_LEVELS,
@@ -28,9 +25,6 @@ import {
 } from '../../store/slices/appSlice';
 import NewSurveyPlatform from '../../components/NewSurveyPlatform';
 import AncillaryFieldsView from '../../components/AncillaryFieldsView';
-import Geolocation, {
-  GeolocationResponse,
-} from '@react-native-community/geolocation';
 import {colors} from '../../constants';
 
 const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
@@ -51,24 +45,34 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   });
   const [observersForSurvey, setObserversForSurvey] = useState(observersList);
   const [showSurveyPlatformPopup, setShowSurveyPlatformPopup] = useState(false);
-  const [slelectedSurveyPlatform, setSlelectedSurveyPlatform] = useState(null);
+  const [surveyPlatform, setSurveyPlatform] = useState(null);
   const [region, setRegion] = useState(null);
   const [subRegion, setSubRegion] = useState(null);
   const [speciesList, setSpeciesList] = useState(null);
   const [showNewObserverPopup, setShowNewObserverPopup] = useState(false);
-  const [showNewAncillaryModal, setShowNewAncillaryModal] = useState(false);
   const [gpsButtonStatus, setGpsButtonStatus] = useState<
     'pending' | 'success' | 'error'
   >('pending');
   const [position, setPosition] = useState<GeolocationResponse | null>(null);
-  console.log('position', position);
-  console.log('gpsButtonStatus', gpsButtonStatus);
-
   const [checkingGPS, setCheckingGPS] = useState(false);
 
   const regionsList = useMemo(
     () => SUB_REGIONS.filter(subR => subR.regionId === region),
     [region],
+  );
+
+  const startTransectDisabled = useMemo(
+    () => {
+      return (
+        !surveyName ||
+        !methodology ||
+        !surveyPlatform ||
+        !region ||
+        !speciesList
+      );
+    },
+    //TODO: OBSERVERS
+    [surveyName, methodology, surveyPlatform, region, speciesList],
   );
 
   useEffect(() => {
@@ -120,7 +124,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
     setMode(1);
     setMethodology(null);
     setNumObservers(1);
-    setSlelectedSurveyPlatform(null);
+    setSurveyPlatform(null);
     setRegion(null);
     setSubRegion(null);
     setSpeciesList(null);
@@ -128,6 +132,17 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
 
   const onStartTransectPress = () => {
     navigation.navigate('StartTransect');
+  };
+
+  const onAncillaryFiedsPress = () => {
+    if (methodology) {
+      // TODO: Need to define
+    } else {
+      Alert.alert(
+        'Select Methodology First',
+        'Please select a methodology first, as that selection provides the set of Ancillary Fields for this survey.',
+      );
+    }
   };
 
   const getObserversList = useMemo(() => {
@@ -196,6 +211,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
               lable="Methodology"
               items={methodologies}
               value={methodology}
+              isRequired={true}
               setValue={setMethodology}
               showAddButton={true}
               zIndex={998}
@@ -215,10 +231,10 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
             <DropDown
               lable="Survey Platform"
               items={surveyPlatforms}
-              value={slelectedSurveyPlatform}
+              value={surveyPlatform}
               isRequired={true}
               showAddButton={true}
-              setValue={setSlelectedSurveyPlatform}
+              setValue={setSurveyPlatform}
               zIndex={976}
               onAddPress={() => setShowSurveyPlatformPopup(true)}
               zIndexInverse={996}
@@ -249,7 +265,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
               zIndex={973}
               zIndexInverse={999}
             />
-            <AncillaryFieldsView items={[]} />
+            <AncillaryFieldsView items={[]} onPress={onAncillaryFiedsPress} />
           </View>
           <ThemeButton
             title="Check GPS"
@@ -269,6 +285,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
           <View style={styles.buttonContaimer}>
             <ThemeButton
               title="Start Transect"
+              disabled={startTransectDisabled}
               style={styles.gpsButton}
               onPress={onStartTransectPress}
             />
@@ -294,13 +311,14 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
             onRequestClose={() => setShowSurveyPlatformPopup(false)}
           />
         </Popup>
-        <Popup
-          visible={showNewAncillaryModal}
-          onRequestClose={() => setShowNewAncillaryModal(false)}
-          title="New Ancillary Field">
-          <NewAncillaryField />
-        </Popup>
       </View>
+      {checkingGPS ? (
+        <View style={styles.gpsLoadingOverlay}>
+          <View style={styles.testingGPSContainer}>
+            <Text style={styles.testingGPSText}>Testing GPS...</Text>
+          </View>
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 };

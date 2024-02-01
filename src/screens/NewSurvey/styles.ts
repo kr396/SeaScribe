@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     zIndex: 996,
   },
   gpsButton: {
-    borderRadius: 0,
+    borderRadius: 4,
     marginHorizontal: 8,
     marginTop: 16,
   },
@@ -38,6 +38,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     marginBottom: 16,
+  },
+  gpsLoadingOverlay: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  testingGPSContainer: {
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    paddingHorizontal: '8%',
+    paddingVertical: '5%',
+    borderRadius: 8,
+  },
+  testingGPSText: {
+    color: colors.white,
   },
 });
 

@@ -11,3 +11,5 @@ export * from './speciesLists';
 export * from './positions';
 export * from './beaufortSacaleEnteries';
 export * from './visibilities';
+export * from './ancillaryFieldFrequencies';
+export * from './ancillaryFieldInputControls';
