@@ -11,12 +11,13 @@ import ExistingSurveys from '../screens/ExistingSurveys';
 import NewMethodology from '../screens/NewMethodology';
 import AncillaryFields from '../screens/AncillaryFields';
 import StartTransect from '../screens/StartTransect';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Router = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer onReady={SplashScreen.hide}>
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
