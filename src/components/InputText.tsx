@@ -18,6 +18,7 @@ type InputTextProps = {
   style?: StyleProp<ViewStyle>;
   inputProps?: TextInputProps;
   isRequired?: boolean;
+  errorMessage?: string;
 };
 
 export const InputText: FC<InputTextProps> = ({
@@ -26,9 +27,12 @@ export const InputText: FC<InputTextProps> = ({
   inputProps,
   isRequired = false,
   containerStyle,
+  errorMessage,
 }) => {
   const showRedBorder = isRequired && !inputProps?.value;
-  const borderColor = showRedBorder ? colors.red : colors.offWhite;
+  const borderColor =
+    showRedBorder || errorMessage ? colors.red : colors.offWhite;
+
   const deviceViseStyle: StyleProp<ViewStyle> =
     DeviceInfo.getDeviceType() === 'Tablet'
       ? {flexDirection: 'row'}
@@ -44,7 +48,7 @@ export const InputText: FC<InputTextProps> = ({
         />
       </View>
       <Text style={[styles.requiredText]}>
-        {showRedBorder ? '*Required' : null}
+        {errorMessage ? errorMessage : showRedBorder ? '*Required' : null}
       </Text>
     </View>
   );
@@ -77,7 +81,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   requiredText: {
-    width: 70,
     color: colors.red,
     marginHorizontal: 8,
     marginTop: 8,
