@@ -7108,11 +7108,6 @@ react-native-splash-screen@^3.3.0:
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
   integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
 
-react-native-unistyles@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-2.2.0.tgz#5b5349f09b8b28a8a63d8e51c28f2f2c16b6cb5c"
-  integrity sha512-OwtR550Ob71c1O4ra8Xz4HO5Id+c4erL9aEYRoBvcMC4FU9NqXCGHpZIbScpLrJ6FixPoXH7nt+LZG5BnzJIRQ==
-
 react-native@0.73.0:
   version "0.73.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.73.0.tgz#553bce5ed4bd3d9f71014127bd687133562c5049"
