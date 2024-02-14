@@ -7,7 +7,10 @@ import styles from './styles';
 import {useAppDispatch, useAppSelector} from '../../store';
 import {getAncillaryFields} from '../../store/slices/ancillaryFieldsSlice';
 import {NewAncillaryField, ThemeButton} from '../../components';
-import {setSelectedAncillaryFields} from '../../store/slices/surveySlice';
+import {
+  getSelectedAncillaryFields,
+  setSelectedAncillaryFields,
+} from '../../store/slices/surveySlice';
 import Popup from '../../components/Popup';
 
 const AncillaryFields: FC<RootStackScreenProps<'AncillaryFileds'>> = ({
@@ -15,7 +18,10 @@ const AncillaryFields: FC<RootStackScreenProps<'AncillaryFileds'>> = ({
 }) => {
   const dispatch = useAppDispatch();
   const ancillaryFields = useAppSelector(getAncillaryFields);
-  const [selectedFields, setSelectedFields] = useState<any>([]);
+  const selectedAncillaryFields = useAppSelector(getSelectedAncillaryFields);
+  const [selectedFields, setSelectedFields] = useState<any>(
+    selectedAncillaryFields,
+  );
   const [showNewAncillaryModal, setShowNewAncillaryModal] = useState(false);
 
   /**
@@ -39,6 +45,7 @@ const AncillaryFields: FC<RootStackScreenProps<'AncillaryFileds'>> = ({
         <View>
           <DualListBox
             items={ancillaryFields}
+            selectedItems={selectedAncillaryFields}
             onSelecedItemsChange={setSelectedFields}
             onAddPress={onAddPress}
           />
@@ -53,7 +60,9 @@ const AncillaryFields: FC<RootStackScreenProps<'AncillaryFileds'>> = ({
         visible={showNewAncillaryModal}
         onRequestClose={() => setShowNewAncillaryModal(false)}
         title="New Ancillary Field">
-        <NewAncillaryField />
+        <NewAncillaryField
+          onRequestClose={() => setShowNewAncillaryModal(false)}
+        />
       </Popup>
     </View>
   );

@@ -20,7 +20,7 @@ const persistConfig = {
   key: 'root',
   storage: createRealmPersistStorage(),
   // TODO
-  blacklist: ['appSlice', 'ancillaryFieldsSlice'],
+  // blacklist: ['appSlice', 'ancillaryFieldsSlice'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

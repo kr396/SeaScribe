@@ -6,18 +6,31 @@ import {colors} from '../constants';
 type Item = {id: number; [x: string]: any};
 type Props = {
   items: Item[];
+  selectedItems: Item[];
   onSelecedItemsChange?: (items: Item[]) => void;
   onAddPress?: () => void;
 };
 
 const DualListBox: FC<Props> = ({
   items = [],
+  selectedItems = [],
   onSelecedItemsChange,
   onAddPress,
 }) => {
   const [availableFields, setAvailableFields] = useState(items);
-  const [selectedFields, setSelectedFields] = useState<any[]>([]);
+  const [selectedFields, setSelectedFields] = useState<any[]>(selectedItems);
   // const [showAddPopup, setShowAddPopup] = useState(false);
+
+  useEffect(() => {
+    if (selectedFields.length) {
+      setAvailableFields(
+        items.filter(
+          item => !!!selectedFields.find(prevItem => prevItem.id == item.id),
+        ),
+      );
+    }
+    return () => {};
+  }, [items]);
 
   useEffect(() => {
     onSelecedItemsChange?.(selectedFields);

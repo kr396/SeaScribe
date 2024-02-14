@@ -1,4 +1,4 @@
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Alert} from 'react-native';
 import React, {FC, useMemo, useState} from 'react';
 
 import styles from './styles';
@@ -9,7 +9,7 @@ import AncillaryFieldsView from '../../components/AncillaryFieldsView';
 import {RootStackScreenProps} from '../../navigation/types';
 import {useAppDispatch, useAppSelector} from '../../store';
 import {getSelectedAncillaryFields} from '../../store/slices/surveySlice';
-import {addNewMethodology} from '../../store/slices/appSlice';
+import {addNewMethodology, getMethodologies} from '../../store/slices/appSlice';
 import {Methodology} from '../../types';
 
 const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
@@ -17,6 +17,7 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
 }) => {
   const dispatch = useAppDispatch();
   const selectedAncillaryFields = useAppSelector(getSelectedAncillaryFields);
+  const methodologies = useAppSelector(getMethodologies);
   const [methodologyName, setMethodologyName] = useState('');
   const [transectType, setTransectType] = useState(null);
   const [countingMethodology, setCountingMethodology] = useState(null);
@@ -42,16 +43,23 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
   };
 
   const onSavePress = () => {
-    const methodology: Methodology = {
-      id: Date.now(),
-      created: new Date(),
-      label: methodologyName,
-      transectTypeId: transectType!,
-      countingMethodologyId: countingMethodology!,
-      countingPerformedOnId: countingPerformedOn!,
-    };
-    dispatch(addNewMethodology(methodology));
-    navigation.goBack();
+    const exists = methodologies.some(
+      method => method.label === methodologyName,
+    );
+    if (exists) {
+      Alert.alert('Validation Error', 'The Methodology Name must be unique.');
+    } else {
+      const methodology: Methodology = {
+        id: Date.now(),
+        created: new Date(),
+        label: methodologyName,
+        transectTypeId: transectType!,
+        countingMethodologyId: countingMethodology!,
+        countingPerformedOnId: countingPerformedOn!,
+      };
+      dispatch(addNewMethodology(methodology));
+      navigation.goBack();
+    }
   };
 
   return (
