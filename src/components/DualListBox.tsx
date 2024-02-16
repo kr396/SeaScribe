@@ -122,7 +122,15 @@ const DualListBox: FC<Props> = ({
                 },
               ]}
               onPress={() => handleAvailableSelect(field)}>
-              <Text style={styles.itemText}>{field.name}</Text>
+              <Text
+                style={[
+                  styles.itemText,
+                  {
+                    color: field.selected ? colors.white : colors.black,
+                  },
+                ]}>
+                {field.name}
+              </Text>
             </Pressable>
           ))}
         </View>
@@ -167,7 +175,15 @@ const DualListBox: FC<Props> = ({
                 },
               ]}
               onPress={() => handleSelectedSelect(field)}>
-              <Text style={styles.itemText}>{field.name}</Text>
+              <Text
+                style={[
+                  styles.itemText,
+                  {
+                    color: field.selected ? colors.white : colors.black,
+                  },
+                ]}>
+                {field.name}
+              </Text>
             </Pressable>
           ))}
         </View>

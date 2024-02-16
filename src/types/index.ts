@@ -5,6 +5,7 @@ export type Methodology = {
   transectTypeId: number;
   countingMethodologyId: number;
   countingPerformedOnId: number;
+  ancillaryFields?: AncillaryField[];
 };
 
 export type Methodologies = Methodology[];

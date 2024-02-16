@@ -6,8 +6,11 @@ export type RootStackParamList = {
   ExistingSurveys: undefined;
   Settings: undefined;
   Tools: undefined;
-  NewMethodology: undefined;
-  AncillaryFileds: undefined;
+  NewMethodology: {setMethodology: (id: number) => void} | undefined;
+  AncillaryFileds?: {
+    returnTo: 'start-new-survey' | 'new-methodology';
+    selectedMethodologyId?: number;
+  };
   StartTransect: undefined;
 };
 

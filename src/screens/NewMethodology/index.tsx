@@ -8,13 +8,18 @@ import {COUNTING_METHODOLOGIES, COUNTING_PERFORMED_ON} from '../../data';
 import AncillaryFieldsView from '../../components/AncillaryFieldsView';
 import {RootStackScreenProps} from '../../navigation/types';
 import {useAppDispatch, useAppSelector} from '../../store';
-import {getSelectedAncillaryFields} from '../../store/slices/surveySlice';
+import {
+  getSelectedAncillaryFields,
+  setSelectedAncillaryFields,
+} from '../../store/slices/surveySlice';
 import {addNewMethodology, getMethodologies} from '../../store/slices/appSlice';
 import {Methodology} from '../../types';
 
 const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
   navigation,
+  route,
 }) => {
+  const setMethodology = route.params?.setMethodology;
   const dispatch = useAppDispatch();
   const selectedAncillaryFields = useAppSelector(getSelectedAncillaryFields);
   const methodologies = useAppSelector(getMethodologies);
@@ -49,15 +54,20 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
     if (exists) {
       Alert.alert('Validation Error', 'The Methodology Name must be unique.');
     } else {
+      const ancillaryFields = [...selectedAncillaryFields];
+      const id = Date.now();
       const methodology: Methodology = {
-        id: Date.now(),
+        id,
         created: new Date(),
         label: methodologyName,
         transectTypeId: transectType!,
         countingMethodologyId: countingMethodology!,
         countingPerformedOnId: countingPerformedOn!,
+        ancillaryFields: ancillaryFields,
       };
       dispatch(addNewMethodology(methodology));
+      dispatch(setSelectedAncillaryFields([]));
+      setMethodology?.(id);
       navigation.goBack();
     }
   };

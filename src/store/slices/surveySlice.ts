@@ -1,9 +1,10 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
 import {RootState} from '..';
+import {AncillaryField} from '../../types';
 
 interface SurveyStateState {
-  selectedAncilarryFields: any[];
+  selectedAncilarryFields: AncillaryField[];
 }
 
 const initialState = {selectedAncilarryFields: []} as SurveyStateState;

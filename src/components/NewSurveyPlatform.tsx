@@ -11,9 +11,13 @@ import {
 
 type Props = {
   onRequestClose: () => void;
+  onSaveSurveryPlatform?: (id: number) => void;
 };
 
-const NewSurveyPlatform: FC<Props> = ({onRequestClose}) => {
+const NewSurveyPlatform: FC<Props> = ({
+  onRequestClose,
+  onSaveSurveryPlatform: onSurveryPlatform,
+}) => {
   const dispatch = useAppDispatch();
   const surveyPlatforms = useAppSelector(getSurveyPlatforms);
   const [platformName, setPlatformName] = useState('');
@@ -36,13 +40,15 @@ const NewSurveyPlatform: FC<Props> = ({onRequestClose}) => {
         'The Survey Platform name must be unique.',
       );
     } else {
+      const value = Date.now();
       dispatch(
         addNewSurveyPlatform({
-          value: Date.now(),
+          value,
           label: platformName,
           surveyPlatformTypeId: platformType!,
         }),
       );
+      onSurveryPlatform?.(value);
       onRequestClose();
     }
   };
@@ -63,8 +69,18 @@ const NewSurveyPlatform: FC<Props> = ({onRequestClose}) => {
         zIndex={999}
       />
       <View style={styles.buttonContainer}>
-        <ThemeButton title="Save" disabled={disabled} onPress={onSavePress} />
-        <ThemeButton title="Clear" mode="outlined" onPress={onClearPress} />
+        <ThemeButton
+          title="Save"
+          disabled={disabled}
+          onPress={onSavePress}
+          style={styles.button}
+        />
+        <ThemeButton
+          title="Clear"
+          mode="outlined"
+          onPress={onClearPress}
+          style={styles.button}
+        />
       </View>
     </View>
   );
@@ -84,5 +100,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     gap: 8,
     marginTop: 10,
+  },
+  button: {
+    borderRadius: 0,
   },
 });
