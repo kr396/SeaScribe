@@ -26,19 +26,27 @@ import {
 import NewSurveyPlatform from '../../components/NewSurveyPlatform';
 import AncillaryFieldsView from '../../components/AncillaryFieldsView';
 import {colors} from '../../constants';
-import {AncillaryField} from '../../types';
-import {setSelectedAncillaryFields} from '../../store/slices/surveySlice';
+import {AncillaryField, Survey} from '../../types';
+import {
+  addNewSurvey,
+  setSelectedAncillaryFields,
+} from '../../store/slices/surveySlice';
 
 const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   const dispatch = useAppDispatch();
   const methodologies = useAppSelector(getMethodologies);
   const observers = useAppSelector(getObservers);
   const surveyPlatforms = useAppSelector(getSurveyPlatforms);
-  const [surveyName, setsurveyName] = useState('');
-  const [mode, setMode] = useState(1);
-  const [methodology, setMethodology] = useState<number | null>(null);
 
+  const [surveyName, setsurveyName] = useState('');
+  const [surveyMode, setSurveyMode] = useState(1);
+  const [methodology, setMethodology] = useState<number | null>(null);
   const [numObservers, setNumObservers] = useState(1);
+  const [surveyPlatform, setSurveyPlatform] = useState<number | null>(null);
+  const [region, setRegion] = useState(null);
+  const [subRegion, setSubRegion] = useState(null);
+  const [speciesList, setSpeciesList] = useState(null);
+
   const observersList = Array.from({length: 10}, (_, idx) => {
     return {
       id: idx,
@@ -49,10 +57,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   });
   const [observersForSurvey, setObserversForSurvey] = useState(observersList);
   const [showSurveyPlatformPopup, setShowSurveyPlatformPopup] = useState(false);
-  const [surveyPlatform, setSurveyPlatform] = useState<number | null>(null);
-  const [region, setRegion] = useState(null);
-  const [subRegion, setSubRegion] = useState(null);
-  const [speciesList, setSpeciesList] = useState(null);
+
   const [showNewObserverPopup, setShowNewObserverPopup] = useState(false);
   const [gpsButtonStatus, setGpsButtonStatus] = useState<
     'pending' | 'success' | 'error'
@@ -137,7 +142,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
 
   const onClearPress = () => {
     setsurveyName('');
-    setMode(1);
+    setSurveyMode(1);
     setMethodology(null);
     setNumObservers(1);
     setSurveyPlatform(null);
@@ -147,7 +152,25 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   };
 
   const onStartTransectPress = () => {
-    navigation.navigate('StartTransect');
+    if (!startTransectDisabled) {
+      const id = Date.now();
+      let survey: Survey = {
+        id,
+        created: new Date(),
+        name: surveyName,
+        surveyModeId: surveyMode,
+        methodologyId: methodology!,
+        numObservers: numObservers,
+        surveyPlatformId: surveyPlatform!,
+        regionId: region!,
+        speciesListId: speciesList!,
+      };
+      if (subRegion) {
+        survey.subregionId = subRegion;
+      }
+      dispatch(addNewSurvey(survey));
+      navigation.navigate('StartTransect', {surveyId: id});
+    }
   };
 
   const onAncillaryFiedsPress = () => {
@@ -223,8 +246,8 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
             <DropDown
               lable="Mode"
               items={SURVEY_MODES}
-              value={mode}
-              setValue={setMode}
+              value={surveyMode}
+              setValue={setSurveyMode}
               zIndex={999}
             />
             <DropDown

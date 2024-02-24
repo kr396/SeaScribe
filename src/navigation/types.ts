@@ -11,7 +11,7 @@ export type RootStackParamList = {
     returnTo: 'start-new-survey' | 'new-methodology';
     selectedMethodologyId?: number;
   };
-  StartTransect: undefined;
+  StartTransect: {surveyId: number};
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

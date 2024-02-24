@@ -48,3 +48,27 @@ export type AncillaryField = {
   max_length: number | null;
   required: number;
 };
+
+export type Survey = {
+  id: number;
+  created: Date;
+  name: string;
+  surveyModeId: number;
+  methodologyId: number;
+  numObservers: number;
+  surveyPlatformId: number;
+  regionId: number;
+  subregionId?: number;
+  speciesListId: number;
+  started?: string;
+  ended?: string;
+};
+
+export type AncillaryFieldsInputSelectOption = {
+  id: number;
+  sort_order: number;
+  created: Date;
+  ancillaryFieldId: number;
+  optionId: number;
+  text: string;
+};
