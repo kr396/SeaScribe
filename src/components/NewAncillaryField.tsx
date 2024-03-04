@@ -8,6 +8,7 @@ import {
 import {useAppDispatch, useAppSelector} from '../store';
 import {
   addAncillaryField,
+  addAncillaryFieldsInputSelectOptions,
   getAncillaryFields,
 } from '../store/slices/ancillaryFieldsSlice';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -290,9 +291,9 @@ export const NewAncillaryField: FC<Props> = ({onRequestClose}) => {
       );
       return;
     }
-
+    const id = Date.now();
     let ancillaryField: AncillaryField = {
-      id: Date.now(),
+      id,
       created: new Date(),
       name: fieldName,
       frequency_id: frequency!,
@@ -317,21 +318,18 @@ export const NewAncillaryField: FC<Props> = ({onRequestClose}) => {
 
     dispatch(addAncillaryField(ancillaryField));
     if (inputControl == 3) {
-      var selectOptions = [];
       for (var i = 0; i < numSelectValues; i++) {
-        selectOptions.push({
-          sortOrder: i + 1,
-          optionId: selectValue[i].id,
-          display: selectValue[i].text,
-        });
+        dispatch(
+          addAncillaryFieldsInputSelectOptions({
+            id: Date.now(),
+            created: new Date(),
+            ancillaryFieldId: id,
+            optionId: Number(selectValue[i].id),
+            sort_order: i + 1,
+            text: selectValue[i].text,
+          }),
+        );
       }
-      // TODO
-      //   AncillaryFieldsInputSelectOptions.saveAll(result.insertId, selectOptions).then(function () {
-      //     $scope.saveModalComplete(result.insertId);
-      //   });
-
-      // } else {
-      //   $scope.saveModalComplete(result.insertId);
     }
     onRequestClose();
   };
