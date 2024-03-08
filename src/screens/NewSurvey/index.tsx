@@ -17,7 +17,7 @@ import {
 } from '../../data';
 import Popup from '../../components/Popup';
 import {RootStackScreenProps} from '../../navigation/types';
-import {useAppSelector} from '../../store';
+import {useAppDispatch, useAppSelector} from '../../store';
 import {
   getMethodologies,
   getObservers,
@@ -26,15 +26,27 @@ import {
 import NewSurveyPlatform from '../../components/NewSurveyPlatform';
 import AncillaryFieldsView from '../../components/AncillaryFieldsView';
 import {colors} from '../../constants';
+import {AncillaryField, Survey} from '../../types';
+import {
+  addNewSurvey,
+  setSelectedAncillaryFields,
+} from '../../store/slices/surveySlice';
 
 const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
+  const dispatch = useAppDispatch();
   const methodologies = useAppSelector(getMethodologies);
   const observers = useAppSelector(getObservers);
   const surveyPlatforms = useAppSelector(getSurveyPlatforms);
+
   const [surveyName, setsurveyName] = useState('');
-  const [mode, setMode] = useState(1);
-  const [methodology, setMethodology] = useState(null);
+  const [surveyMode, setSurveyMode] = useState(1);
+  const [methodology, setMethodology] = useState<number | null>(null);
   const [numObservers, setNumObservers] = useState(1);
+  const [surveyPlatform, setSurveyPlatform] = useState<number | null>(null);
+  const [region, setRegion] = useState(null);
+  const [subRegion, setSubRegion] = useState(null);
+  const [speciesList, setSpeciesList] = useState(null);
+
   const observersList = Array.from({length: 10}, (_, idx) => {
     return {
       id: idx,
@@ -45,16 +57,15 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   });
   const [observersForSurvey, setObserversForSurvey] = useState(observersList);
   const [showSurveyPlatformPopup, setShowSurveyPlatformPopup] = useState(false);
-  const [surveyPlatform, setSurveyPlatform] = useState(null);
-  const [region, setRegion] = useState(null);
-  const [subRegion, setSubRegion] = useState(null);
-  const [speciesList, setSpeciesList] = useState(null);
+
   const [showNewObserverPopup, setShowNewObserverPopup] = useState(false);
   const [gpsButtonStatus, setGpsButtonStatus] = useState<
     'pending' | 'success' | 'error'
   >('pending');
   const [position, setPosition] = useState<GeolocationResponse | null>(null);
   const [checkingGPS, setCheckingGPS] = useState(false);
+  const [selectedAncillaryFieldsList, setSelectedAncillaryFieldsList] =
+    useState<AncillaryField[]>([]);
 
   const regionsList = useMemo(
     () => SUB_REGIONS.filter(subR => subR.regionId === region),
@@ -85,6 +96,16 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
       },
     );
   }, []);
+
+  useEffect(() => {
+    const selectedAncillaryFields =
+      methodologies.find(method => method.id === methodology)
+        ?.ancillaryFields || [];
+
+    setSelectedAncillaryFieldsList(selectedAncillaryFields);
+
+    return () => {};
+  }, [methodology]);
 
   const onSelectObserver = (
     value: number | string,
@@ -121,7 +142,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
 
   const onClearPress = () => {
     setsurveyName('');
-    setMode(1);
+    setSurveyMode(1);
     setMethodology(null);
     setNumObservers(1);
     setSurveyPlatform(null);
@@ -131,12 +152,34 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   };
 
   const onStartTransectPress = () => {
-    navigation.navigate('StartTransect');
+    if (!startTransectDisabled) {
+      const id = Date.now();
+      let survey: Survey = {
+        id,
+        created: new Date(),
+        name: surveyName,
+        surveyModeId: surveyMode,
+        methodologyId: methodology!,
+        numObservers: numObservers,
+        surveyPlatformId: surveyPlatform!,
+        regionId: region!,
+        speciesListId: speciesList!,
+      };
+      if (subRegion) {
+        survey.subregionId = subRegion;
+      }
+      dispatch(addNewSurvey(survey));
+      navigation.navigate('StartTransect', {surveyId: id});
+    }
   };
 
   const onAncillaryFiedsPress = () => {
     if (methodology) {
-      // TODO: Need to define
+      dispatch(setSelectedAncillaryFields(selectedAncillaryFieldsList));
+      navigation.navigate('AncillaryFileds', {
+        returnTo: 'start-new-survey',
+        selectedMethodologyId: methodology,
+      });
     } else {
       Alert.alert(
         'Select Methodology First',
@@ -203,8 +246,8 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
             <DropDown
               lable="Mode"
               items={SURVEY_MODES}
-              value={mode}
-              setValue={setMode}
+              value={surveyMode}
+              setValue={setSurveyMode}
               zIndex={999}
             />
             <DropDown
@@ -217,7 +260,9 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
               zIndex={998}
               dropdownProps={{schema: {value: 'id'}}}
               onAddPress={() => {
-                navigation.navigate('NewMethodology');
+                navigation.navigate('NewMethodology', {
+                  setMethodology,
+                });
               }}
             />
             <DropDown
@@ -265,7 +310,10 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
               zIndex={973}
               zIndexInverse={999}
             />
-            <AncillaryFieldsView items={[]} onPress={onAncillaryFiedsPress} />
+            <AncillaryFieldsView
+              items={selectedAncillaryFieldsList}
+              onPress={onAncillaryFiedsPress}
+            />
           </View>
           <ThemeButton
             title="Check GPS"
@@ -309,6 +357,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
           title="New Survey Platform">
           <NewSurveyPlatform
             onRequestClose={() => setShowSurveyPlatformPopup(false)}
+            onSaveSurveryPlatform={setSurveyPlatform}
           />
         </Popup>
       </View>

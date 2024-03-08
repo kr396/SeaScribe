@@ -7,6 +7,7 @@ export type Methodology = {
   transectTypeId: number;
   countingMethodologyId: number;
   countingPerformedOnId: number;
+  ancillaryFields?: AncillaryField[];
 };
 
 export type Methodologies = Methodology[];
@@ -63,6 +64,7 @@ export type IllustratedBeaufortScaleType = {
   land_conditions: string;
   photo: ImageSourcePropType;
 };
+
 export type handleItemPress = {
   id: string;
   title: string;
@@ -72,6 +74,7 @@ export type handleItemPress = {
   message?: string; 
   hasArrow?: boolean; 
 };
+
 export type manageData = {
   id: string;
   title: string;
@@ -81,3 +84,27 @@ export type manageData = {
   message?: string;
   hasArrow?: boolean;
 }
+
+export type Survey = {
+  id: number;
+  created: Date;
+  name: string;
+  surveyModeId: number;
+  methodologyId: number;
+  numObservers: number;
+  surveyPlatformId: number;
+  regionId: number;
+  subregionId?: number;
+  speciesListId: number;
+  started?: string;
+  ended?: string;
+};
+
+export type AncillaryFieldsInputSelectOption = {
+  id: number;
+  sort_order: number;
+  created: Date;
+  ancillaryFieldId: number;
+  optionId: number;
+  text: string;
+};

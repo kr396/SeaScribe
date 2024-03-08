@@ -15,7 +15,7 @@ import {scale} from '../utils/scale';
 type Props = {
   title: string;
   style?: StyleProp<ViewStyle>;
-  mode?: 'defalue' | 'outlined';
+  mode?: 'defalue' | 'outlined' | 'clear';
 } & PressableProps;
 
 export const ThemeButton = ({
@@ -34,9 +34,12 @@ export const ThemeButton = ({
   if (mode === 'outlined') {
     pressableStyle.push(styles.outlineButton);
   }
+  if (mode === 'clear') {
+    pressableStyle.push({...styles.outlineButton, borderWidth: 0});
+  }
   const textStyle = useMemo(() => {
     const textStyleObj: StyleProp<TextStyle> = [styles.title];
-    if (mode === 'outlined') {
+    if (mode === 'outlined' || mode === 'clear') {
       textStyleObj.push(styles.outlinedBtnText);
     }
     return textStyleObj;

@@ -185,5 +185,7 @@ const styles = StyleSheet.create({
     gap: 20,
     marginVertical: '5%',
   },
-  bttonStyle: {},
+  bttonStyle: {
+    borderRadius: 0,
+  },
 });

@@ -1,16 +1,26 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useMemo, useState} from 'react';
+import {Alert, StyleSheet, Text, View} from 'react-native';
+import React, {FC, useMemo, useState} from 'react';
 import {DropDown, InputText, ThemeButton} from '.';
 import {
   ANCILLARY_FIELD_FREQUENCIES,
   ANCILLARY_FIELD_INPUT_CONTROLS,
 } from '../data';
-import {useAppDispatch} from '../store';
-import {addAncillaryField} from '../store/slices/ancillaryFieldsSlice';
+import {useAppDispatch, useAppSelector} from '../store';
+import {
+  addAncillaryField,
+  addAncillaryFieldsInputSelectOptions,
+  getAncillaryFields,
+} from '../store/slices/ancillaryFieldsSlice';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {AncillaryField} from '../types';
 
-export const NewAncillaryField = () => {
+type Props = {
+  onRequestClose: () => void;
+};
+
+export const NewAncillaryField: FC<Props> = ({onRequestClose}) => {
   const dispatch = useAppDispatch();
+  const ancillaryFields = useAppSelector(getAncillaryFields);
   const [fieldName, setFieldName] = useState('');
   const [frequency, setFrequency] = useState(null);
   const [sortOrder, setSortOrder] = useState('');
@@ -19,8 +29,8 @@ export const NewAncillaryField = () => {
   const [maximumIntegerValue, setMaximumIntegerValue] = useState('');
   const [minimumDecimalValue, setMinimumDecimalValue] = useState('');
   const [maximumDecimalValue, setMaximumDecimalValue] = useState('');
-  const [selectedOptions, setSelectedOptions] = useState(2);
-  const [maximumLenght, setMaximumLenght] = useState('');
+  const [numSelectValues, setNumSelectValues] = useState(2);
+  const [maximumLength, setMaximumLenght] = useState('');
 
   const numSelectValuesOptions = useMemo(
     () =>
@@ -42,7 +52,7 @@ export const NewAncillaryField = () => {
     return selectValue;
   }, [numSelectValuesOptions]);
 
-  const [selectVal, setSelectVal] = useState(selectVals);
+  const [selectValue, setSelectValue] = useState(selectVals);
 
   /**
    * Accepts below params and returns validation error type
@@ -145,7 +155,7 @@ export const NewAncillaryField = () => {
    * Returns error message for `Alphanumeric` Input control `Maximum Length`
    */
   const errorMessageForMaxLength = useMemo(() => {
-    const error = getErrorType(maximumLenght, 1, 500, /^\d+$/);
+    const error = getErrorType(maximumLength, 1, 500, /^\d+$/);
     switch (error) {
       case 'min':
         return '* Must be >= 1';
@@ -157,7 +167,7 @@ export const NewAncillaryField = () => {
       default:
         return '';
     }
-  }, [maximumLenght]);
+  }, [maximumLength]);
 
   /**
    * Returns error message for `Decimal` Input control `Minimum Value`
@@ -212,13 +222,13 @@ export const NewAncillaryField = () => {
     index: number,
     value: string,
   ) => {
-    let newArray = [...selectVal];
+    let newArray = [...selectValue];
     if (type === 'id') {
       newArray[index].id = value;
     } else {
       newArray[index].text = value;
     }
-    setSelectVal(newArray);
+    setSelectValue(newArray);
   };
 
   /**
@@ -226,20 +236,102 @@ export const NewAncillaryField = () => {
    * Saves Ancillary Field to local DB
    */
   const onSavePress = () => {
-    dispatch(
-      addAncillaryField({
-        id: Date.now(),
-        created: new Date(),
-        name: fieldName,
-        frequency_id: frequency!,
-        sort_order: Number(sortOrder),
-        input_control_id: inputControl!,
-        max_length: null,
-        max_value: null,
-        min_value: null,
-        required: 0,
-      }),
+    const found = ancillaryFields.some(
+      field =>
+        field.name.toLocaleLowerCase() === fieldName?.toLocaleLowerCase(),
     );
+    if (found) {
+      Alert.alert(
+        'Validation Error',
+        'The Ancillary Field Name must be unique.',
+      );
+      return;
+    }
+
+    let minMaxOk = true;
+    if (inputControl == 1) {
+      const min = parseInt(minimumIntegerValue);
+      const max = parseInt(maximumIntegerValue);
+      if (min > max) {
+        minMaxOk = false;
+      }
+    } else if (inputControl == 4) {
+      const min = parseFloat(minimumDecimalValue);
+      const max = parseFloat(maximumDecimalValue);
+      if (min > max) {
+        minMaxOk = false;
+      }
+    }
+    if (!minMaxOk) {
+      Alert.alert(
+        'Validation Error',
+        'The value for Minimum Value must be less than or equal to the value for Maximum Value.',
+      );
+      return;
+    }
+
+    // Make sure any select options have unique ids.
+    let selectIdsOk = true;
+    if (inputControl == 3) {
+      let existingList = [];
+      for (var i = 0; i < numSelectValues; i++) {
+        if (existingList.indexOf(selectValue[i].id) != -1) {
+          selectIdsOk = false;
+          break;
+        } else {
+          existingList.push(selectValue[i].id);
+        }
+      }
+    }
+
+    if (!selectIdsOk) {
+      Alert.alert(
+        'Validation Error',
+        'The Ids for the various Select Options must be unique.',
+      );
+      return;
+    }
+    const id = Date.now();
+    let ancillaryField: AncillaryField = {
+      id,
+      created: new Date(),
+      name: fieldName,
+      frequency_id: frequency!,
+      sort_order: Number(sortOrder),
+      input_control_id: inputControl!,
+      min_value: null,
+      max_value: null,
+      max_length: null,
+      required: 0,
+    };
+
+    // Figure out any fields based on other fields.
+    if (inputControl == 1) {
+      ancillaryField.min_value = Number(minimumIntegerValue);
+      ancillaryField.max_value = Number(maximumIntegerValue);
+    } else if (inputControl == 2) {
+      ancillaryField.max_length = Number(maximumLength);
+    } else if (inputControl == 4) {
+      ancillaryField.min_value = Number(minimumDecimalValue);
+      ancillaryField.max_value = Number(maximumDecimalValue);
+    }
+
+    dispatch(addAncillaryField(ancillaryField));
+    if (inputControl == 3) {
+      for (var i = 0; i < numSelectValues; i++) {
+        dispatch(
+          addAncillaryFieldsInputSelectOptions({
+            id: Date.now(),
+            created: new Date(),
+            ancillaryFieldId: id,
+            optionId: Number(selectValue[i].id),
+            sort_order: i + 1,
+            text: selectValue[i].text,
+          }),
+        );
+      }
+    }
+    onRequestClose();
   };
 
   /**
@@ -256,7 +348,7 @@ export const NewAncillaryField = () => {
     setMinimumDecimalValue('');
     setMaximumDecimalValue('');
     setMaximumLenght('');
-    setSelectVal(selectVals);
+    setSelectValue(selectVals);
   };
 
   const getDynamicInputs = () => {
@@ -288,7 +380,7 @@ export const NewAncillaryField = () => {
             />
           </>
         );
-      case 2: //Decimal
+      case 4: //Decimal
         return (
           <>
             <InputText
@@ -318,14 +410,14 @@ export const NewAncillaryField = () => {
           </>
         );
 
-      case 3 /* Alphanumeric */:
+      case 2 /* Alphanumeric */:
         return (
           <InputText
             lable="Maximum Length"
             isRequired={true}
             errorMessage={errorMessageForMaxLength}
             inputProps={{
-              value: maximumLenght,
+              value: maximumLength,
               onChangeText: setMaximumLenght,
               keyboardType: 'number-pad',
               returnKeyType: 'done',
@@ -333,17 +425,17 @@ export const NewAncillaryField = () => {
           />
         );
 
-      case 4 /* Select (from a list of choices) */:
+      case 3 /* Select (from a list of choices) */:
         return (
           <>
             <DropDown
               lable="# Select Option 2"
               items={numSelectValuesOptions}
-              value={selectedOptions}
-              setValue={setSelectedOptions}
+              value={numSelectValues}
+              setValue={setNumSelectValues}
               zIndex={990}
             />
-            {selectVal.slice(0, selectedOptions).map((val, index) => (
+            {selectValue.slice(0, numSelectValues).map((val, index) => (
               <View style={styles.optionContainer} key={val.index}>
                 <Text>Select Option {val.index + 1}</Text>
                 <InputText
@@ -412,7 +504,9 @@ export const NewAncillaryField = () => {
         />
         <DropDown
           lable="Input Control"
-          items={ANCILLARY_FIELD_INPUT_CONTROLS}
+          items={ANCILLARY_FIELD_INPUT_CONTROLS.sort(
+            (a, b) => a.sortOrder - b.sortOrder,
+          )}
           value={inputControl}
           setValue={setInputControl}
           isRequired
