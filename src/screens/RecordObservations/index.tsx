@@ -6,6 +6,8 @@ import {
   PanResponder,
   Animated,
 } from 'react-native';
+import ActionContainer from './components/ActionContainer';
+import {colors} from '../../constants';
 
 type Props = {};
 
@@ -132,10 +134,10 @@ const RecordObservations = (props: Props) => {
         {/* Bottom Left View */}
         <Animated.View
           style={[
-            {backgroundColor: 'green', minHeight: 40},
+            {backgroundColor: colors.white, padding: 10, minHeight: 40},
             {height: bottmLeftHeight},
           ]}>
-          {/* this.props.childTwo?this.props.childTwo:null */}
+          <ActionContainer />
         </Animated.View>
       </Animated.View>
       <View
@@ -164,7 +166,7 @@ const RecordObservations = (props: Props) => {
           ]}
           {...rightHorizontalPanResponder.panHandlers}></View>
 
-        {/* Bottom Left View */}
+        {/* Bottom Right View */}
         <Animated.View
           style={[
             {backgroundColor: 'blue', minHeight: 40},

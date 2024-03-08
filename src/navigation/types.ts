@@ -12,6 +12,8 @@ export type RootStackParamList = {
     selectedMethodologyId?: number;
   };
   StartTransect: {surveyId: number};
+  RecordObservations: {surveyId: number};
+  CameraScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

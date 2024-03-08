@@ -12,6 +12,7 @@ import NewMethodology from '../screens/NewMethodology';
 import AncillaryFields from '../screens/AncillaryFields';
 import StartTransect from '../screens/StartTransect';
 import SplashScreen from 'react-native-splash-screen';
+import RecordObservations from '../screens/RecordObservations';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -58,6 +59,11 @@ const Router = () => {
           name="StartTransect"
           options={{title: 'Start Transect'}}
           component={StartTransect}
+        />
+        <Stack.Screen
+          name="RecordObservations"
+          options={{title: 'Start Transect'}}
+          component={RecordObservations}
         />
       </Stack.Navigator>
     </NavigationContainer>

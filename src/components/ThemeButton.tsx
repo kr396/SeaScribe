@@ -15,11 +15,13 @@ import {scale} from '../utils/scale';
 type Props = {
   title: string;
   style?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<TextStyle>;
   mode?: 'defalue' | 'outlined' | 'clear';
 } & PressableProps;
 
 export const ThemeButton = ({
   title,
+  titleStyle,
   onPress,
   mode = 'defalue',
   ...props
@@ -49,14 +51,13 @@ export const ThemeButton = ({
       {...props}
       onPress={onPress}
       style={StyleSheet.flatten(pressableStyle)}>
-      <Text style={textStyle}>{title}</Text>
+      <Text style={[textStyle, titleStyle]}>{title}</Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flexGrow: 1,
     height: scale(40),
     backgroundColor: colors.primary,
     justifyContent: 'center',
