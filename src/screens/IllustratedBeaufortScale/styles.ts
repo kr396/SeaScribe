@@ -12,23 +12,23 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    color: 'black',
-    marginTop:20
+    color: colors.black,
+    marginTop: 20,
   },
   boldText: {
     marginTop: 30,
     fontWeight: 'bold',
-    color: 'black',
+    color: colors.black,
   },
   content: {
     marginTop: 25,
-    color: 'black',
+    color: colors.black,
   },
   poster: {
-    marginTop:50,
-    height:322,
-    width:'100%',
-    bottom:20
+    marginTop: 50,
+    height: 322,
+    width: '100%',
+    bottom: 20,
   },
 });
 export default styles;

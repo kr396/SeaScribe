@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   parentsText: {
     marginVertical: 16,
     marginHorizontal: 16,
-    color: 'black',
+    color: colors.black,
   },
   inputText: {
     backgroundColor: colors.offWhite,
@@ -32,8 +32,7 @@ const styles = StyleSheet.create({
   buttonParent: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop:32,
-    borderEndColor:'pink'
+    marginTop: 32,
   },
   buttonCalculate: {
     height: 50,
@@ -41,7 +40,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: colors.offWhite,
-    backgroundColor: '#2770EE', 
   },
   buttonClear: {
     height: 50,
@@ -49,13 +47,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: colors.offWhite,
-    backgroundColor: '#FAF9F6',
-    marginLeft: 10,  
+    marginLeft: 10,
   },
   calculateButtonText: {
     marginTop: 11,
     textAlign: 'center',
-    color: '#FFF',
+    color: colors.offWhite,
   },
 });
 export default styles;

@@ -1,6 +1,7 @@
 import {View, Text} from 'react-native';
 import styles from './styles';
-import { ThemeButton } from '../../components';
+import {ThemeButton} from '../../components';
+
 const EditMethodologies = () => {
   return (
     <View style={styles.container}>
@@ -10,10 +11,8 @@ const EditMethodologies = () => {
         uses the methodology in question.
       </Text>
       <View style={styles.buttonParent}>
-        {/* <Text style={styles.deletesButtonText}>Process Deletes</Text> */}
-        <ThemeButton title='Process Deletes' style={styles.deleteButton} />
+        <ThemeButton title="Process Deletes" style={styles.deleteButton} />
       </View>
-      
     </View>
   );
 };

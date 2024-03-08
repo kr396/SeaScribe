@@ -2,7 +2,6 @@ import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import {ThemeButton} from '../../components';
 import styles from './styles';
-import Table from '../../components/Table';
 
 const ExistingSurveys = () => {
   return (
@@ -10,7 +9,6 @@ const ExistingSurveys = () => {
       <View style={styles.container}>
         <View>
           <Text style={styles.boldText}>Select a Survey:</Text>
-          {/* <Table navigation={undefined} route={undefined} /> */}
           <ThemeButton
             title="Start New Transect"
             style={styles.startTransect}
@@ -32,7 +30,6 @@ const ExistingSurveys = () => {
           <Text style={styles.boldText}>
             or Select a Transect from the Chosen Survey:
           </Text>
-          {/* <Table navigation={undefined} route={undefined} /> */}
           <ThemeButton
             title="Resume Selected Transect"
             style={styles.resumeSelectedTransect}

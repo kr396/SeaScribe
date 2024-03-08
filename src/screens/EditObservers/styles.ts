@@ -5,14 +5,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    backgroundColor:colors.white
+    backgroundColor: colors.white,
   },
   deletesButton: {
     height: 40,
     width: 160,
-    backgroundColor: '#ff0000',
+    backgroundColor: colors.red,
     borderRadius: 5,
-    marginTop:10
+    marginTop: 10,
   },
 });
-export default styles
+export default styles;

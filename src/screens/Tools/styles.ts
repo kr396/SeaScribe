@@ -17,22 +17,22 @@ const styles = StyleSheet.create({
   content: {
     marginHorizontal: 16,
     marginVertical: 16,
-    color: 'black',
+    color: colors.black,
   },
   parents: {
     borderBottomWidth: 0,
   },
-  rightArrowParent:{
+  rightArrowParent: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
-  rightArrow:{
-    height:15,
-    width:15,
+  rightArrow: {
+    height: 15,
+    width: 15,
     alignItems: 'flex-end',
-    marginTop:-33,
-    marginRight:5,
-  }
+    marginTop: -33,
+    marginRight: 5,
+  },
 });
 export default styles;

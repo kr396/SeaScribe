@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
   },
   textDecoration: {
     elevation: 1,
-    borderColor: '#E7E7E7',
+    borderColor: colors.offWhite,
   },
   text: {
     padding: 10,
-    color: 'black',
+    color: colors.black,
   },
-  textParent:{
-    marginTop:20
-  }
+  textParent: {
+    marginTop: 20,
+  },
 });
-export default styles
+export default styles;

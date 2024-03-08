@@ -9,11 +9,10 @@ const styles = StyleSheet.create({
   },
   textDecoration: {
     elevation: 1,
-    borderColor: '#E7E7E7',
   },
   text: {
     padding: 10,
-    color: 'black',
+    color: colors.black,
   },
   backupRestoreParent: {
     borderWidth: 1,
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   },
   backupRestore: {
     padding: 15,
-    color: 'black',
+    color: colors.black,
   },
   margeBorder: {
     borderBottomWidth: 0,
@@ -37,11 +36,11 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   texts: {
-    color: '#090A0A',
+    color: colors.black,
     fontSize: 14,
   },
   textHere: {
-    color: '#2770EE',
+    color: colors.primary,
     fontSize: 14,
     textDecorationLine: 'underline',
   },

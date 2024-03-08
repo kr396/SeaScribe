@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontWeight: 'bold',
-    color: 'black',
+    color: colors.black,
     fontSize: 15,
   },
   buttonParent: {

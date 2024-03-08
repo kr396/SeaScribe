@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {View, Text, TextInput} from 'react-native';
 import styles from './styles';
 import {ThemeButton} from '../../components';
+import {RootStackScreenProps} from '../../navigation/types';
 
-const DistanceEstimationGuide = () => {
+const DistanceEstimationGuide: FC<
+  RootStackScreenProps<'DistanceEstimationGuide'>
+> = () => {
   return (
     <View style={styles.container}>
       <View style={styles.parents}>

@@ -2,8 +2,11 @@ import {View, Text, Image, FlatList} from 'react-native';
 import styles from './styles';
 import {BEAUFORT_SCALE_ENTRIES} from '../../data';
 import {IllustratedBeaufortScaleType} from '../../types';
+import {RootStackScreenProps} from '../../navigation/types';
 
-const IllustratedBeaufortScale: React.FC = () => {
+const IllustratedBeaufortScale: React.FC<
+  RootStackScreenProps<'IllustratedBeaufortScale'>
+> = () => {
   const renderIllustratedBeaufortScale = ({
     item,
   }: {

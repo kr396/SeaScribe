@@ -1,10 +1,10 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import styles from './styles';
-import { images } from '../../constants/images';
-import { RootStackScreenProps } from '../../navigation/types';
+import {images} from '../../constants/images';
+import {RootStackScreenProps} from '../../navigation/types';
 
-const Tools:FC<RootStackScreenProps<'Tools'>> = ({navigation}) => {
+const Tools: FC<RootStackScreenProps<'Tools'>> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.parent}>
@@ -19,13 +19,13 @@ const Tools:FC<RootStackScreenProps<'Tools'>> = ({navigation}) => {
             onPress={() => navigation.navigate('DistanceEstimationGuide')}>
             <Text style={styles.content}>Distance Estimation Guide</Text>
           </TouchableOpacity>
-        </View>        
+        </View>
         <View style={[styles.parentView, styles.parents]}>
           <TouchableOpacity onPress={() => navigation.navigate('ManageData')}>
             <Text style={styles.content}>Manage Data</Text>
-          <View style={styles.rightArrowParent}>
-          <Image source={images.rightArrow} style={styles.rightArrow}/>
-          </View>
+            <View style={styles.rightArrowParent}>
+              <Image source={images.rightArrow} style={styles.rightArrow} />
+            </View>
           </TouchableOpacity>
         </View>
         <View style={[styles.parentView, styles.parents]}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import styles from './styles';
+
 const RecoveryInformation = () => {
   return (
     <View style={styles.container}>
@@ -23,9 +24,7 @@ const RecoveryInformation = () => {
       </View>
       <View style={styles.textParent} />
       <View style={styles.textDecoration}>
-        <Text style={styles.text}>
-          {/* todo */}
-        </Text>
+        <Text style={styles.text}>{/* //todo */}</Text>
       </View>
     </View>
   );

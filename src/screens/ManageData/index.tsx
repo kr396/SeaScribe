@@ -44,8 +44,8 @@ const ManageData: FC<RootStackScreenProps<'ManageData'>> = ({navigation}) => {
   const handleItemPress = (item: manageData) => {
     if (item.showAlert) {
       Alert.alert(
-        item.title2 || '',
-        item.message || '',
+        item.title2!,
+        item.message!,
         [
           {
             text: 'Cancel',
