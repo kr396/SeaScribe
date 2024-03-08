@@ -12,7 +12,17 @@ import NewMethodology from '../screens/NewMethodology';
 import AncillaryFields from '../screens/AncillaryFields';
 import StartTransect from '../screens/StartTransect';
 import SplashScreen from 'react-native-splash-screen';
-
+import IllustratedBeaufortScale from '../screens/IllustratedBeaufortScale';
+import DistanceEstimationGuide from '../screens/DistanceEstimationGuide';
+import ManageData from '../screens/ManageData';
+import EditAncillaryFields from '../screens/EditAncillaryFields';
+import EditSurveyPlatforms from '../screens/EditSurveyPlatforms';
+import EditObservers from '../screens/EditObservers';
+import EditMethodologies from '../screens/EditMethodologies';
+import EditHotkeyGroups from '../screens/EditHotkeyGroups';
+import ViewGPSTestData from '../screens/ViewGPSTestData';
+import Recovery from '../screens/Recovery';
+import RecoveryInformation from '../screens/RecoveryInformation';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Router = () => {
@@ -58,6 +68,61 @@ const Router = () => {
           name="StartTransect"
           options={{title: 'Start Transect'}}
           component={StartTransect}
+        />
+        <Stack.Screen
+          name="IllustratedBeaufortScale"
+          options={{title: 'Illustrated Beaufort Scale'}}
+          component={IllustratedBeaufortScale}
+        />
+        <Stack.Screen
+          name="DistanceEstimationGuide"
+          options={{title: 'Distance Estimation Guide'}}
+          component={DistanceEstimationGuide}
+        />
+        <Stack.Screen
+          name="ManageData"
+          options={{title: 'Manage Data'}}
+          component={ManageData}
+        />
+        <Stack.Screen
+          name="EditAncillaryFields"
+          options={{title: 'Edit Ancillary Fields'}}
+          component={EditAncillaryFields}
+        />
+        <Stack.Screen
+          name="EditSurveyPlatforms"
+          options={{title: 'Edit Survey Platforms'}}
+          component={EditSurveyPlatforms}
+        />
+        <Stack.Screen
+          name="EditObservers"
+          options={{title: 'Edit Observers'}}
+          component={EditObservers}
+        />
+        <Stack.Screen
+          name="EditMethodologies"
+          options={{title: 'Edit Methodologies'}}
+          component={EditMethodologies}
+        />
+        <Stack.Screen
+          name="EditHotkeyGroups"
+          options={{title: 'Edit Hotkey Groups'}}
+          component={EditHotkeyGroups}
+        />
+        <Stack.Screen
+          name="ViewGPSTestData"
+          options={{title: 'View GPS Tes tData'}}
+          component={ViewGPSTestData}
+        />
+        <Stack.Screen
+          name="Recovery"
+          options={{title: 'Recovery'}}
+          component={Recovery}
+        />
+        <Stack.Screen
+          name="RecoveryInformation"
+          options={{title: 'Recovery Information'}}
+          component={RecoveryInformation}
         />
       </Stack.Navigator>
     </NavigationContainer>

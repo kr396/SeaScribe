@@ -9,6 +9,18 @@ export type RootStackParamList = {
   NewMethodology: undefined;
   AncillaryFileds: undefined;
   StartTransect: undefined;
+  IllustratedBeaufortScale:undefined;
+  DistanceEstimationGuide:undefined;
+  ManageData:undefined;
+  EditAncillaryFields:undefined;
+  EditSurveyPlatforms:undefined;
+  EditObservers:undefined;
+  EditMethodologies:undefined;
+  EditHotkeyGroups:undefined;
+  ViewGPSTestData:undefined;
+  Recovery:undefined;
+  RecoveryInformation:undefined;
+  Table:undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
