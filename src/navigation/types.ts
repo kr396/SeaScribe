@@ -24,6 +24,8 @@ export type RootStackParamList = {
   Recovery: undefined;
   RecoveryInformation: undefined;
   Table: undefined;
+  RecordObservations: {surveyId: number};
+  CameraScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

@@ -23,6 +23,8 @@ import EditHotkeyGroups from '../screens/EditHotkeyGroups';
 import ViewGPSTestData from '../screens/ViewGPSTestData';
 import Recovery from '../screens/Recovery';
 import RecoveryInformation from '../screens/RecoveryInformation';
+import RecordObservations from '../screens/RecordObservations';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Router = () => {
@@ -123,6 +125,11 @@ const Router = () => {
           name="RecoveryInformation"
           options={{title: 'Recovery Information'}}
           component={RecoveryInformation}
+        />
+        <Stack.Screen
+          name="RecordObservations"
+          options={{title: 'Start Transect'}}
+          component={RecordObservations}
         />
       </Stack.Navigator>
     </NavigationContainer>

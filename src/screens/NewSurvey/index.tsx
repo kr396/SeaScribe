@@ -141,6 +141,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   };
 
   const onClearPress = () => {
+    navigation.navigate('RecordObservations');
     setsurveyName('');
     setSurveyMode(1);
     setMethodology(null);
