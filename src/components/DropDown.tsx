@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
   },
   lable: {
     flex: 1,
+    color: colors.black,
   },
   requiredText: {
     color: colors.red,

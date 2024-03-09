@@ -6,7 +6,7 @@ import {
   PanResponder,
   Animated,
 } from 'react-native';
-import ActionContainer from './components/ActionContainer';
+import {ActionContainer, ObservationForm} from './components';
 import {colors} from '../../constants';
 
 type Props = {};
@@ -118,7 +118,7 @@ const RecordObservations = (props: Props) => {
             {backgroundColor: 'pink', minHeight: 40, flex: 1},
             {height: topLeftHeight},
           ]}>
-          {/* this.props.childone?this.props.childone:null */}
+          <ObservationForm />
         </Animated.View>
 
         {/* Left Horizontal Divider */}

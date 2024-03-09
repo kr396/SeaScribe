@@ -15,7 +15,7 @@ type Props = {
   onClearPress: () => void;
 };
 
-const ActionContainer: FC<Props> = () => {
+export const ActionContainer: FC<Props> = () => {
   const navigation = useNavigation();
   const [showRecordingPopup, setShowRecordingPopup] = useState(false);
 
@@ -86,8 +86,6 @@ const ActionContainer: FC<Props> = () => {
     </View>
   );
 };
-
-export default ActionContainer;
 
 const styles = StyleSheet.create({
   container: {
