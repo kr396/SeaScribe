@@ -12,6 +12,18 @@ export type RootStackParamList = {
     selectedMethodologyId?: number;
   };
   StartTransect: {surveyId: number};
+  IllustratedBeaufortScale: undefined;
+  DistanceEstimationGuide: undefined;
+  ManageData: undefined;
+  EditAncillaryFields: undefined;
+  EditSurveyPlatforms: undefined;
+  EditObservers: undefined;
+  EditMethodologies: undefined;
+  EditHotkeyGroups: undefined;
+  ViewGPSTestData: undefined;
+  Recovery: undefined;
+  RecoveryInformation: undefined;
+  Table: undefined;
   RecordObservations: {surveyId: number};
   CameraScreen: undefined;
 };

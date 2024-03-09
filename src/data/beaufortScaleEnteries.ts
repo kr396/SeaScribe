@@ -1,3 +1,5 @@
+import { images } from "../constants/images";
+
 export const BEAUFORT_SCALE_ENTRIES = [
   {
     id: 0,
@@ -10,7 +12,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
     wave_height_ft: '0',
     sea_conditions: 'Flat.',
     land_conditions: 'Calm. Smoke rises vertically.',
-    photo: 'img/beaufort/Beaufort_scale_0.jpg',
+    photo: images.beaufortScale0
   },
   {
     id: 1,
@@ -24,7 +26,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
     sea_conditions: 'Ripples without crests.',
     land_conditions:
       'Smoke drift indicates wind direction. Leaves and wind vanes are stationary.',
-    photo: 'img/beaufort/Beaufort_scale_1.jpg',
+    photo: images.beaufortScale1
   },
   {
     id: 2,
@@ -39,7 +41,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Small wavelets. Crests of glassy appearance, not breaking.',
     land_conditions:
       'Wind felt on exposed skin. Leaves rustle. Wind vanes begin to move.',
-    photo: 'img/beaufort/Beaufort_scale_2.jpg',
+    photo: images.beaufortScale2
   },
   {
     id: 3,
@@ -54,7 +56,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Large wavelets. Crests begin to break; scattered whitecaps.',
     land_conditions:
       'Leaves and small twigs constantly moving, light flags extended.',
-    photo: 'img/beaufort/Beaufort_scale_3.jpg',
+    photo: images.beaufortScale3
   },
   {
     id: 4,
@@ -69,7 +71,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Small waves with breaking crests. Fairly frequent whitecaps.',
     land_conditions:
       'Dust and loose paper raised. Small branches begin to move.',
-    photo: 'img/beaufort/Beaufort_scale_4.jpg',
+    photo: images.beaufortScale4
   },
   {
     id: 5,
@@ -83,7 +85,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
     sea_conditions: 'Moderate waves of some length. Fairly frequent whitecaps.',
     land_conditions:
       'Branches of a moderate size move. Small trees in leaf begin to sway.',
-    photo: 'img/beaufort/Beaufort_scale_5.jpg',
+    photo: images.beaufortScale5
   },
   {
     id: 6,
@@ -98,7 +100,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Long waves begin to form. White foam crests are very frequent. Some airborne spray is present.',
     land_conditions:
       'Large branches in motion. Whistling heard in overhead wires. Umbrella use becomes difficult. Empty plastic bins tip over.',
-    photo: 'img/beaufort/Beaufort_scale_6.jpg',
+    photo: images.beaufortScale6
   },
   {
     id: 7,
@@ -113,7 +115,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Sea heaps up. Some foam from breaking waves is blown into streaks along wind direction. Moderate amounts of airborne spray.',
     land_conditions:
       'Whole trees in motion. Effort needed to walk against the wind.',
-    photo: 'img/beaufort/Beaufort_scale_7.jpg',
+    photo: images.beaufortScale7
   },
   {
     id: 8,
@@ -128,7 +130,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Moderately high waves with breaking crests forming spindrift. Well-marked streaks of foam are blown along wind direction. Considerable airborne spray.',
     land_conditions:
       'Some twigs broken from trees. Cars veer on road. Progress on foot is seriously impeded.',
-    photo: 'img/beaufort/Beaufort_scale_8.jpg',
+    photo: images.beaufortScale8
   },
   {
     id: 9,
@@ -143,7 +145,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'High waves whose crests sometimes roll over. Dense foam is blown along wind direction. Large amounts of airborne spray may begin to reduce visibility.',
     land_conditions:
       'Some branches break off trees, and some small trees blow over. Construction/temporary signs and barricades blow over.',
-    photo: 'img/beaufort/Beaufort_scale_9.jpg',
+    photo: images.beaufortScale9
   },
   {
     id: 10,
@@ -158,7 +160,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Very high waves with overhanging crests. Large patches of foam from wave crests give the sea a white appearance. Considerable tumbling of waves with heavy impact. Large amounts of airborne spray reduce visibility.',
     land_conditions:
       'Trees are broken off or uprooted, structural damage likely.',
-    photo: 'img/beaufort/Beaufort_scale_10.jpg',
+    photo: images.beaufortScale10
   },
   {
     id: 11,
@@ -172,7 +174,7 @@ export const BEAUFORT_SCALE_ENTRIES = [
     sea_conditions:
       'Exceptionally high waves. Very large patches of foam, driven before the wind, cover much of the sea surface. Very large amounts of airborne spray severely reduce visibility.',
     land_conditions: 'Widespread vegetation and structural damage likely.',
-    photo: 'img/beaufort/Beaufort_scale_11.jpg',
+    photo: images.beaufortScale11
   },
   {
     id: 12,
@@ -187,6 +189,6 @@ export const BEAUFORT_SCALE_ENTRIES = [
       'Huge waves. Sea is completely white with foam and spray. Air is filled with driving spray, greatly reducing visibility.',
     land_conditions:
       'Severe widespread damage to vegetation and structures. Debris and unsecured objects are hurled about.',
-    photo: 'img/beaufort/Beaufort_scale_12.jpg',
+    photo: images.beaufortScale12
   },
 ];

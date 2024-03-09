@@ -1,3 +1,5 @@
+import {ImageSourcePropType} from 'react-native';
+
 export type Methodology = {
   id: number;
   label: string;
@@ -49,6 +51,40 @@ export type AncillaryField = {
   required: number;
 };
 
+export type IllustratedBeaufortScaleType = {
+  id: number;
+  description: string;
+  wind_speed_kmh: string;
+  wind_speed_mph: string;
+  wind_speed_knots: string;
+  wind_speed_mps: string;
+  wave_height_m: string;
+  wave_height_ft: string;
+  sea_conditions: string;
+  land_conditions: string;
+  photo: ImageSourcePropType;
+};
+
+export type handleItemPress = {
+  id: string;
+  title: string;
+  title2?: string; 
+  route?: string; 
+  showAlert?: boolean; 
+  message?: string; 
+  hasArrow?: boolean; 
+};
+
+export type manageData = {
+  id: string;
+  title: string;
+  route: any;
+  title2?: string;
+  showAlert?: boolean;
+  message?: string;
+  hasArrow?: boolean;
+}
+
 export type Survey = {
   id: number;
   created: Date;
@@ -72,3 +108,4 @@ export type AncillaryFieldsInputSelectOption = {
   optionId: number;
   text: string;
 };
+
