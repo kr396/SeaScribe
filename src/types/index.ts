@@ -68,11 +68,11 @@ export type IllustratedBeaufortScaleType = {
 export type handleItemPress = {
   id: string;
   title: string;
-  title2?: string; 
-  route?: string; 
-  showAlert?: boolean; 
-  message?: string; 
-  hasArrow?: boolean; 
+  title2?: string;
+  route?: string;
+  showAlert?: boolean;
+  message?: string;
+  hasArrow?: boolean;
 };
 
 export type manageData = {
@@ -83,7 +83,7 @@ export type manageData = {
   showAlert?: boolean;
   message?: string;
   hasArrow?: boolean;
-}
+};
 
 export type Survey = {
   id: number;
@@ -109,3 +109,19 @@ export type AncillaryFieldsInputSelectOption = {
   text: string;
 };
 
+export type Setting = {
+  id: string;
+  title: string;
+  isBold?: boolean;
+  switchName?: string;
+  input?: boolean;
+  input1?: boolean;
+  input2?: boolean;
+  rightArrow?: boolean;
+  initialZoomSlider?: boolean;
+  slidercirclefillopacity?: boolean;
+  circleradiusmultiplierslider?: boolean;
+  circleradiusmiminumslider?: boolean;
+  circleradiusmaximumslider?: boolean;
+  dividerwidthslider?: boolean;
+};

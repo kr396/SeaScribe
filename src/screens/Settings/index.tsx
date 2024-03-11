@@ -11,89 +11,141 @@ import {
 import {images} from '../../constants/images';
 import {ThemeButton} from '../../components';
 import styles from './styles';
+import Slider from '@react-native-community/slider';
+import {Setting} from '../../types';
 
-const Settings = () => {
-  const [switchStates, setSwitchStates] = useState({
-    MySwitch: false,
-    MySwitch1: false,
-    MySwitch2: false,
-    MySwitch3: false,
-    MySwitch4: false,
-    MySwitch5: false,
-    MySwitch6: false,
-    MySwitch7: false,
-    MySwitch8: false,
-    MySwitch9: false,
-    MySwitch10: false,
-    MySwitch11: false,
-    MySwitch12: false,
+const Settings: React.FC = () => {
+  const [initialZoomSlider, setInitialZoomslider] = useState<number>(11);
+  const [circleFillOpacitySlider, setCircleFillOpacitySlider] =
+    useState<number>(50);
+  const [circleRadiusMultiplierSlider, setCircleRadiusMultiplierSlider] =
+    useState<number>(5);
+  const [circleRadiusMiminumSlider, setCircleRadiusMiminumSlider] =
+    useState<number>(10);
+  const [circleRadiusMaximumSlider, setCircleRadiusMaximumSlider] =
+    useState<number>(500);
+  const [dividerWidthSlider, setDividerWidthSlider] = useState<number>(20);
+  const [switchStates, setSwitchStates] = useState<{[key: string]: boolean}>({
+    atomaticgpspollingswitch: false,
+    enablehighaccuracyswitch: false,
+    recordfailuresswitch: false,
+    followletestgpsswitch: false,
+    showlowestzoomswitch: false,
+    showlabletilesswitch: false,
+    showquickspeciesbarswitch: false,
+    separatehotkeyswitch: false,
+    displayhorizontalswitch: false,
+    persistentCheckactivatswitch: false,
+    scrolltopersistentswitch: false,
+    debuggingmodeswitch: false,
+    logeverypositionalswitch: false,
   });
 
-  const toggleSwitch = switchName => {
+  const toggleSwitch = (switchName: string) => {
     setSwitchStates(prevState => ({
       ...prevState,
       [switchName]: !prevState[switchName],
     }));
   };
 
-  const data = [
+  const data: Setting[] = [
     {id: '1', title: 'GPS', isBold: true},
-    {id: '2', title: 'Atomatic GPS Polling A...', switchName: 'MySwitch'},
+    {
+      id: '2',
+      title: 'Atomatic GPS Polling A...',
+      switchName: 'atomaticgpspollingswitch',
+    },
     {id: '3', title: 'Atomatic GPS Polling Interval (s)', input: true},
     {id: '4', title: 'Atomatic GPS Polling'},
-    {id: '5', title: 'Enable high accuracy?', switchName: 'MySwitch1'},
+    {
+      id: '5',
+      title: 'Enable high accuracy?',
+      switchName: 'enablehighaccuracyswitch',
+    },
     {id: '6', title: 'GPS Timeout (s)', input1: true},
     {id: '7', title: 'GPS Maximum Age (S)', input2: true},
-    {id: '8', title: 'Record failures during p...', switchName: 'MySwitch2'},
-
+    {
+      id: '8',
+      title: 'Record failures during p...',
+      switchName: 'recordfailuresswitch',
+    },
     {id: '9', title: 'Mapping', isBold: true},
-    {id: '10', title: 'Initial Zoom'},
-    {id: '11', title: 'Follow Letest GPS Logg...', switchName: 'MySwitch3'},
+    {id: '10', title: 'Initial Zoom', initialZoomSlider: true},
+    {
+      id: '11',
+      title: 'Follow Letest GPS Logg...',
+      switchName: 'followletestgpsswitch',
+    },
     {id: '12', title: 'Course Line Color'},
     {id: '13', title: 'Circle Rim Color'},
     {id: '14', title: 'Circle Fill Color'},
-    {id: '15', title: 'Circle Fill Opacity'},
-    {id: '16', title: 'Circle Radius Multiplier'},
-    {id: '17', title: 'Circle Radius Miminum'},
-    {id: '18', title: 'Circle Radius Maximum'},
-
+    {id: '15', title: 'Circle Fill Opacity', slidercirclefillopacity: true},
+    {
+      id: '16',
+      title: 'Circle Radius Multiplier',
+      circleradiusmultiplierslider: true,
+    },
+    {id: '17', title: 'Circle Radius Miminum', circleradiusmiminumslider: true},
+    {id: '18', title: 'Circle Radius Maximum', circleradiusmaximumslider: true},
     {id: '19', title: 'Map Cache Navigator', isBold: true},
-    {id: '20', title: 'Show Lowest Zoom Only', switchName: 'MySwitch4'},
-    {id: '21', title: 'Show Lable Tiles', switchName: 'MySwitch5'},
-
+    {
+      id: '20',
+      title: 'Show Lowest Zoom Only',
+      switchName: 'showlowestzoomswitch',
+    },
+    {id: '21', title: 'Show Lable Tiles', switchName: 'showlabletilesswitch'},
     {id: '22', title: 'User Interface', isBold: true},
-    {id: '23', title: 'Divider Width (pixels)'},
-
+    {id: '23', title: 'Divider Width (pixels)', dividerwidthslider: true},
     {id: '24', title: 'Hotkeys', isBold: true},
-    {id: '25', title: 'Show Quick Species Bar', switchName: 'MySwitch6'},
+    {
+      id: '25',
+      title: 'Show Quick Species Bar',
+      switchName: 'showquickspeciesbarswitch',
+    },
     {id: '26', title: 'Max Quick Species Button Count', input: true},
-    {id: '27', title: 'Separate Hotkey Groups...', switchName: 'MySwitch7'},
-    {id: '28', title: 'Display Horizontal Rule...', switchName: 'MySwitch8'},
+    {
+      id: '27',
+      title: 'Separate Hotkey Groups...',
+      switchName: 'separatehotkeyswitch',
+    },
+    {
+      id: '28',
+      title: 'Display Horizontal Rule...',
+      switchName: 'displayhorizontalswitch',
+    },
     {id: '29', title: 'Hotkey Button Min Width (pixels) 80'},
     {id: '30', title: 'Hotkey Button MIn Height (pixels) 40'},
     {id: '31', title: 'Age'},
     {id: '32', title: 'Behavior'},
     {id: '33', title: 'Plumage'},
-
     {id: '34', title: 'Alerts', isBold: true},
-    {id: '35', title: 'Persistent Check Activat..', switchName: 'MySwitch9'},
+    {
+      id: '35',
+      title: 'Persistent Check Activat..',
+      switchName: 'persistentCheckactivatswitch',
+    },
     {id: '36', title: 'Persistent Check Interval (S)', input: true},
-    {id: '37', title: 'Scroll to Persistent?', switchName: 'MySwitch10'},
-
+    {
+      id: '37',
+      title: 'Scroll to Persistent?',
+      switchName: 'scrolltopersistentswitch',
+    },
     {id: '38', title: 'Export', isBold: true},
     {id: '39', title: 'Detach from Dropbox Account'},
-
     {id: '40', title: 'System', isBold: true},
-    {id: '41', title: 'Debugging Mode?', switchName: 'MySwitch11'},
+    {id: '41', title: 'Debugging Mode?', switchName: 'debuggingmodeswitch'},
     {id: '42', title: 'Logging Level'},
     {id: '43', title: 'Persistent Log Threshold'},
-    {id: '44', title: 'Log every positional GP...', switchName: 'MySwitch12'},
+    {
+      id: '44',
+      title: 'Log every positional GP...',
+      switchName: 'logeverypositionalswitch',
+    },
     {id: '45', title: 'Privacy Policy', rightArrow: true},
     {id: '46', title: 'About', rightArrow: true},
-    // Add more data items for other settings...
   ];
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item}: {item: Setting}) => {
     return (
       <View>
         {item.isBold ? (
@@ -107,7 +159,7 @@ const Settings = () => {
               <Switch
                 trackColor={{false: '#E9E9EA', true: 'blue'}}
                 thumbColor={'#FFF'}
-                onValueChange={() => toggleSwitch(item.switchName)}
+                onValueChange={() => toggleSwitch(item.switchName as string)}
                 value={switchStates[item.switchName]}
               />
             )}
@@ -117,6 +169,118 @@ const Settings = () => {
             {item.rightArrow && (
               <View style={styles.rightArrowParent}>
                 <Image source={images.rightArrow} style={styles.rightArrow} />
+              </View>
+            )}
+            {item.initialZoomSlider && (
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderLable}>
+                  <Text style={styles.sliderText}>{initialZoomSlider}</Text>
+                </View>
+                <Slider
+                  style={styles.slider}
+                  minimumValue={0}
+                  maximumValue={15}
+                  step={1}
+                  value={initialZoomSlider}
+                  minimumTrackTintColor={'blue'}
+                  thumbTintColor={'#f0f0f0'} 
+                  onValueChange={value => setInitialZoomslider(value)}
+                />
+              </View>
+            )}
+            {item.slidercirclefillopacity && (
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderLable}>
+                  <Text style={styles.sliderText}>
+                    {circleFillOpacitySlider}
+                  </Text>
+                </View>
+                <Slider
+                  style={styles.slider}
+                  minimumValue={0}
+                  maximumValue={100}
+                  step={1}
+                  value={circleFillOpacitySlider}
+                  minimumTrackTintColor={'blue'}
+                  thumbTintColor={'#f0f0f0'} 
+                  onValueChange={value => setCircleFillOpacitySlider(value)}
+                />
+              </View>
+            )}
+            {item.circleradiusmultiplierslider && (
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderLable}>
+                  <Text style={styles.sliderText}>
+                    {circleRadiusMultiplierSlider}
+                  </Text>
+                </View>
+                <Slider
+                  style={styles.slider}
+                  minimumValue={1}
+                  maximumValue={20}
+                  step={1}
+                  value={circleRadiusMultiplierSlider}
+                  minimumTrackTintColor={'blue'}
+                  thumbTintColor={'#f0f0f0'} 
+                  onValueChange={value =>
+                    setCircleRadiusMultiplierSlider(value)
+                  }
+                />
+              </View>
+            )}
+            {item.circleradiusmiminumslider && (
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderLable}>
+                  <Text style={styles.sliderText}>
+                    {circleRadiusMiminumSlider}
+                  </Text>
+                </View>
+                <Slider
+                  style={styles.circleRadiusSlider}
+                  minimumValue={10}
+                  maximumValue={100}
+                  step={1}
+                  value={circleRadiusMiminumSlider}
+                  minimumTrackTintColor={'blue'}
+                  thumbTintColor={'#f0f0f0'} 
+                  onValueChange={value => setCircleRadiusMiminumSlider(value)}
+                />
+              </View>
+            )}
+            {item.circleradiusmaximumslider && (
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderLable}>
+                  <Text style={styles.sliderText}>
+                    {circleRadiusMaximumSlider}
+                  </Text>
+                </View>
+                <Slider
+                  style={styles.circleRadiusSlider}
+                  minimumValue={100}
+                  maximumValue={500}
+                  step={1}
+                  value={circleRadiusMaximumSlider}
+                  minimumTrackTintColor={'blue'}
+                  thumbTintColor={'#f0f0f0'} 
+                  onValueChange={value => setCircleRadiusMaximumSlider(value)}
+                />
+              </View>
+            )}
+            {item.dividerwidthslider && (
+              <View style={styles.sliderContainer}>
+                <View style={styles.sliderLable}>
+                  <Text style={styles.sliderText}>{dividerWidthSlider}</Text>
+                </View>
+                <Slider
+                  style={styles.slider}
+                  minimumValue={5}
+                  maximumValue={40}
+                  step={1}
+                  value={dividerWidthSlider}
+                  minimumTrackTintColor={'blue'}
+                  thumbTintColor={'#f0f0f0'} 
+                  onValueChange={value => setDividerWidthSlider(value)}
+                />
               </View>
             )}
           </View>

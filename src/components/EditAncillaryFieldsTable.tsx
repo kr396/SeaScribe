@@ -10,8 +10,25 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 import {colors} from '../constants';
 
-const EditAncillaryFieldsTableTable = () => {
-  const renderItem = ({item, index}) => {
+interface AncillaryField {
+  name: string;
+  frequency: string;
+  sortOrder: string;
+  inputControl: string;
+  inputControlChoiceList: string;
+  minValue: string;
+  maxValue: string;
+  maxLength: string;
+}
+
+const EditAncillaryFieldsTableTable: FC = () => {
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: (boolean | string)[];
+    index: number;
+  }) => {
     return (
       <View
         style={[
@@ -36,6 +53,7 @@ const EditAncillaryFieldsTableTable = () => {
       </View>
     );
   };
+
   const listheadercomponent = () => {
     return (
       <View style={[styles.row, styles.headerRow]}>
@@ -47,9 +65,11 @@ const EditAncillaryFieldsTableTable = () => {
       </View>
     );
   };
+
   const itemseparatorcomponent = () => {
     return <View style={[styles.horizontalLine, styles.bottomBorderWidth]} />;
   };
+
   const columns: string[] = [
     'Del?',
     'Name',
@@ -61,6 +81,7 @@ const EditAncillaryFieldsTableTable = () => {
     'Max Value',
     'Max Length',
   ];
+
   const data: (boolean | string)[][] = [
     [
       false,
@@ -181,7 +202,7 @@ const EditAncillaryFieldsTableTable = () => {
       <View style={styles.container}>
         <FlatList
           data={data}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={index => index.toString()}
           renderItem={renderItem}
           ListHeaderComponent={listheadercomponent}
           ItemSeparatorComponent={itemseparatorcomponent}

@@ -18,5 +18,9 @@ const styles = StyleSheet.create({
   textParent: {
     marginTop: 20,
   },
+  imageParent: {
+    padding: 10,
+  },
+  images: {},
 });
 export default styles;

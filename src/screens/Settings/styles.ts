@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -53,7 +54,6 @@ const styles = StyleSheet.create({
     margin: 5,
     marginTop: 10,
   },
-  switch: {},
   boldText: {
     color: colors.black,
     fontWeight: 'bold',
@@ -83,5 +83,25 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 5,
   },
+  sliderContainer: {
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
+  },
+  slider: {
+    width: '40%',
+  },
+  circleRadiusSlider: {
+    width: '30%',
+    paddingRight: 60,
+  },
+  sliderText: {
+    color: colors.black,
+  },
+  sliderLable: {
+    justifyContent: 'center',
+  },
+  thumbTintColor:{
+    color:colors.offWhite
+  }
 });
 export default styles;
