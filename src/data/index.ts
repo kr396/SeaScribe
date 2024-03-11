@@ -13,3 +13,7 @@ export * from './beaufortScaleEnteries';
 export * from './visibilities';
 export * from './ancillaryFieldFrequencies';
 export * from './ancillaryFieldInputControls';
+export * from './sexes';
+export * from './plumages';
+export * from './ages';
+export * from './species';
