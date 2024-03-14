@@ -20,7 +20,7 @@ export const images = {
   recoveryandroiduseusbtosmall: require('../assets/images/recoveryinformation/recovery_android_use_usb_to_small.png'),
   recoveryandroidautoplay: require('../assets/images/recoveryinformation/recovery_android_autoplay.png'),
   recoveryandroidwindowsexplorer: require('../assets/images/recoveryinformation/recovery_android_windows_explorer.png'),
-  bricolor: require('../assets/images/about/BRI_Color.png'),
+  bricolor: require('../assets/images/about/bri_color.png'),
   logoboem: require('../assets/images/about/logo_boem.png'),
   tilson: require('../assets/images/about/tilson.jpg'),
 };

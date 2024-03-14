@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   sliderLable: {
     justifyContent: 'center',
   },
-  thumbTintColor:{
-    color:colors.offWhite
-  }
+  thumbTintColor: {
+    color: colors.offWhite,
+  },
 });
 export default styles;

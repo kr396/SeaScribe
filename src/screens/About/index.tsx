@@ -1,42 +1,11 @@
-import React,{FC} from 'react';
+import React, {FC} from 'react';
 import {Image, ScrollView, Text, View, Linking} from 'react-native';
 import styles from './styles';
 import {images} from '../../constants/images';
 import {ThemeButton} from '../../components';
 import {RootStackScreenProps} from '../../navigation/types';
+import {Open_Source_Attributions} from '../../data/openSourceAttributions';
 
-
-const openSourceAttributions = [
-  {name: 'Apache Cordova', url: 'https://cordova.apache.org/'},
-  {name: 'AngularJS', url: 'https://angularjs.org/'},
-  {name: 'Ionic', url: 'https://ionicframework.com/'},
-  {name: 'jQuery', url: 'https://jquery.com/'},
-  {name: 'jQuery UI Layout', url: 'http://layout.jquery-dev.com/'},
-  {name: 'Leaflet', url: 'https://leafletjs.com/'},
-  {
-    name: 'L.TileLayer.Cordova',
-    url: 'https://github.com/gregallensworth/L.TileLayer.Cordova',
-  },
-  {name: 'esri-leaflet', url: 'https://github.com/Esri/esri-leaflet'},
-  {name: 'MomentJS', url: 'https://momentjs.com/'},
-  {name: 'Mustache', url: 'https://github.com/janl/mustache.js/'},
-  {name: 'Papa Parse', url: 'https://www.papaparse.com/'},
-  {name: 'SlickGrid', url: 'https://github.com/mleibman/SlickGrid/wiki'},
-  {name: 'Spectrum', url: 'https://bgrins.github.io/spectrum/'},
-  {name: 'Typeahead.js', url: 'https://twitter.github.io/typeahead.js/'},
-  {
-    name: 'Cordova-sqlite-storage',
-    url: 'https://github.com/storesafe/cordova-sqlite-storage',
-  },
-  {
-    name: 'Cordova Email Plugin',
-    url: 'https://github.com/katzer/cordova-plugin-email-composer',
-  },
-  {
-    name: 'Cordova Background Mode Plugin',
-    url: 'https://github.com/katzer/cordova-plugin-background-mode',
-  },
-];
 const About = ({navigation}) => {
   const url =
     'https://www.arcgis.com/home/item.html?id=1e126e7520f9466c9ca28b8f28b5e500';
@@ -148,7 +117,7 @@ const About = ({navigation}) => {
               </View>
             </View>
           </View>
-          {openSourceAttributions.map((attribution, index) => (
+          {Open_Source_Attributions.map((attribution, index) => (
             <View style={styles.content} key={index}>
               <View style={styles.policyParent1}>
                 <View>

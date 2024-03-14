@@ -65,7 +65,7 @@ export type IllustratedBeaufortScaleType = {
   photo: ImageSourcePropType;
 };
 
-export type handleItemPress = {
+export type HandleItemPress = {
   id: string;
   title: string;
   title2?: string;
@@ -75,7 +75,7 @@ export type handleItemPress = {
   hasArrow?: boolean;
 };
 
-export type manageData = {
+export type ManageDatas = {
   id: string;
   title: string;
   route: any;

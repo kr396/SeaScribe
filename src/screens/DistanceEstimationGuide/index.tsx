@@ -13,21 +13,33 @@ const DistanceEstimationGuide: FC<
     d: '50,100,200,300',
   });
   const [outputDeg, setOutputDeg] = useState([]);
+  const [required, setRequired] = useState(false);
   const tableHeaders = [
-    {label: 'Distance To Be Estimated (m)', value: 'distanceToBeEstimated',width:'50%'},
-    {label: 'Distance Below Horizon (mm)', value: 'distanceBelowHorizon',width:'50%'},
+    {
+      label: 'Distance To Be Estimated (m)',
+      value: 'distanceToBeEstimated',
+      width: '50%',
+    },
+    {
+      label: 'Distance Below Horizon (mm)',
+      value: 'distanceBelowHorizon',
+      width: '50%',
+    },
   ];
 
   const handleChangeA = (text: string) => {
     setInputDeg({...inputDeg, a: text.trim()});
+    setRequired(false);
   };
 
   const handleChangeH = (text: string) => {
     setInputDeg({...inputDeg, h: text.trim()});
+    setRequired(false);
   };
 
   const handleChangeD = (text: string) => {
     setInputDeg({...inputDeg, d: text.trim()});
+    setRequired(false);
   };
 
   const calculateDistanceEstimates = () => {
@@ -59,7 +71,6 @@ const DistanceEstimationGuide: FC<
       });
     }
 
-    // Sort by distanceBelowHorizon
     retval.sort((a, b) => a.distanceBelowHorizon - b.distanceBelowHorizon);
 
     setOutputDeg(retval);
@@ -68,8 +79,8 @@ const DistanceEstimationGuide: FC<
   const clearDistanceEstimates = () => {
     setInputDeg({a: '', h: '', d: ''});
     setOutputDeg([]);
+    setRequired(true);
   };
-
 
   return (
     <View style={styles.container}>
@@ -89,6 +100,7 @@ const DistanceEstimationGuide: FC<
             onChangeText={handleChangeA}
           />
         </View>
+        {required && <Text style={styles.required}>*Required</Text>}
         <View
           style={[
             styles.parents,
@@ -103,6 +115,7 @@ const DistanceEstimationGuide: FC<
             onChangeText={handleChangeH}
           />
         </View>
+        {required && <Text style={styles.required}>*Required</Text>}
         <View
           style={[
             styles.parents,
@@ -117,6 +130,7 @@ const DistanceEstimationGuide: FC<
             onChangeText={handleChangeD}
           />
         </View>
+        {required && <Text style={styles.required}>*Required</Text>}
         <View style={styles.buttonParent}>
           <ThemeButton
             title="Calculate"
@@ -130,7 +144,7 @@ const DistanceEstimationGuide: FC<
             onPress={clearDistanceEstimates}
           />
         </View>
-        <Table headers={tableHeaders} data={outputDeg}/>
+        <Table headers={tableHeaders} data={outputDeg} />
       </ScrollView>
     </View>
   );

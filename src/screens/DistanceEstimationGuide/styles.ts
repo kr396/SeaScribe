@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
+import {StyleSheet} from 'react-native';
+import {colors} from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -61,6 +61,10 @@ const styles = StyleSheet.create({
   },
   outPutTable: {
     marginTop: 100,
+  },
+  required: {
+    color: colors.red,
+    padding: 10,
   },
 });
 
