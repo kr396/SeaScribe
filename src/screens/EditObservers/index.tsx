@@ -1,49 +1,28 @@
 import {View, Text} from 'react-native';
 import styles from './styles';
 import {ThemeButton, Table} from '../../components';
+import {useSelector} from 'react-redux';
+import {getObservers} from '../../store/slices/appSlice';
 
 const EditObservers = () => {
-  const editobserversheader = [
-    {label: 'Del?', value: 'Del', width: '9%'},
-    {label: 'First Name', value: 'FirstName', width: '9%'},
-    {label: 'Last Name', value: 'LastName', width: '9%'},
-    {label: 'Affiliation', value: 'Affiliation', width: '10%'},
-    {label: 'Address1', value: 'Address1', width: '9%'},
-    {label: 'Address2', value: 'Address2', width: '9%'},
-    {label: 'City', value: 'City', width: '9%'},
-    {label: 'State', value: 'State', width: '9%'},
-    {label: 'Zip', value: 'Zip', width: '9%'},
-    {label: 'Phone', value: 'Phone', width: '9%'},
-    {label: 'Email', value: 'Email', width: '9%'},
-  ];
-  const editancillaryfieldsdata = [
-    {
-      Del: '',
-      FirstName: 'Association ',
-      LastName: 'Each Observation ',
-      Affiliation: '1',
-      Address1: 'Select (from a list of choices) 1',
-      Address2: 'data ',
-      City: '',
-      State: '',
-      Zip: '',
-      Phone: '',
-      Email: '',
-    },
+  const observers = useSelector(getObservers) || [];
+  const editObserversHeader = [
+    {label: 'Del?', value: 'del', width: '9%'},
+    {label: 'First Name', value: 'firstName', width: '9%'},
+    {label: 'Last Name', value: 'lastName', width: '9%'},
+    {label: 'Affiliation', value: 'affiliation', width: '10%'},
+    {label: 'Address1', value: 'address1', width: '9%'},
+    {label: 'Address2', value: 'address2', width: '9%'},
+    {label: 'City', value: 'city', width: '9%'},
+    {label: 'State', value: 'state', width: '9%'},
+    {label: 'Zip', value: 'zip', width: '9%'},
+    {label: 'Phone', value: 'phone', width: '9%'},
+    {label: 'Email', value: 'email', width: '9%'},
   ];
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
-        <ThemeButton title="Process Deletes" style={styles.deletesButton} />
-        <Table
-          headers={editobserversheader}
-          data={editancillaryfieldsdata.map((item, index) => ({
-            Del: item.Del,
-            FirstName: item.FirstName,
-            LastName: item.LastName,
-          }))}
-        />
-      </View>
+      <ThemeButton title="Process Deletes" style={styles.deletesButton} />
+      <Table headers={editObserversHeader} data={observers} />
     </View>
   );
 };

@@ -10,19 +10,19 @@ const EditAncillaryFields = () => {
   const ancillaryFields = useSelector(getAncillaryFields) || [];
 
   const editancillaryfieldsheader = [
-    {label: 'Del?', value: 'id', width: '10%'},
+    {label: 'Del?', value: 'del', width: '10%'},
     {label: 'Name', value: 'name', width: '12%'},
-    {label: 'Frequency', value: 'Frequency', width: '11%'},
-    {label: 'Sort Order', value: 'SortOrder', width: '11%'},
-    {label: 'Input Control', value: 'InputControl', width: '12%'},
+    {label: 'Frequency', value: 'frequency_id', width: '11%'},
+    {label: 'Sort Order', value: 'sort_order', width: '11%'},
+    {label: 'Input Control', value: 'input_control_id', width: '12%'},
     {
       label: 'Input Control Choice List',
-      value: 'InputControlChoiceList',
+      value: 'InputControlChoiceList', //TODO
       width: '15%',
     },
-    {label: 'Min Value', value: 'MinValue', width: '10%'},
-    {label: 'Max Value', value: 'MaxValue', width: '10%'},
-    {label: 'Max Leng...', value: 'MaxLeng', width: '10%'},
+    {label: 'Min Value', value: 'min_value', width: '10%'},
+    {label: 'Max Value', value: 'max_value', width: '10%'},
+    {label: 'Max Length', value: 'max_length', width: '10%'},
   ];
 
   return (
@@ -32,20 +32,7 @@ const EditAncillaryFields = () => {
         <ThemeButton title="Process Deletes" style={styles.deletesButton} />
       </View>
       <View style={styles.table}>
-        <Table
-          headers={editancillaryfieldsheader}
-          data={ancillaryFields.map((item, index) => ({
-            id: index.toString(),
-            name: item.name || '',
-            Frequency: item.frequency_id || '',
-            SortOrder: item.sort_order || '',
-            InputControl: item.input_control_id || '',
-            InputControlChoiceList: item.InputControlChoiceList || '',
-            MinValue: item.min_value || '',
-            MaxValue: item.max_value || '',
-            MaxLeng: item.MaxLeng || '',
-          }))}
-        />
+        <Table headers={editancillaryfieldsheader} data={ancillaryFields} />
       </View>
     </View>
   );

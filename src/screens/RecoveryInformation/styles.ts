@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   textDecoration: {
-    elevation: 1,
+    elevation: 0.5,
     borderColor: colors.offWhite,
   },
   text: {
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   },
   imageParent: {
     padding: 10,
+    overflow: 'hidden',
   },
-  images: {},
+  imageWrapper: {},
 });
 export default styles;

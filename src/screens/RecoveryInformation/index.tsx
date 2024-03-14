@@ -53,7 +53,7 @@ const RecoveryInformation = () => {
             device and your Windows system.
           </Text>
           <View style={styles.imageParent}>
-            <Image source={images.recoveryandroidwindowsexplorer} />
+            <Image source={images.recoveryandroidwindowsexplorer}/>
           </View>
         </View>
         <View style={styles.textParent} />

@@ -7,14 +7,13 @@ import {
   Image,
   FlatList,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import {images} from '../../constants/images';
 import {ThemeButton} from '../../components';
 import styles from './styles';
 import Slider from '@react-native-community/slider';
 import {Setting} from '../../types';
-import About from '../About';
 import {RootStackScreenProps} from '../../navigation/types';
 
 const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
@@ -143,8 +142,8 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
       title: 'Log every positional GP...',
       switchName: 'logeverypositionalswitch',
     },
-    {id: '45', title: 'Privacy Policy', rightArrow: true,},
-    {id: '46', title: 'About', rightArrow: true,},
+    {id: '45', title: 'Privacy Policy', rightArrow: true},
+    {id: '46', title: 'About', rightArrow: true},
   ];
 
   const handleNavigate = (screen: string) => {
@@ -159,146 +158,144 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
       <View>
         {item.isBold ? (
           <View style={styles.boldTextParent}>
-            
             <Text style={styles.boldText}>{item.title}</Text>
-            
           </View>
         ) : (
-           <TouchableOpacity onPress={() => handleNavigate(item.title)}>
-          <View style={styles.textParent} >
-            <Text style={styles.text}>{item.title}</Text>
-            {item.switchName && (
-              <Switch
-                trackColor={{false: '#E9E9EA', true: 'blue'}}
-                thumbColor={'#FFF'}
-                onValueChange={() => toggleSwitch(item.switchName as string)}
-                value={switchStates[item.switchName]}
-              />
-            )}
-            {item.input && <TextInput style={styles.textInput} />}
-            {item.input1 && <TextInput style={styles.gpsTextInput} />}
-            {item.input2 && <TextInput style={styles.gpsMaximumAgeTextInput} />}
-            {item.rightArrow && (
-              
-              <View style={styles.rightArrowParent}>
-                <Image source={images.rightArrow} style={styles.rightArrow} />
-              </View>
-            
-            )}
-            {item.initialZoomSlider && (
-              <View style={styles.sliderContainer}>
-                <View style={styles.sliderLable}>
-                  <Text style={styles.sliderText}>{initialZoomSlider}</Text>
-                </View>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={0}
-                  maximumValue={15}
-                  step={1}
-                  value={initialZoomSlider}
-                  minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'}
-                  onValueChange={value => setInitialZoomslider(value)}
+          <TouchableOpacity onPress={() => handleNavigate(item.title)}>
+            <View style={styles.textParent}>
+              <Text style={styles.text}>{item.title}</Text>
+              {item.switchName && (
+                <Switch
+                  trackColor={{false: '#E9E9EA', true: 'blue'}}
+                  thumbColor={'#FFF'}
+                  onValueChange={() => toggleSwitch(item.switchName as string)}
+                  value={switchStates[item.switchName]}
                 />
-              </View>
-            )}
-            {item.slidercirclefillopacity && (
-              <View style={styles.sliderContainer}>
-                <View style={styles.sliderLable}>
-                  <Text style={styles.sliderText}>
-                    {circleFillOpacitySlider}
-                  </Text>
+              )}
+              {item.input && <TextInput style={styles.textInput} />}
+              {item.input1 && <TextInput style={styles.gpsTextInput} />}
+              {item.input2 && (
+                <TextInput style={styles.gpsMaximumAgeTextInput} />
+              )}
+              {item.rightArrow && (
+                <View style={styles.rightArrowParent}>
+                  <Image source={images.rightArrow} style={styles.rightArrow} />
                 </View>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={0}
-                  maximumValue={100}
-                  step={1}
-                  value={circleFillOpacitySlider}
-                  minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'}
-                  onValueChange={value => setCircleFillOpacitySlider(value)}
-                />
-              </View>
-            )}
-            {item.circleradiusmultiplierslider && (
-              <View style={styles.sliderContainer}>
-                <View style={styles.sliderLable}>
-                  <Text style={styles.sliderText}>
-                    {circleRadiusMultiplierSlider}
-                  </Text>
+              )}
+              {item.initialZoomSlider && (
+                <View style={styles.sliderContainer}>
+                  <View style={styles.sliderLable}>
+                    <Text style={styles.sliderText}>{initialZoomSlider}</Text>
+                  </View>
+                  <Slider
+                    style={styles.slider}
+                    minimumValue={0}
+                    maximumValue={15}
+                    step={1}
+                    value={initialZoomSlider}
+                    minimumTrackTintColor={'blue'}
+                    thumbTintColor={'#f0f0f0'}
+                    onValueChange={value => setInitialZoomslider(value)}
+                  />
                 </View>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={1}
-                  maximumValue={20}
-                  step={1}
-                  value={circleRadiusMultiplierSlider}
-                  minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'}
-                  onValueChange={value =>
-                    setCircleRadiusMultiplierSlider(value)
-                  }
-                />
-              </View>
-            )}
-            {item.circleradiusmiminumslider && (
-              <View style={styles.sliderContainer}>
-                <View style={styles.sliderLable}>
-                  <Text style={styles.sliderText}>
-                    {circleRadiusMiminumSlider}
-                  </Text>
+              )}
+              {item.slidercirclefillopacity && (
+                <View style={styles.sliderContainer}>
+                  <View style={styles.sliderLable}>
+                    <Text style={styles.sliderText}>
+                      {circleFillOpacitySlider}
+                    </Text>
+                  </View>
+                  <Slider
+                    style={styles.slider}
+                    minimumValue={0}
+                    maximumValue={100}
+                    step={1}
+                    value={circleFillOpacitySlider}
+                    minimumTrackTintColor={'blue'}
+                    thumbTintColor={'#f0f0f0'}
+                    onValueChange={value => setCircleFillOpacitySlider(value)}
+                  />
                 </View>
-                <Slider
-                  style={styles.circleRadiusSlider}
-                  minimumValue={10}
-                  maximumValue={100}
-                  step={1}
-                  value={circleRadiusMiminumSlider}
-                  minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'}
-                  onValueChange={value => setCircleRadiusMiminumSlider(value)}
-                />
-              </View>
-            )}
-            {item.circleradiusmaximumslider && (
-              <View style={styles.sliderContainer}>
-                <View style={styles.sliderLable}>
-                  <Text style={styles.sliderText}>
-                    {circleRadiusMaximumSlider}
-                  </Text>
+              )}
+              {item.circleradiusmultiplierslider && (
+                <View style={styles.sliderContainer}>
+                  <View style={styles.sliderLable}>
+                    <Text style={styles.sliderText}>
+                      {circleRadiusMultiplierSlider}
+                    </Text>
+                  </View>
+                  <Slider
+                    style={styles.slider}
+                    minimumValue={1}
+                    maximumValue={20}
+                    step={1}
+                    value={circleRadiusMultiplierSlider}
+                    minimumTrackTintColor={'blue'}
+                    thumbTintColor={'#f0f0f0'}
+                    onValueChange={value =>
+                      setCircleRadiusMultiplierSlider(value)
+                    }
+                  />
                 </View>
-                <Slider
-                  style={styles.circleRadiusSlider}
-                  minimumValue={100}
-                  maximumValue={500}
-                  step={1}
-                  value={circleRadiusMaximumSlider}
-                  minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'}
-                  onValueChange={value => setCircleRadiusMaximumSlider(value)}
-                />
-              </View>
-            )}
-            {item.dividerwidthslider && (
-              <View style={styles.sliderContainer}>
-                <View style={styles.sliderLable}>
-                  <Text style={styles.sliderText}>{dividerWidthSlider}</Text>
+              )}
+              {item.circleradiusmiminumslider && (
+                <View style={styles.sliderContainer}>
+                  <View style={styles.sliderLable}>
+                    <Text style={styles.sliderText}>
+                      {circleRadiusMiminumSlider}
+                    </Text>
+                  </View>
+                  <Slider
+                    style={styles.circleRadiusSlider}
+                    minimumValue={10}
+                    maximumValue={100}
+                    step={1}
+                    value={circleRadiusMiminumSlider}
+                    minimumTrackTintColor={'blue'}
+                    thumbTintColor={'#f0f0f0'}
+                    onValueChange={value => setCircleRadiusMiminumSlider(value)}
+                  />
                 </View>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={5}
-                  maximumValue={40}
-                  step={1}
-                  value={dividerWidthSlider}
-                  minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'}
-                  onValueChange={value => setDividerWidthSlider(value)}
-                />
-              </View>
-            )}
-          </View>
-           </TouchableOpacity>
+              )}
+              {item.circleradiusmaximumslider && (
+                <View style={styles.sliderContainer}>
+                  <View style={styles.sliderLable}>
+                    <Text style={styles.sliderText}>
+                      {circleRadiusMaximumSlider}
+                    </Text>
+                  </View>
+                  <Slider
+                    style={styles.circleRadiusSlider}
+                    minimumValue={100}
+                    maximumValue={500}
+                    step={1}
+                    value={circleRadiusMaximumSlider}
+                    minimumTrackTintColor={'blue'}
+                    thumbTintColor={'#f0f0f0'}
+                    onValueChange={value => setCircleRadiusMaximumSlider(value)}
+                  />
+                </View>
+              )}
+              {item.dividerwidthslider && (
+                <View style={styles.sliderContainer}>
+                  <View style={styles.sliderLable}>
+                    <Text style={styles.sliderText}>{dividerWidthSlider}</Text>
+                  </View>
+                  <Slider
+                    style={styles.slider}
+                    minimumValue={5}
+                    maximumValue={40}
+                    step={1}
+                    value={dividerWidthSlider}
+                    minimumTrackTintColor={'blue'}
+                    thumbTintColor={'#f0f0f0'}
+                    onValueChange={value => setDividerWidthSlider(value)}
+                  />
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
         )}
       </View>
     );
