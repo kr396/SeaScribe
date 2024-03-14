@@ -26,6 +26,9 @@ export type RootStackParamList = {
   Table: undefined;
   RecordObservations: {surveyId: number};
   CameraScreen: undefined;
+  PrivacyPolicy: undefined;
+  About: undefined;
+  EditAncillaryFieldsTableTable: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

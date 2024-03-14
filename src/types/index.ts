@@ -39,6 +39,8 @@ export type SurveyPlatform = {
 export type SurveyPlatforms = SurveyPlatform[];
 
 export type AncillaryField = {
+  MaxLeng: string;
+  InputControlChoiceList: string;
   id: number;
   sort_order: number;
   created: Date;
@@ -112,7 +114,9 @@ export type AncillaryFieldsInputSelectOption = {
 export type Setting = {
   id: string;
   title: string;
+  route?: any;
   isBold?: boolean;
+  onpress?:string;
   switchName?: string;
   input?: boolean;
   input1?: boolean;

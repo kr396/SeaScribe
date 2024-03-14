@@ -9,4 +9,5 @@ export const colors = {
   black05: 'rgba(0,0,0,0.5)',
   yellow: '#ffc900',
   green: '#33cd5f',
+  lightgrey: '#D3D3D3',
 };

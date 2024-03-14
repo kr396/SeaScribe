@@ -7,14 +7,17 @@ import {
   Image,
   FlatList,
   ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import {images} from '../../constants/images';
 import {ThemeButton} from '../../components';
 import styles from './styles';
 import Slider from '@react-native-community/slider';
 import {Setting} from '../../types';
+import About from '../About';
+import {RootStackScreenProps} from '../../navigation/types';
 
-const Settings: React.FC = () => {
+const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
   const [initialZoomSlider, setInitialZoomslider] = useState<number>(11);
   const [circleFillOpacitySlider, setCircleFillOpacitySlider] =
     useState<number>(50);
@@ -47,7 +50,6 @@ const Settings: React.FC = () => {
       [switchName]: !prevState[switchName],
     }));
   };
-
   const data: Setting[] = [
     {id: '1', title: 'GPS', isBold: true},
     {
@@ -141,19 +143,29 @@ const Settings: React.FC = () => {
       title: 'Log every positional GP...',
       switchName: 'logeverypositionalswitch',
     },
-    {id: '45', title: 'Privacy Policy', rightArrow: true},
-    {id: '46', title: 'About', rightArrow: true},
+    {id: '45', title: 'Privacy Policy', rightArrow: true,},
+    {id: '46', title: 'About', rightArrow: true,},
   ];
 
+  const handleNavigate = (screen: string) => {
+    if (screen === 'About') {
+      navigation.navigate('About');
+    } else if (screen === 'Privacy Policy') {
+      navigation.navigate('PrivacyPolicy');
+    }
+  };
   const renderItem = ({item}: {item: Setting}) => {
     return (
       <View>
         {item.isBold ? (
           <View style={styles.boldTextParent}>
+            
             <Text style={styles.boldText}>{item.title}</Text>
+            
           </View>
         ) : (
-          <View style={styles.textParent}>
+           <TouchableOpacity onPress={() => handleNavigate(item.title)}>
+          <View style={styles.textParent} >
             <Text style={styles.text}>{item.title}</Text>
             {item.switchName && (
               <Switch
@@ -167,9 +179,11 @@ const Settings: React.FC = () => {
             {item.input1 && <TextInput style={styles.gpsTextInput} />}
             {item.input2 && <TextInput style={styles.gpsMaximumAgeTextInput} />}
             {item.rightArrow && (
+              
               <View style={styles.rightArrowParent}>
                 <Image source={images.rightArrow} style={styles.rightArrow} />
               </View>
+            
             )}
             {item.initialZoomSlider && (
               <View style={styles.sliderContainer}>
@@ -183,7 +197,7 @@ const Settings: React.FC = () => {
                   step={1}
                   value={initialZoomSlider}
                   minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'} 
+                  thumbTintColor={'#f0f0f0'}
                   onValueChange={value => setInitialZoomslider(value)}
                 />
               </View>
@@ -202,7 +216,7 @@ const Settings: React.FC = () => {
                   step={1}
                   value={circleFillOpacitySlider}
                   minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'} 
+                  thumbTintColor={'#f0f0f0'}
                   onValueChange={value => setCircleFillOpacitySlider(value)}
                 />
               </View>
@@ -221,7 +235,7 @@ const Settings: React.FC = () => {
                   step={1}
                   value={circleRadiusMultiplierSlider}
                   minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'} 
+                  thumbTintColor={'#f0f0f0'}
                   onValueChange={value =>
                     setCircleRadiusMultiplierSlider(value)
                   }
@@ -242,7 +256,7 @@ const Settings: React.FC = () => {
                   step={1}
                   value={circleRadiusMiminumSlider}
                   minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'} 
+                  thumbTintColor={'#f0f0f0'}
                   onValueChange={value => setCircleRadiusMiminumSlider(value)}
                 />
               </View>
@@ -261,7 +275,7 @@ const Settings: React.FC = () => {
                   step={1}
                   value={circleRadiusMaximumSlider}
                   minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'} 
+                  thumbTintColor={'#f0f0f0'}
                   onValueChange={value => setCircleRadiusMaximumSlider(value)}
                 />
               </View>
@@ -278,12 +292,13 @@ const Settings: React.FC = () => {
                   step={1}
                   value={dividerWidthSlider}
                   minimumTrackTintColor={'blue'}
-                  thumbTintColor={'#f0f0f0'} 
+                  thumbTintColor={'#f0f0f0'}
                   onValueChange={value => setDividerWidthSlider(value)}
                 />
               </View>
             )}
           </View>
+           </TouchableOpacity>
         )}
       </View>
     );

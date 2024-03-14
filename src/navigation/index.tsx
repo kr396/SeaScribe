@@ -24,6 +24,8 @@ import ViewGPSTestData from '../screens/ViewGPSTestData';
 import Recovery from '../screens/Recovery';
 import RecoveryInformation from '../screens/RecoveryInformation';
 import RecordObservations from '../screens/RecordObservations';
+import PrivacyPolicy from '../screens/PrivacyPolicy';
+import About from '../screens/About';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -130,6 +132,16 @@ const Router = () => {
           name="RecordObservations"
           options={{title: 'Start Transect'}}
           component={RecordObservations}
+        />
+        <Stack.Screen
+          name="PrivacyPolicy"
+          options={{title: 'Privacy Policy'}}
+          component={PrivacyPolicy}
+        />
+        <Stack.Screen
+          name="About"
+          options={{title: 'About'}}
+          component={About}
         />
       </Stack.Navigator>
     </NavigationContainer>
