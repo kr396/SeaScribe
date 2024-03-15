@@ -7,16 +7,14 @@ import {getSurveyPlatforms} from '../../store/slices/appSlice';
 const EditSurveyPlatforms = () => {
   const surveyPlatforms = useSelector(getSurveyPlatforms) || [];
   const editsurveyplatformsheader = [
-    {label: 'Del?', value: 'del', width: '20%'},
-    {label: 'Name', value: 'label', width: '30%'},
-    {label: 'Type', value: 'surveyPlatformTypeId', width: '50%'},
+    {label: 'Del?', value: 'del', width: '30%'},
+    {label: 'Name', value: 'label', width: '38%'},
+    {label: 'Type', value: 'surveyPlatformTypeId', width: '32%'},
   ];
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <ThemeButton title="Process Deletes" style={styles.deletesButton} />
-        <Table headers={editsurveyplatformsheader} data={surveyPlatforms} />
-      </ScrollView>
+      <ThemeButton title="Process Deletes" style={styles.deletesButton} />
+      <Table headers={editsurveyplatformsheader} data={surveyPlatforms} />
     </View>
   );
 };

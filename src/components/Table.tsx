@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,52 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {colors} from '../constants'
+import {colors} from '../constants';
+import CheckBox from '@react-native-community/checkbox';
 
 export const Table: FC<{
   headers: Array<{label: string; value: string; width: string}>;
   data: any[];
 }> = ({headers = [], data = []}) => {
+  const [checkedItems, setCheckedItems] = useState<{[key: string]: boolean}>(
+    {},
+  );
+
+  const toggleCheckbox = (itemId: string) => {
+    setCheckedItems(prevState => ({
+      ...prevState,
+      [itemId]: !prevState[itemId],
+    }));
+  };
+
+  const renderCell = (item: any, header: any, cellIndex: number) => {
+    if (header.value === 'del') {
+      return (
+        <TouchableOpacity
+          key={cellIndex}
+          style={[styles.cell, {width: header.width}, styles.headerCell]}>
+          <CheckBox
+            value={checkedItems[item.id] || false}
+            onValueChange={() => toggleCheckbox(item.id)}
+            tintColors={{true: 'blue'}}
+          />
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          key={cellIndex}
+          style={[
+            styles.cell,
+            {width: header.width},
+            cellIndex === 0 && styles.headerCell,
+          ]}>
+          <Text style={styles.cellText}>{item[header.value]}</Text>
+        </TouchableOpacity>
+      );
+    }
+  };
+
   const renderItem = ({item, index}: {item: any; index: number}) => {
     return (
       <View
@@ -20,17 +60,9 @@ export const Table: FC<{
           styles.row,
           index % 2 === 0 ? styles.whiteRow : styles.offWhiteRow,
         ]}>
-        {headers.map((header, cellIndex) => (
-          <TouchableOpacity
-            key={cellIndex}
-            style={[
-              styles.cell,
-              {width: header.width},
-              cellIndex === 0 && styles.headerCell,
-            ]}>
-            <Text style={styles.cellText}>{item[header.value]}</Text>
-          </TouchableOpacity>
-        ))}
+        {headers.map((header, cellIndex) =>
+          renderCell(item, header, cellIndex),
+        )}
       </View>
     );
   };
@@ -53,13 +85,13 @@ export const Table: FC<{
 
   return (
     <ScrollView
-      horizontal={true}
+      horizontal
       showsHorizontalScrollIndicator={false}
       nestedScrollEnabled>
       <View style={styles.container}>
         <FlatList
           data={data}
-          keyExtractor={index => index.toString()}
+          keyExtractor={item => item.id}
           renderItem={renderItem}
           ListHeaderComponent={listheadercomponent}
           ItemSeparatorComponent={itemseparatorcomponent}
@@ -81,6 +113,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.lightgrey,
     padding: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cellText: {
     color: colors.black,

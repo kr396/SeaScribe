@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import styles from './styles';
 import {Table} from '../../components';
 import {ThemeButton} from '../../components';
@@ -27,6 +27,7 @@ const EditAncillaryFields = () => {
 
   return (
     <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.buttons}>
         <ThemeButton title="New" style={styles.newButton} />
         <ThemeButton title="Process Deletes" style={styles.deletesButton} />
@@ -34,6 +35,7 @@ const EditAncillaryFields = () => {
       <View style={styles.table}>
         <Table headers={editancillaryfieldsheader} data={ancillaryFields} />
       </View>
+      </ScrollView>
     </View>
   );
 };

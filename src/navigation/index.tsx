@@ -115,7 +115,7 @@ const Router = () => {
         />
         <Stack.Screen
           name="ViewGPSTestData"
-          options={{title: 'View GPS Tes tData'}}
+          options={{title: 'View GPS Test Data'}}
           component={ViewGPSTestData}
         />
         <Stack.Screen
