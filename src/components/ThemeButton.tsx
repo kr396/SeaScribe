@@ -16,14 +16,14 @@ type Props = {
   title: string;
   style?: StyleProp<ViewStyle>;
   titleStyle?: StyleProp<TextStyle>;
-  mode?: 'defalue' | 'outlined' | 'clear';
+  mode?: 'default' | 'outlined' | 'clear';
 } & PressableProps;
 
 export const ThemeButton = ({
   title,
   titleStyle,
   onPress,
-  mode = 'defalue',
+  mode = 'default',
   ...props
 }: Props) => {
   const pressableStyle: StyleProp<ViewStyle> = [styles.container];
