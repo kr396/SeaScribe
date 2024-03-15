@@ -99,6 +99,7 @@ export const DropDown: FC<DropDownProps<T>> = ({
           listItemContainerStyle={styles.listItemContainerStyle}
           tickIconContainerStyle={styles.tickIconContainerStyle}
           onDirectionChanged={setDirection}
+          // listMode="SCROLLVIEW"
         />
         {showAddButton ? (
           <Pressable style={styles.addButton} onPress={onAddPress}>
