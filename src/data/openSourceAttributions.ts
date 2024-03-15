@@ -19,3 +19,6 @@ export const Open_Source_Attributions = [
   {name: 'Cordova Email Plugin', url: urls.CORDOVA_EMAIL_PLUGIN},
   {name: 'Cordova Background Mode Plugin', url: urls.CORDOVA_BACKGROUND},
 ];
+export const World_Ocean_Base = [
+  {name: 'WorldOceanBase', url: urls.WORLD_OCEAN_BASE},
+];

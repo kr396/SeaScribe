@@ -4,11 +4,12 @@ import styles from './styles';
 import {images} from '../../constants/images';
 import {ThemeButton} from '../../components';
 import {RootStackScreenProps} from '../../navigation/types';
-import {Open_Source_Attributions} from '../../data/openSourceAttributions';
+import {
+  Open_Source_Attributions,
+  World_Ocean_Base,
+} from '../../data/openSourceAttributions';
 
 const About = ({navigation}) => {
-  const url =
-    'https://www.arcgis.com/home/item.html?id=1e126e7520f9466c9ca28b8f28b5e500';
   const handleOpenURL = url => {
     Linking.openURL(url);
   };
@@ -88,7 +89,7 @@ const About = ({navigation}) => {
                   title="Go"
                   style={styles.button}
                   titleStyle={styles.titleStyle}
-                  onPress={() => Linking.openURL(url)}
+                  onPress={() => handleOpenURL(World_Ocean_Base[0].url)}
                 />
               </View>
             </View>
@@ -112,7 +113,7 @@ const About = ({navigation}) => {
                   title="Go"
                   style={styles.button}
                   titleStyle={styles.titleStyle}
-                  onPress={() => Linking.openURL(url)}
+                  onPress={() => handleOpenURL(World_Ocean_Base[0].url)}
                 />
               </View>
             </View>

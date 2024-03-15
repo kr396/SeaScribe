@@ -1,5 +1,4 @@
 export const urls = {
-  URL_NAME: 'http://www...',
   APACHE_CORDOVA: 'https://cordova.apache.org/',
   ANGULAR_JS: 'https://angularjs.org/',
   IONIC: 'https://ionicframework.com/',
@@ -20,4 +19,6 @@ export const urls = {
     'https://github.com/katzer/cordova-plugin-email-composer',
   CORDOVA_BACKGROUND:
     'https://github.com/katzer/cordova-plugin-background-mode',
+  WORLD_OCEAN_BASE:
+    'https://www.arcgis.com/home/item.html?id=1e126e7520f9466c9ca28b8f28b5e500',
 };
