@@ -67,7 +67,7 @@ export const Table: FC<{
     );
   };
 
-  const listheadercomponent = () => {
+  const listHeaderComponent = () => {
     return (
       <View style={[styles.row, styles.headerRow]}>
         {headers.map((header, index) => (
@@ -79,7 +79,7 @@ export const Table: FC<{
     );
   };
 
-  const itemseparatorcomponent = () => {
+  const itemSeparatorComponent = () => {
     return <View style={[styles.horizontalLine, styles.bottomBorderWidth]} />;
   };
 
@@ -93,8 +93,8 @@ export const Table: FC<{
           data={data}
           keyExtractor={item => item.id}
           renderItem={renderItem}
-          ListHeaderComponent={listheadercomponent}
-          ItemSeparatorComponent={itemseparatorcomponent}
+          ListHeaderComponent={listHeaderComponent}
+          ItemSeparatorComponent={itemSeparatorComponent}
         />
       </View>
     </ScrollView>

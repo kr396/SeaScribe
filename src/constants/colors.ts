@@ -10,4 +10,5 @@ export const colors = {
   yellow: '#ffc900',
   green: '#33cd5f',
   lightgrey: '#D3D3D3',
+  rgba: 'rgba(0,0,0,0.5)',
 };

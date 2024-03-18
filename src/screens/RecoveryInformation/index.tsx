@@ -27,24 +27,21 @@ const RecoveryInformation = () => {
             see something like the following:
           </Text>
           <View style={styles.imageParent}>
-            <Image
-              source={images.recoveryandroidnotificationsbarsmall}
-              style={styles.images}
-            />
+            <Image source={images.recoveryAndroidNotificationsBarSmall} />
           </View>
           <Text style={styles.text}>
             Tap "USB charging this device," which should display a set of
             choices like the following:
           </Text>
           <View style={styles.imageParent}>
-            <Image source={images.recoveryandroiduseusbtosmall} />
+            <Image source={images.recoveryAndroidUseUsbToSmall} />
           </View>
           <Text style={styles.text}>
             Tap "Transfer files." On the connected Windows system, you should
             see a dialog like this:
           </Text>
           <View style={styles.imageParent}>
-            <Image source={images.recoveryandroidautoplay} />
+            <Image source={images.recoveryAndroidAutoPlay} />
           </View>
           <Text style={styles.text}>
             Click "Open device to view files." An Explorer window should open,
@@ -53,7 +50,7 @@ const RecoveryInformation = () => {
             device and your Windows system.
           </Text>
           <View style={styles.imageParent}>
-            <Image source={images.recoveryandroidwindowsexplorer}/>
+            <Image source={images.recoveryAndroidWindowsExplorer} />
           </View>
         </View>
         <View style={styles.textParent} />

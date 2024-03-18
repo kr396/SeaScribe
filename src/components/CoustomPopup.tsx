@@ -6,11 +6,11 @@ import CheckBox from '@react-native-community/checkbox';
 
 interface CustomPopupProps {
   visible: boolean;
-  onCancel: () => void;
   titleStyle?: any;
   title: string;
   message: string;
   onConfirm: () => void;
+  onCancel: () => void;
 }
 
 export const CustomPopup: React.FC<CustomPopupProps> = ({
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: colors.rgba,
   },
   themeButtonCancel: {
     backgroundColor: colors.offWhite,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     color: colors.black,
-    marginBottom: 10, // Add margin bottom for spacing
+    marginBottom: 10,
   },
   content: {
     marginTop: 10,

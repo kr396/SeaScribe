@@ -22,6 +22,5 @@ const styles = StyleSheet.create({
     padding: 10,
     overflow: 'hidden',
   },
-  imageWrapper: {},
 });
 export default styles;
