@@ -75,7 +75,7 @@ export type HandleItemPress = {
   hasArrow?: boolean;
 };
 
-export type ManageData = {
+export type iManageData = {
   id: string;
   title: string;
   route: any;

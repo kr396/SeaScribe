@@ -8,12 +8,12 @@ import {
   Alert,
 } from 'react-native';
 import {RootStackScreenProps} from '../../navigation/types';
-import {ManageData} from '../../types';
+import {iManageData} from '../../types';
 import {images} from '../../constants/images';
 import styles from './styles';
 
 const ManageData: FC<RootStackScreenProps<'ManageData'>> = ({navigation}) => {
-  const data: ManageData[] = [
+  const data: iManageData[] = [
     {id: '1', title: 'Edit Ancillary Fields', route: 'EditAncillaryFields'},
     {id: '2', title: 'Edit Survey Platforms', route: 'EditSurveyPlatforms'},
     {id: '3', title: 'Edit Observers', route: 'EditObservers'},
@@ -41,7 +41,7 @@ const ManageData: FC<RootStackScreenProps<'ManageData'>> = ({navigation}) => {
     {id: '9', title: 'Recovery', route: 'Recovery', hasArrow: true},
   ];
 
-  const handleItemPress = (item: ManageData) => {
+  const handleItemPress = (item: iManageData) => {
     if (item.showAlert) {
       Alert.alert(
         item.title2!,
@@ -63,7 +63,7 @@ const ManageData: FC<RootStackScreenProps<'ManageData'>> = ({navigation}) => {
     }
   };
 
-  const renderItem = ({item, index}: {item: ManageData; index: number}) => (
+  const renderItem = ({item, index}: {item: iManageData; index: number}) => (
     <View style={[styles.itemContainer, index === 0 && styles.firstItem]}>
       <TouchableOpacity onPress={() => handleItemPress(item)}>
         <View style={styles.item}>
