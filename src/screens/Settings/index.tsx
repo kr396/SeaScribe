@@ -10,24 +10,28 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {images} from '../../constants/images';
-import {ThemeButton} from '../../components';
+import {ThemeButton, DropDown, InputText} from '../../components';
 import styles from './styles';
 import Slider from '@react-native-community/slider';
 import {Setting} from '../../types';
 import {RootStackScreenProps} from '../../navigation/types';
+import {CustomColorPicker} from '../../components';
+import CustomSwitch from '../../components/Switch';
+import DropboxModel from '../../components/CustomDropbox';
+import Popup from '../../components/Popup';
 
 const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
-  const [initialZoomSlider, setInitialZoomslider] = useState<number>(11);
-  const [circleFillOpacitySlider, setCircleFillOpacitySlider] =
-    useState<number>(50);
-  const [circleRadiusMultiplierSlider, setCircleRadiusMultiplierSlider] =
-    useState<number>(5);
-  const [circleRadiusMiminumSlider, setCircleRadiusMiminumSlider] =
-    useState<number>(10);
-  const [circleRadiusMaximumSlider, setCircleRadiusMaximumSlider] =
-    useState<number>(500);
-  const [dividerWidthSlider, setDividerWidthSlider] = useState<number>(20);
-  const [switchStates, setSwitchStates] = useState<{[key: string]: boolean}>({
+  const [dropboxModalVisible, setDropboxModalVisible] = useState(false);
+  const [agePopup, setAgePopup] = useState(false);
+  const [behaviorPopup, setBehaviorPopup] = useState(false);
+  const [color, setColor] = useState<{[key: string]: string}>({
+    '12': 'pink',
+    '13': 'yellow',
+    '14': 'red',
+  });
+  const [switchStates, setSwitchStates] = useState<{
+    [key: string]: boolean;
+  }>({
     atomaticgpspollingswitch: false,
     enablehighaccuracyswitch: false,
     recordfailuresswitch: false,
@@ -43,267 +47,248 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
     logeverypositionalswitch: false,
   });
 
+  const handlePress = (itemId: string) => {
+    if (itemId === '45') {
+      navigation.navigate('PrivacyPolicy');
+    } else if (itemId === '46') {
+      navigation.navigate('About');
+    } else if (itemId === '39') {
+      setDropboxModalVisible(true);
+    } else if (itemId === '31') {
+      setAgePopup(true);
+    } else if (itemId === '32') {
+      setBehaviorPopup(true);
+    }
+  };
+  const handleClosePopup = () => {
+    setAgePopup(false);
+  };
+
   const toggleSwitch = (switchName: string) => {
-    setSwitchStates(prevState => ({
+    setSwitchStates(prevState => {
+      const updatedSwitchStates = {
+        ...prevState,
+        [switchName]: !prevState[switchName],
+      };
+      return updatedSwitchStates;
+    });
+  };
+
+  const handleColorSelect = (color: string, settingId: string) => {
+    setColor(prevState => ({
       ...prevState,
-      [switchName]: !prevState[switchName],
+      [settingId]: color,
     }));
   };
+
+  const zIndexArray = {
+    4: 1,
+    42: 2,
+    43: 3,
+  };
+
   const data: Setting[] = [
-    {id: '1', title: 'GPS', isBold: true},
+    {id: '1', title: 'GPS', type: 'sectionheader'},
     {
       id: '2',
       title: 'Atomatic GPS Polling A...',
-      switchName: 'atomaticgpspollingswitch',
+      type: 'switch',
     },
-    {id: '3', title: 'Atomatic GPS Polling Interval (s)', input: true},
-    {id: '4', title: 'Atomatic GPS Polling'},
+    {id: '3', title: 'Atomatic GPS Polling Interval (s)', type: 'textinput'},
+    {id: '4', title: 'Atomatic GPS Polling', type: 'dropdown'},
     {
       id: '5',
       title: 'Enable high accuracy?',
-      switchName: 'enablehighaccuracyswitch',
+      type: 'switch',
     },
-    {id: '6', title: 'GPS Timeout (s)', input1: true},
-    {id: '7', title: 'GPS Maximum Age (S)', input2: true},
+    {id: '6', title: 'GPS Timeout (s)', type: 'textinput'},
+    {id: '7', title: 'GPS Maximum Age (S)', type: 'textinput'},
     {
       id: '8',
       title: 'Record failures during p...',
-      switchName: 'recordfailuresswitch',
+      type: 'switch',
     },
-    {id: '9', title: 'Mapping', isBold: true},
-    {id: '10', title: 'Initial Zoom', initialZoomSlider: true},
+    {id: '9', title: 'Mapping', type: 'sectionheader'},
+    {id: '10', title: 'Initial Zoom', type: 'slider'},
     {
       id: '11',
       title: 'Follow Letest GPS Logg...',
-      switchName: 'followletestgpsswitch',
+      type: 'switch',
     },
-    {id: '12', title: 'Course Line Color'},
-    {id: '13', title: 'Circle Rim Color'},
-    {id: '14', title: 'Circle Fill Color'},
-    {id: '15', title: 'Circle Fill Opacity', slidercirclefillopacity: true},
+    {id: '12', title: 'Course Line Color', type: 'colorpicker'},
+    {id: '13', title: 'Circle Rim Color', type: 'colorpicker'},
+    {id: '14', title: 'Circle Fill Color', type: 'colorpicker'},
+    {id: '15', title: 'Circle Fill Opacity', type: 'slider'},
     {
       id: '16',
       title: 'Circle Radius Multiplier',
-      circleradiusmultiplierslider: true,
+      type: 'slider',
     },
-    {id: '17', title: 'Circle Radius Miminum', circleradiusmiminumslider: true},
-    {id: '18', title: 'Circle Radius Maximum', circleradiusmaximumslider: true},
-    {id: '19', title: 'Map Cache Navigator', isBold: true},
+    {id: '17', title: 'Circle Radius Miminum', type: 'slider'},
+    {id: '18', title: 'Circle Radius Maximum', type: 'slider'},
+    {id: '19', title: 'Map Cache Navigator', type: 'sectionheader'},
     {
       id: '20',
       title: 'Show Lowest Zoom Only',
-      switchName: 'showlowestzoomswitch',
+      type: 'switch',
     },
-    {id: '21', title: 'Show Lable Tiles', switchName: 'showlabletilesswitch'},
-    {id: '22', title: 'User Interface', isBold: true},
-    {id: '23', title: 'Divider Width (pixels)', dividerwidthslider: true},
-    {id: '24', title: 'Hotkeys', isBold: true},
+    {id: '21', title: 'Show Lable Tiles', type: 'switch'},
+    {id: '22', title: 'User Interface', type: 'sectionheader'},
+    {id: '23', title: 'Divider Width (pixels)', type: 'slider'},
+    {id: '24', title: 'Hotkeys', type: 'sectionheader'},
     {
       id: '25',
       title: 'Show Quick Species Bar',
-      switchName: 'showquickspeciesbarswitch',
+      type: 'switch',
     },
-    {id: '26', title: 'Max Quick Species Button Count', input: true},
+    {id: '26', title: 'Max Quick Species Button Count', type: 'textinput'},
     {
       id: '27',
       title: 'Separate Hotkey Groups...',
-      switchName: 'separatehotkeyswitch',
+      type: 'switch',
     },
     {
       id: '28',
       title: 'Display Horizontal Rule...',
-      switchName: 'displayhorizontalswitch',
+      type: 'switch',
     },
-    {id: '29', title: 'Hotkey Button Min Width (pixels) 80'},
-    {id: '30', title: 'Hotkey Button MIn Height (pixels) 40'},
-    {id: '31', title: 'Age'},
-    {id: '32', title: 'Behavior'},
-    {id: '33', title: 'Plumage'},
-    {id: '34', title: 'Alerts', isBold: true},
+    {id: '29', title: 'Hotkey Button Min Width (pixels) 80', type: 'custom'},
+    {id: '30', title: 'Hotkey Button MIn Height (pixels) 40', type: 'custom'},
+    {id: '31', title: 'Age', type: 'custom'},
+    {id: '32', title: 'Behavior', type: 'custom'},
+    {id: '33', title: 'Plumage', type: 'custom'},
+    {id: '34', title: 'Alerts', type: 'sectionheader'},
     {
       id: '35',
       title: 'Persistent Check Activat..',
-      switchName: 'persistentCheckactivatswitch',
+      type: 'switch',
     },
-    {id: '36', title: 'Persistent Check Interval (S)', input: true},
+    {id: '36', title: 'Persistent Check Interval (S)', type: 'textinput'},
     {
       id: '37',
       title: 'Scroll to Persistent?',
-      switchName: 'scrolltopersistentswitch',
+      type: 'switch',
     },
-    {id: '38', title: 'Export', isBold: true},
-    {id: '39', title: 'Detach from Dropbox Account'},
-    {id: '40', title: 'System', isBold: true},
-    {id: '41', title: 'Debugging Mode?', switchName: 'debuggingmodeswitch'},
-    {id: '42', title: 'Logging Level'},
-    {id: '43', title: 'Persistent Log Threshold'},
+    {id: '38', title: 'Export', type: 'sectionheader'},
+    {id: '39', title: 'Detach from Dropbox Account', type: 'custom'},
+    {id: '40', title: 'System', type: 'sectionheader'},
+    {id: '41', title: 'Debugging Mode?', type: 'switch'},
+    {id: '42', title: 'Logging Level', type: 'dropdown'},
+    {id: '43', title: 'Persistent Log Threshold', type: 'dropdown'},
     {
       id: '44',
       title: 'Log every positional GP...',
-      switchName: 'logeverypositionalswitch',
+      type: 'switch',
     },
-    {id: '45', title: 'Privacy Policy', rightArrow: true},
-    {id: '46', title: 'About', rightArrow: true},
+    {id: '45', title: 'Privacy Policy', type: 'custom', showRightArrow: true},
+    {id: '46', title: 'About', type: 'custom', showRightArrow: true},
   ];
-
-  const handleNavigate = (screen: string) => {
-    if (screen === 'About') {
-      navigation.navigate('About');
-    } else if (screen === 'Privacy Policy') {
-      navigation.navigate('PrivacyPolicy');
-    }
-  };
+  const popupData = [
+    {id: '1', label: 'Ad - Adult [Ad]'},
+    {id: '2', label: 'imm - Immature [Imm]'},
+    {id: '3', label: 'Juv - Juvenile [Juv]'},
+    {id: '4', label: 'Subad - subadult [Subad]'},
+    {id: '5', label: '1C-First cycle [1C]'},
+    {id: '6', label: '2C - Second cycle [2C]'},
+    {id: '7', label: '3C - Third cycle [3C]'},
+    {id: '8', label: '4C - Fourth year [4C]'},
+    {id: '9', label: '1Y - First year [1Y]'},
+    {id: '10', label: '2Y - Second year [2Y]'},
+    {id: '11', label: '3Y - Third year [3Y]'},
+    {id: '12', label: '4Y - Fourth year [4Y]'},
+    {id: '13', label: '5Y - Fifth year [5Y]'},
+    {id: '14', label: '6Y - Sixth year [6Y]'},
+    {id: '15', label: '7Y - Seventh year [7Y]'},
+    {id: '16', label: 'Unknown - Unknown [Unk]'},
+  ];
   const renderItem = ({item}: {item: Setting}) => {
-    return (
-      <View>
-        {item.isBold ? (
+    const zIndex = zIndexArray[item.id];
+
+    switch (item.type) {
+      case 'sectionheader':
+        return (
           <View style={styles.boldTextParent}>
             <Text style={styles.boldText}>{item.title}</Text>
           </View>
-        ) : (
-          <TouchableOpacity onPress={() => handleNavigate(item.title)}>
-            <View style={styles.textParent}>
-              <Text style={styles.text}>{item.title}</Text>
-              {item.switchName && (
-                <Switch
-                  trackColor={{false: '#E9E9EA', true: 'blue'}}
-                  thumbColor={'#FFF'}
-                  onValueChange={() => toggleSwitch(item.switchName as string)}
-                  value={switchStates[item.switchName]}
+        );
+      case 'switch':
+        return (
+          <CustomSwitch
+            label={item.title}
+            value={switchStates[item.id]}
+            onToggle={() => toggleSwitch(item.id)}
+            thumbColor="white"
+          />
+        );
+      case 'textinput':
+        return (
+          <InputText
+            lable={item.title}
+            inputProps={{
+              style: styles.textInput,
+            }}
+            containerStyle={styles.inputprop}
+          />
+        );
+      case 'slider':
+        return (
+          <View style={styles.textParent}>
+            <Text style={styles.text}>{item.title}</Text>
+
+            <Slider
+              style={styles.slider}
+              minimumValue={10}
+              maximumValue={200}
+            />
+          </View>
+        );
+      case 'colorpicker':
+        return (
+          <CustomColorPicker
+            title={item.title}
+            style={styles.textParent}
+            value={color[item.id]}
+            onSelectColor={color => handleColorSelect(color, item.id)}
+          />
+        );
+      case 'dropdown':
+        return (
+          <DropDown
+            style={[styles.dropDown, {zIndex: zIndexArray[item.id]}]}
+            items={[
+              {label: 'Item 1', value: 'item1'},
+              {label: 'Item 2', value: 'item2'},
+            ]}
+            value={null}
+            lable={item.title}
+            // zIndex={zIndexArray[item.id]}
+          />
+        );
+      case 'custom':
+        return (
+          <TouchableOpacity
+            style={styles.textParent}
+            onPress={() => handlePress(item.id)}>
+            <Text style={styles.text}>{item.title}</Text>
+            {item.showRightArrow && (
+              <View style={styles.rightArrowParent}>
+                <Image
+                  source={images.rightArrow}
+                  style={styles.rightArrow}
+                  resizeMode="contain"
                 />
-              )}
-              {item.input && <TextInput style={styles.textInput} />}
-              {item.input1 && <TextInput style={styles.gpsTextInput} />}
-              {item.input2 && (
-                <TextInput style={styles.gpsMaximumAgeTextInput} />
-              )}
-              {item.rightArrow && (
-                <View style={styles.rightArrowParent}>
-                  <Image source={images.rightArrow} style={styles.rightArrow} />
-                </View>
-              )}
-              {item.initialZoomSlider && (
-                <View style={styles.sliderContainer}>
-                  <View style={styles.sliderLable}>
-                    <Text style={styles.sliderText}>{initialZoomSlider}</Text>
-                  </View>
-                  <Slider
-                    style={styles.slider}
-                    minimumValue={0}
-                    maximumValue={15}
-                    step={1}
-                    value={initialZoomSlider}
-                    minimumTrackTintColor={'blue'}
-                    thumbTintColor={'#f0f0f0'}
-                    onValueChange={value => setInitialZoomslider(value)}
-                  />
-                </View>
-              )}
-              {item.slidercirclefillopacity && (
-                <View style={styles.sliderContainer}>
-                  <View style={styles.sliderLable}>
-                    <Text style={styles.sliderText}>
-                      {circleFillOpacitySlider}
-                    </Text>
-                  </View>
-                  <Slider
-                    style={styles.slider}
-                    minimumValue={0}
-                    maximumValue={100}
-                    step={1}
-                    value={circleFillOpacitySlider}
-                    minimumTrackTintColor={'blue'}
-                    thumbTintColor={'#f0f0f0'}
-                    onValueChange={value => setCircleFillOpacitySlider(value)}
-                  />
-                </View>
-              )}
-              {item.circleradiusmultiplierslider && (
-                <View style={styles.sliderContainer}>
-                  <View style={styles.sliderLable}>
-                    <Text style={styles.sliderText}>
-                      {circleRadiusMultiplierSlider}
-                    </Text>
-                  </View>
-                  <Slider
-                    style={styles.slider}
-                    minimumValue={1}
-                    maximumValue={20}
-                    step={1}
-                    value={circleRadiusMultiplierSlider}
-                    minimumTrackTintColor={'blue'}
-                    thumbTintColor={'#f0f0f0'}
-                    onValueChange={value =>
-                      setCircleRadiusMultiplierSlider(value)
-                    }
-                  />
-                </View>
-              )}
-              {item.circleradiusmiminumslider && (
-                <View style={styles.sliderContainer}>
-                  <View style={styles.sliderLable}>
-                    <Text style={styles.sliderText}>
-                      {circleRadiusMiminumSlider}
-                    </Text>
-                  </View>
-                  <Slider
-                    style={styles.circleRadiusSlider}
-                    minimumValue={10}
-                    maximumValue={100}
-                    step={1}
-                    value={circleRadiusMiminumSlider}
-                    minimumTrackTintColor={'blue'}
-                    thumbTintColor={'#f0f0f0'}
-                    onValueChange={value => setCircleRadiusMiminumSlider(value)}
-                  />
-                </View>
-              )}
-              {item.circleradiusmaximumslider && (
-                <View style={styles.sliderContainer}>
-                  <View style={styles.sliderLable}>
-                    <Text style={styles.sliderText}>
-                      {circleRadiusMaximumSlider}
-                    </Text>
-                  </View>
-                  <Slider
-                    style={styles.circleRadiusSlider}
-                    minimumValue={100}
-                    maximumValue={500}
-                    step={1}
-                    value={circleRadiusMaximumSlider}
-                    minimumTrackTintColor={'blue'}
-                    thumbTintColor={'#f0f0f0'}
-                    onValueChange={value => setCircleRadiusMaximumSlider(value)}
-                  />
-                </View>
-              )}
-              {item.dividerwidthslider && (
-                <View style={styles.sliderContainer}>
-                  <View style={styles.sliderLable}>
-                    <Text style={styles.sliderText}>{dividerWidthSlider}</Text>
-                  </View>
-                  <Slider
-                    style={styles.slider}
-                    minimumValue={5}
-                    maximumValue={40}
-                    step={1}
-                    value={dividerWidthSlider}
-                    minimumTrackTintColor={'blue'}
-                    thumbTintColor={'#f0f0f0'}
-                    onValueChange={value => setDividerWidthSlider(value)}
-                  />
-                </View>
-              )}
-            </View>
+              </View>
+            )}
           </TouchableOpacity>
-        )}
-      </View>
-    );
+        );
+      default:
+        return null;
+    }
   };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={{flex: 1, backgroundColor: '#FFF'}}>
+      <View style={styles.content}>
         <FlatList
           data={data}
           renderItem={renderItem}
@@ -318,6 +303,32 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
           />
         </View>
       </View>
+      {dropboxModalVisible && (
+        <DropboxModel
+          visible={dropboxModalVisible}
+          onCancel={() => setDropboxModalVisible(false)}
+          onConfirm={() => {
+            setDropboxModalVisible(false);
+          }}
+        />
+      )}
+      {agePopup && (
+        <Popup
+          visible={agePopup}
+          title={'Edit Age Hotkeys'}
+          data={popupData}
+          onRequestClose={handleClosePopup}
+        />
+      )}
+
+      {/* {behaviorPopup && (
+        <Popup
+          visible={behaviorPopup}
+          title={'Edit Behavior Hotkeys'}
+          data={popupData}
+          onRequestClose={handleClosePopup}
+        />
+      )} */}
     </ScrollView>
   );
 };

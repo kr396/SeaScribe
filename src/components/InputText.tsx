@@ -40,7 +40,7 @@ export const InputText: FC<InputTextProps> = ({
   return (
     <View style={[styles.containerStyle, containerStyle, deviceViseStyle]}>
       <View style={[styles.container, {borderColor}, style]}>
-        <Text style={styles.lable}>{lable}</Text>
+        <Text style={[styles.lable]}>{lable}</Text>
         <TextInput
           selectionColor={colors.black}
           {...inputProps}

@@ -112,20 +112,17 @@ export type AncillaryFieldsInputSelectOption = {
 export type Setting = {
   id: string;
   title: string;
+  type:
+    | 'sectionheader'
+    | 'switch'
+    | 'dropdown'
+    | 'colorpicker'
+    | 'slider'
+    | 'textinput'
+    | 'custom';
   route?: any;
-  isBold?: boolean;
-  onpress?: string;
-  switchName?: string;
-  input?: boolean;
-  input1?: boolean;
-  input2?: boolean;
-  rightArrow?: boolean;
-  initialZoomSlider?: boolean;
-  slidercirclefillopacity?: boolean;
-  circleradiusmultiplierslider?: boolean;
-  circleradiusmiminumslider?: boolean;
-  circleradiusmaximumslider?: boolean;
-  dividerwidthslider?: boolean;
+  onPress?: string;
+  showRightArrow?: boolean;
 };
 export type About = {
   name: string;

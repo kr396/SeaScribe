@@ -1,31 +1,44 @@
 import React, {FC, useState} from 'react';
-import {Button, Pressable, StyleSheet, Text, View} from 'react-native';
-
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import ColorPickerModal from './ColorPickerModal';
-import {colorKit} from 'reanimated-color-picker';
 import {colors} from '../../constants';
 
 type Props = {
-  value: string;
+  value: string | null;
   title: string;
   onSelectColor: (colors: string) => void;
+  style: any;
 };
 
-export const CustomColorPicker: FC<Props> = ({value, title, onSelectColor}) => {
+export const CustomColorPicker: FC<Props> = ({
+  value,
+  title,
+  onSelectColor,
+  style,
+}) => {
   const [showModal, setShowModal] = useState(false);
-
+  const defaultColor = '#FFFFFF';
   return (
     <>
-      <Pressable style={styles.container} onPress={() => setShowModal(true)}>
+      <Pressable
+        style={[styles.container, style]}
+        onPress={() => setShowModal(true)}>
         <Text style={styles.titleStyle}>{title}</Text>
-        <View style={[styles.colorBox, {backgroundColor: value}]}></View>
+        <View
+          style={[
+            styles.colorBox,
+            {backgroundColor: value || defaultColor},
+          ]}></View>
       </Pressable>
       {showModal && (
         <ColorPickerModal
           visible={showModal}
-          value={value}
+          value={value || defaultColor}
           onRequestClose={() => setShowModal(false)}
-          onSelectColor={onSelectColor}
+          onSelectColor={color => {
+            setShowModal(false);
+            onSelectColor(color);
+          }}
         />
       )}
     </>

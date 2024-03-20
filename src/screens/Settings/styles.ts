@@ -28,31 +28,8 @@ const styles = StyleSheet.create({
     color: colors.black,
     alignSelf: 'center',
   },
-  textInput: {
-    backgroundColor: colors.offWhite,
-    borderRadius: 15,
-    height: 40,
-    width: 40,
-    padding: 8,
-    margin: 5,
-  },
-  gpsTextInput: {
-    backgroundColor: colors.offWhite,
-    borderRadius: 10,
-    height: 30,
-    width: 160,
-    padding: 8,
-    margin: 5,
-    marginTop: 10,
-  },
-  gpsMaximumAgeTextInput: {
-    backgroundColor: colors.offWhite,
-    borderRadius: 10,
-    height: 30,
-    width: 120,
-    padding: 8,
-    margin: 5,
-    marginTop: 10,
+  inputprop: {
+    height: 60,
   },
   boldText: {
     color: colors.black,
@@ -83,25 +60,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 5,
   },
-  sliderContainer: {
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
-  },
   slider: {
-    width: '40%',
+    width: '20%',
   },
-  circleRadiusSlider: {
-    width: '30%',
-    paddingRight: 60,
+  textInput: {
+    fontSize: 14,
+    flex: 0.2,
+    padding: 0,
   },
-  sliderText: {
-    color: colors.black,
+  dropDown: {
+    marginTop: 10,
   },
-  sliderLable: {
-    justifyContent: 'center',
-  },
-  thumbTintColor: {
-    color: colors.offWhite,
+  content: {
+    flex: 1,
+    backgroundColor: '#FFF',
   },
 });
 export default styles;
