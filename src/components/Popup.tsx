@@ -33,11 +33,18 @@ const Popup = ({visible, title, data, onRequestClose}: Popup) => {
     });
   };
 
-  const renderItem = ({item}: {item: {id: string; label: string}}) => {
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: {id: string; label: string};
+    index: number;
+  }) => {
     const isSelected = selectedIds.includes(item.id);
 
     return (
-      <View style={styles.checkBoxParent}>
+      <View
+        style={[styles.checkBoxParent, index === 0 && styles.containerWidth]}>
         <View style={styles.itemContainer}>
           <CheckBox
             value={isSelected}
@@ -45,7 +52,9 @@ const Popup = ({visible, title, data, onRequestClose}: Popup) => {
             tintColors={{true: 'blue'}}
             style={styles.checkbox}
           />
-          <Text style={styles.label}>{item.label}</Text>
+          <Text numberOfLines={1} style={styles.label}>
+            {item.label}
+          </Text>
         </View>
       </View>
     );
@@ -72,6 +81,7 @@ const Popup = ({visible, title, data, onRequestClose}: Popup) => {
               renderItem={renderItem}
               keyExtractor={item => item.id}
               contentContainerStyle={styles.flatlistContent}
+              nestedScrollEnabled={true}
             />
             <View style={styles.buttonParent}>
               <ThemeButton
@@ -117,44 +127,51 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 20,
     fontWeight: 'bold',
+    alignItems: 'flex-start',
   },
   cancelBtn: {
-    width: 130,
+    width: 110,
     backgroundColor: colors.white,
+    alignItems: 'flex-start',
+    height: 40,
+    borderRadius: 4,
   },
   padder: {
-    width: 70,
+    width: 0,
   },
   cancel: {
     color: colors.black,
-    fontSize: 16,
+    fontSize: 14,
+    alignSelf: 'center',
+    marginTop: 8,
   },
   main: {
-    flex: 3,
+    flex: 1,
     backgroundColor: colors.white,
+    flexDirection: 'column',
   },
   flatlistContent: {
     flexGrow: 1,
-    marginTop: 10,
     paddingHorizontal: 10,
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
+    marginLeft: 4,
   },
   checkbox: {
     alignSelf: 'center',
+    marginLeft: 8,
   },
   label: {
-    marginLeft: 8,
+    marginRight: 32,
     color: colors.black,
+    padding: 16,
   },
   buttonParent: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 25,
   },
   themeButtonCancel: {
     backgroundColor: colors.primary,
@@ -172,10 +189,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 45,
     width: 100,
-    backgroundColor: colors.lightgrey,
-  },
-  checkBoxParent: {
+    backgroundColor: colors.offWhite,
     borderWidth: 1,
     borderColor: colors.lightgrey,
+  },
+  checkBoxParent: {
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: colors.lightgrey,
+  },
+  containerWidth: {
+    borderTopWidth: 1,
   },
 });

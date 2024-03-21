@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: colors.white,
   },
+  itemContainer: {
+    marginTop: 10, 
+  },
   boldTextParent: {
     marginTop: 20,
     backgroundColor: colors.offWhite,
@@ -76,4 +79,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
 });
+
 export default styles;

@@ -24,10 +24,11 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
   const [dropboxModalVisible, setDropboxModalVisible] = useState(false);
   const [agePopup, setAgePopup] = useState(false);
   const [behaviorPopup, setBehaviorPopup] = useState(false);
+  const [plumagePopup, setPlumagePopup] = useState(false);
   const [color, setColor] = useState<{[key: string]: string}>({
-    '12': 'pink',
-    '13': 'yellow',
-    '14': 'red',
+    '12': '#0000FF',
+    '13': '#FF0000',
+    '14': '#FF0000',
   });
   const [switchStates, setSwitchStates] = useState<{
     [key: string]: boolean;
@@ -58,12 +59,19 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
       setAgePopup(true);
     } else if (itemId === '32') {
       setBehaviorPopup(true);
+    } else if (itemId === '33') {
+      setPlumagePopup(true);
     }
   };
   const handleClosePopup = () => {
     setAgePopup(false);
   };
-
+  const plumageHotkeysPopup = () => {
+    setPlumagePopup(false);
+  };
+  const behavioraHotkeys = () => {
+    setBehaviorPopup(false);
+  };
   const toggleSwitch = (switchName: string) => {
     setSwitchStates(prevState => {
       const updatedSwitchStates = {
@@ -201,6 +209,206 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
     {id: '15', label: '7Y - Seventh year [7Y]'},
     {id: '16', label: 'Unknown - Unknown [Unk]'},
   ];
+  const behaviorData = [
+    {
+      id: 1,
+      label: 'Flying',
+      code: 'Fly',
+      description: 'Include flight direction',
+      notes:
+        'Flying - when a bird or bat is flying be sure to record flight direction',
+    },
+    {
+      id: 2,
+      label: 'Sitting',
+      code: 'Sit',
+      description: 'Bird sitting on water or object',
+      notes:
+        'Bird sitting on the water. If sitting on an object use this code and make a note saying what it is on',
+    },
+    {
+      id: 3,
+      label: 'Milling',
+      code: 'Mill',
+      description: 'Circling above water, potentially feeding',
+      notes:
+        'Not flying in any specific direction but circling around above the water. This can indicate birds in a feeding flock',
+    },
+    {
+      id: 4,
+      label: 'Feeding',
+      code: 'Feed',
+      description: 'Actively feeding',
+      notes: 'Active feeding behaviors observed. More specific codes below',
+    },
+    {
+      id: 5,
+      label: 'Plunge Diving',
+      code: 'PD',
+      description: 'Specific to birds that feed by plunge diving',
+      notes:
+        'Specific to birds that feed by plunge diving (gannets, terns, sometimes shearwaters or gulls)',
+    },
+    {
+      id: 6,
+      label: 'Pattering',
+      code: 'Pat',
+      description:
+        'Flying low and hitting the water’s surface with feet (Storm-Petrels)',
+      notes:
+        'Flying low and hitting the water’s surface with feet, as Storm-Petrels',
+    },
+    {
+      id: 7,
+      label: 'Scavenging',
+      code: 'Scav',
+      description: 'Using any method to eat discarded fish and offal',
+      notes:
+        'foraging at fishing vessel, deploying any method to obtain discarded fish and offal; Storm-Petrels in the wake of trawlers picking up small morsels should be excluded',
+    },
+    {
+      id: 8,
+      label: 'Kleptoparasitizing',
+      code: 'Klepto',
+      description: 'Pursuit to steal food from another bird',
+      notes: 'Pursuit to steal food from another bird',
+    },
+    {
+      id: 9,
+      label: 'Carrying fish',
+      code: 'Carry',
+      description: 'Carrying fish towards the colony',
+      notes: 'holding or carrying fish towards the colony',
+    },
+    {
+      id: 10,
+      label: 'Diving',
+      code: 'Dive',
+      description: 'Animal at the surface dives under water',
+      notes: 'Animal at the surface dives under water',
+    },
+    {
+      id: 11,
+      label: 'Taking Off',
+      code: 'TO',
+      description: 'Bird taking off from the water',
+      notes: 'Bird taking off from the water',
+    },
+    {
+      id: 12,
+      label: 'Following',
+      code: 'Follow',
+      description:
+        'Use when bird has been counted once and continues to follow boat',
+      notes:
+        'Bird following the boat. This code should be used when a bird has already been counted once, and continues to follow along with the boat',
+    },
+    {
+      id: 13,
+      label: 'Resting',
+      code: 'Rest',
+      description: 'Resting or apparently sleeping',
+      notes: 'bird resting or apparently sleeping - sleeping at sea',
+    },
+    {
+      id: 14,
+      label: 'Stationary',
+      code: 'Stat',
+      description: 'Non-avian animal',
+      notes: 'Non-avian animal stationary in the water',
+    },
+    {
+      id: 15,
+      label: 'Swimming',
+      code: 'Swim',
+      description: 'Non-avian animal, indicate direction',
+      notes: 'Non-avian animal swimming - indicate direction of movement',
+    },
+    {
+      id: 16,
+      label: 'Porpoising',
+      code: 'Porp',
+      description:
+        'Moving through water like porpoise, up & down through water',
+      notes:
+        'Marine mammal moving through the water like a porpoise, up and down through the water',
+    },
+    {
+      id: 17,
+      label: 'Breaching',
+      code: 'Breach',
+      description:
+        'Whale rising up, breaking through surface, splashing back down into water',
+      notes:
+        'Whale rising up and breaking through the surface of the water and splashing back down into the water',
+    },
+    {
+      id: 18,
+      label: 'Blowing',
+      code: 'Blow',
+      description: 'Whale blowing from its spout at the surface',
+      notes: 'Whale blowing from its spout at the surface',
+    },
+    {
+      id: 19,
+      label: 'Under attack',
+      code: 'UA',
+      description: 'Attacked by kleptoparasitizing bird in air or on water',
+      notes: 'Attacked by kleptoparasitizing bird in air or on water',
+    },
+    {
+      id: 20,
+      label: 'Injured',
+      code: 'Inj',
+      description: 'Clear injuries on bird (e.g. broken wing)',
+      notes: 'Clear injuries on bird such as broken wing or bleeding wound',
+    },
+    {
+      id: 21,
+      label: 'Oiled',
+      code: 'Oil',
+      description: 'Contaminated with oil',
+      notes: 'bird contaminated with oil',
+    },
+    {
+      id: 22,
+      label: 'Sick/unwell',
+      code: 'Sick',
+      description: 'Weakened individual but no obvious injury',
+      notes:
+        'weakened individuals not behaving as normal, healthy birds, but without obvious injuries',
+    },
+    {
+      id: 23,
+      label: 'Dead',
+      code: 'Dead',
+      description: 'Dead animal',
+      notes: 'Dead animal',
+    },
+    {
+      id: 24,
+      label: 'Unknown',
+      code: 'Unk',
+      description: 'Unknown',
+      notes: 'Unknown',
+    },
+    {id: 25, label: 'Other', code: 'Oth', description: 'Other', notes: 'Other'},
+  ];
+  const plumageData = [
+    {id: 1, label: 'B - Breeding/Alternate spring and summer plumage'},
+    {id: 2, label: 'NB - Non-breeding/Basic fall and winter plumage'},
+    {id: 3, label: 'M - Flight feathers moulting'},
+    {id: 4, label: 'D - Dark phase'},
+    {id: 5, label: 'L - Light phase'},
+    {id: 6, label: 'GP1 - Gannet plumage 1'},
+    {id: 7, label: 'GP2 - Gannet plumage 2'},
+    {id: 8, label: 'GP3 - Gannet plumage 3'},
+    {id: 9, label: 'GP4 - Gannet plumage 4'},
+    {id: 10, label: 'GP5 - Gannet plumage 5'},
+    {id: 11, label: 'GP6 - Gannet plumage 6'},
+    {id: 12, label: 'Unknown - Unknown'},
+  ];
+
   const renderItem = ({item}: {item: Setting}) => {
     const zIndex = zIndexArray[item.id];
 
@@ -254,14 +462,13 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
       case 'dropdown':
         return (
           <DropDown
-            style={[styles.dropDown, {zIndex: zIndexArray[item.id]}]}
+            style={[styles.dropDown, zIndex]}
             items={[
               {label: 'Item 1', value: 'item1'},
               {label: 'Item 2', value: 'item2'},
             ]}
             value={null}
             lable={item.title}
-            // zIndex={zIndexArray[item.id]}
           />
         );
       case 'custom':
@@ -321,14 +528,22 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
         />
       )}
 
-      {/* {behaviorPopup && (
+      {behaviorPopup && (
         <Popup
           visible={behaviorPopup}
           title={'Edit Behavior Hotkeys'}
-          data={popupData}
-          onRequestClose={handleClosePopup}
+          data={behaviorData}
+          onRequestClose={behavioraHotkeys}
         />
-      )} */}
+      )}
+      {plumagePopup && (
+        <Popup
+          visible={plumagePopup}
+          title={'Edit Behavior Hotkeys'}
+          data={plumageData}
+          onRequestClose={plumageHotkeysPopup}
+        />
+      )}
     </ScrollView>
   );
 };
