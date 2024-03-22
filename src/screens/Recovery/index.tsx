@@ -1,13 +1,16 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {View, Text, Alert} from 'react-native';
 import styles from './styles';
 import {RootStackScreenProps} from '../../navigation/types';
+import {CustomPopup} from '../../components/CoustomPopup';
 
 const Recovery: FC<RootStackScreenProps<'Recovery'>> = ({navigation}) => {
+  const [showRestorePopup, setShowRestorePopup] = useState(false);
+
   const handleBackupPress = () => {
     Alert.alert(
       'Confirmation Required',
-      'Performing a full application backup may take some time.are you sure?',
+      'Performing a full application backup may take some time. Are you sure?',
       [
         {
           text: 'Cancel',
@@ -22,22 +25,8 @@ const Recovery: FC<RootStackScreenProps<'Recovery'>> = ({navigation}) => {
     );
   };
 
-  const handleRestorePress = () => {
-    Alert.alert(
-      'Select Location Where Backup Was Performed',
-      '',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'OK',
-          onPress: () => {},
-        },
-      ],
-      {cancelable: false},
-    );
+  const toggleRestorePopup = () => {
+    setShowRestorePopup(!showRestorePopup);
   };
 
   return (
@@ -68,11 +57,21 @@ const Recovery: FC<RootStackScreenProps<'Recovery'>> = ({navigation}) => {
           </Text>
         </View>
         <View style={styles.backupRestoreParent}>
-          <Text style={styles.backupRestore} onPress={handleRestorePress}>
+          <Text style={styles.backupRestore} onPress={toggleRestorePopup}>
             Restore
           </Text>
         </View>
       </View>
+
+      <CustomPopup
+        visible={showRestorePopup}
+        onCancel={toggleRestorePopup}
+        title="Select Location Where Backup Was Performed"
+        message=""
+        onConfirm={() => {
+          toggleRestorePopup();
+        }}
+      />
     </View>
   );
 };

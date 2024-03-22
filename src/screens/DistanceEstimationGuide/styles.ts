@@ -12,6 +12,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderColor: colors.offWhite,
   },
+  parentsInvalidInput: {
+    borderWidth: 1,
+    marginVertical: 16,
+    marginHorizontal: 16,
+    borderColor: colors.red,
+  },
   parentsText: {
     marginVertical: 16,
     marginHorizontal: 16,
@@ -20,9 +26,8 @@ const styles = StyleSheet.create({
   inputText: {
     backgroundColor: colors.offWhite,
     marginHorizontal: 16,
-    borderRadius: 15,
+    borderRadius: 10,
     height: 30,
-    lineHeight: 30,
     paddingLeft: 10,
     paddingBottom: 0,
     paddingTop: 0,
@@ -54,5 +59,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.offWhite,
   },
+  outPutTable: {
+    marginTop: 100,
+  },
+  required: {
+    color: colors.red,
+    padding: 10,
+  },
 });
+
 export default styles;

@@ -4,7 +4,7 @@ import {colors} from '../../constants';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 5,
+    padding: 10,
     backgroundColor: colors.white,
   },
   deletesButton: {

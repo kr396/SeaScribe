@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     paddingEnd: 8,
     paddingVertical: 8,
     borderColor: colors.offWhite,
+    width: '100%',
   },
   lable: {
     flex: 1,

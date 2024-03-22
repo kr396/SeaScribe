@@ -16,4 +16,11 @@ export const images = {
   beaufortScale10: require('../assets/images/beaufort/beaufort_scale_10.jpg'),
   beaufortScale11: require('../assets/images/beaufort/beaufort_scale_11.jpg'),
   beaufortScale12: require('../assets/images/beaufort/beaufort_scale_12.jpg'),
+  recoveryAndroidNotificationsBarSmall: require('../assets/images/recoveryinformation/recovery_android_notifications_bar_small.png'),
+  recoveryAndroidUseUsbToSmall: require('../assets/images/recoveryinformation/recovery_android_use_usb_to_small.png'),
+  recoveryAndroidAutoPlay: require('../assets/images/recoveryinformation/recovery_android_autoplay.png'),
+  recoveryAndroidWindowsExplorer: require('../assets/images/recoveryinformation/recovery_android_windows_explorer.png'),
+  bricolor: require('../assets/images/about/bri_color.png'),
+  logoboem: require('../assets/images/about/logo_boem.png'),
+  tilson: require('../assets/images/about/tilson.jpg'),
 };

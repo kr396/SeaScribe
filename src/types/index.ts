@@ -65,17 +65,17 @@ export type IllustratedBeaufortScaleType = {
   photo: ImageSourcePropType;
 };
 
-export type handleItemPress = {
+export type HandleItemPress = {
   id: string;
   title: string;
-  title2?: string; 
-  route?: string; 
-  showAlert?: boolean; 
-  message?: string; 
-  hasArrow?: boolean; 
+  title2?: string;
+  route?: string;
+  showAlert?: boolean;
+  message?: string;
+  hasArrow?: boolean;
 };
 
-export type manageData = {
+export type IManageData = {
   id: string;
   title: string;
   route: any;
@@ -83,7 +83,7 @@ export type manageData = {
   showAlert?: boolean;
   message?: string;
   hasArrow?: boolean;
-}
+};
 
 export type Survey = {
   id: number;
@@ -109,3 +109,22 @@ export type AncillaryFieldsInputSelectOption = {
   text: string;
 };
 
+export type Setting = {
+  id: string;
+  title: string;
+  type:
+    | 'sectionheader'
+    | 'switch'
+    | 'dropdown'
+    | 'colorpicker'
+    | 'slider'
+    | 'textinput'
+    | 'custom';
+  route?: string;
+  onPress?: string;
+  showRightArrow?: boolean;
+};
+export type About = {
+  name: string;
+  url: string;
+};

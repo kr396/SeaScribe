@@ -8,7 +8,7 @@ import {ThemeButton} from '../../../components';
 import {colors} from '../../../constants';
 import {scale} from '../../../utils';
 import {useNavigation} from '@react-navigation/native';
-import Popup from '../../../components/Popup';
+import Popup from '../../../components/CustomPopup';
 
 type Props = {
   onSavePress: () => void;

@@ -10,15 +10,12 @@ const styles = StyleSheet.create({
   text: {
     color: colors.black,
   },
-  buttonParent: {
-    marginTop: 10,
-  },
   deleteButton: {
     height: 40,
     width: 160,
     backgroundColor: colors.red,
     borderRadius: 5,
-    marginTop: 10,
+    marginTop: 20,
   },
 });
 export default styles;

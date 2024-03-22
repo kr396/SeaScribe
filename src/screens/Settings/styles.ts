@@ -1,10 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
     backgroundColor: colors.white,
+  },
+  itemContainer: {
+    marginTop: 10, 
   },
   boldTextParent: {
     marginTop: 20,
@@ -27,33 +31,9 @@ const styles = StyleSheet.create({
     color: colors.black,
     alignSelf: 'center',
   },
-  textInput: {
-    backgroundColor: colors.offWhite,
-    borderRadius: 15,
-    height: 40,
-    width: 40,
-    padding: 8,
-    margin: 5,
+  inputprop: {
+    height: 60,
   },
-  gpsTextInput: {
-    backgroundColor: colors.offWhite,
-    borderRadius: 10,
-    height: 30,
-    width: 160,
-    padding: 8,
-    margin: 5,
-    marginTop: 10,
-  },
-  gpsMaximumAgeTextInput: {
-    backgroundColor: colors.offWhite,
-    borderRadius: 10,
-    height: 30,
-    width: 120,
-    padding: 8,
-    margin: 5,
-    marginTop: 10,
-  },
-  switch: {},
   boldText: {
     color: colors.black,
     fontWeight: 'bold',
@@ -83,5 +63,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 5,
   },
+  slider: {
+    width: '20%',
+  },
+  textInput: {
+    fontSize: 14,
+    flex: 0.2,
+    padding: 0,
+  },
+  dropDown: {
+    marginTop: 10,
+  },
+  content: {
+    flex: 1,
+    backgroundColor: '#FFF',
+  },
 });
+
 export default styles;
