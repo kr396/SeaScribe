@@ -1,13 +1,18 @@
 import React, {FC, useState} from 'react';
-import {View, Text, Modal, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Modal,
+  StyleSheet,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 import {ThemeButton} from '../../components';
 import {colors} from '../../constants';
 import DropboxModelStep1 from './DropboxModelSetp1';
-
 interface DropboxModel {
   visible: boolean;
-  titleStyle?: any;
-
+  titleStyle?: StyleProp<TextStyle>;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.rgba,
+    backgroundColor: colors.black05,
   },
   themeButtonCancel: {
     backgroundColor: colors.offWhite,

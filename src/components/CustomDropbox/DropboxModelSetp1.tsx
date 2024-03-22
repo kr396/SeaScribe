@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.rgba,
+    backgroundColor: colors.black05,
   },
   themeButtonCancel: {
     backgroundColor: colors.offWhite,

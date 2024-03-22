@@ -5,7 +5,7 @@ import {colors} from '../../constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type Props = {
-  value: string | null;
+  value: string;
   title: string;
   onSelectColor: (colors: string) => void;
   style: any;
@@ -18,7 +18,6 @@ export const CustomColorPicker: FC<Props> = ({
   style,
 }) => {
   const [showModal, setShowModal] = useState(false);
-  const defaultColor = '#FFFFFF';
   return (
     <>
       <Pressable
@@ -26,11 +25,7 @@ export const CustomColorPicker: FC<Props> = ({
         onPress={() => setShowModal(true)}>
         <Text style={styles.titleStyle}>{title}</Text>
         <View style={styles.colorBoxParent}>
-          <View
-            style={[
-              styles.colorBox,
-              {backgroundColor: value || defaultColor},
-            ]}></View>
+          <View style={[styles.colorBox, {backgroundColor: value}]}></View>
           <Icon
             name="arrow-drop-down"
             size={24}
@@ -42,7 +37,7 @@ export const CustomColorPicker: FC<Props> = ({
       {showModal && (
         <ColorPickerModal
           visible={showModal}
-          value={value || defaultColor}
+          value={value}
           onRequestClose={() => setShowModal(false)}
           onSelectColor={color => {
             setShowModal(false);

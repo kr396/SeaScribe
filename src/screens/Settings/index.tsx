@@ -18,7 +18,7 @@ import {RootStackScreenProps} from '../../navigation/types';
 import {CustomColorPicker} from '../../components';
 import CustomSwitch from '../../components/Switch';
 import DropboxModel from '../../components/CustomDropbox';
-import Popup from '../../components/Popup';
+import Popup from '../../components/CustomPopup';
 
 const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
   const [dropboxModalVisible, setDropboxModalVisible] = useState(false);
@@ -90,9 +90,9 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
   };
 
   const zIndexArray = {
-    4: 1,
-    42: 2,
-    43: 3,
+    4: 999,
+    42: 998,
+    43: 997,
   };
 
   const data: Setting[] = [
@@ -469,6 +469,8 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
             ]}
             value={null}
             lable={item.title}
+            // zIndex={}
+            // zIndexInverse={}
           />
         );
       case 'custom':

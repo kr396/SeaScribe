@@ -75,7 +75,7 @@ export type HandleItemPress = {
   hasArrow?: boolean;
 };
 
-export type iManageData = {
+export type IManageData = {
   id: string;
   title: string;
   route: any;
@@ -120,7 +120,7 @@ export type Setting = {
     | 'slider'
     | 'textinput'
     | 'custom';
-  route?: any;
+  route?: string;
   onPress?: string;
   showRightArrow?: boolean;
 };

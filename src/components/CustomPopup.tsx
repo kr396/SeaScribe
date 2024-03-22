@@ -11,16 +11,16 @@ import {
 import {isTablet} from 'react-native-device-info';
 import CheckBox from '@react-native-community/checkbox';
 import {colors} from '../constants';
-import {ThemeButton} from '../components';
+import {ThemeButton} from '.';
 
-type Popup = {
+type Props = {
   visible: boolean;
   title: string;
   data: {id: string; label: string}[];
   onRequestClose?: () => void;
 };
 
-const Popup = ({visible, title, data, onRequestClose}: Popup) => {
+const Popup = ({visible, title, data, onRequestClose}: Props) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const handleToggleItem = (id: string) => {
@@ -69,7 +69,6 @@ const Popup = ({visible, title, data, onRequestClose}: Popup) => {
       <SafeAreaView style={styles.safearea}>
         <View style={styles.container}>
           <View style={styles.header}>
-            <View style={styles.padder} />
             <Text style={styles.title}>{title}</Text>
             <Pressable style={styles.cancelBtn}>
               <Text style={styles.cancel}>Show Reorder</Text>
@@ -135,9 +134,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     height: 40,
     borderRadius: 4,
-  },
-  padder: {
-    width: 0,
   },
   cancel: {
     color: colors.black,
