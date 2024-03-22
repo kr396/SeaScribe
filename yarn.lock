@@ -7135,6 +7135,7 @@ react-native-gesture-handler@^2.15.0:
     invariant "^2.2.4"
     lodash "^4.17.21"
     prop-types "^15.7.2"
+
 react-native-image-crop-picker@^0.40.3:
   version "0.40.3"
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.40.3.tgz#a6b135cd1218a33ad126c1a148ec5a1bd01737ff"
@@ -7184,6 +7185,11 @@ react-native-splash-screen@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
   integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
+
+react-native-unistyles@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-2.5.0.tgz#fe8428ed8ed6770d5e3d12f725bdf1cd8f1b2475"
+  integrity sha512-XGdPKYdmVqVXz8oS9nnWPiwPFiZVaPI10KuHInZI4uUuuvV0mIOO4fUig1HX0UGIJwg/vPnN/1cWBmPODvfmTQ==
 
 react-native-vector-icons@^10.0.3:
   version "10.0.3"

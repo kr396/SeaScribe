@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
 import {verticalScale} from '../../utils/scale';
+import {createStyleSheet} from 'react-native-unistyles';
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet({
   container: {
     flex: 1,
     backgroundColor: colors.white,
@@ -20,4 +21,4 @@ const styles = StyleSheet.create({
   buttonStyle: {},
 });
 
-export default styles;
+export default stylesheet;

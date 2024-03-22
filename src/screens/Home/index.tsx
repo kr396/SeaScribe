@@ -1,12 +1,14 @@
 import {Image, View} from 'react-native';
 import React, {FC} from 'react';
 
-import styles from './styles';
 import {ThemeButton} from '../../components';
 import {images} from '../../constants/images';
 import {RootStackScreenProps} from '../../navigation/types';
+import {useStyles} from 'react-native-unistyles';
+import stylesheet from './styles';
 
 const Home: FC<RootStackScreenProps<'Home'>> = ({navigation}) => {
+  const {styles} = useStyles(stylesheet);
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>

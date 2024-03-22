@@ -9,12 +9,14 @@ import React from 'react';
 import {Provider} from 'react-redux';
 
 import {PersistGate} from 'redux-persist/integration/react';
+// @ts-ignore
 import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import {RealmProvider} from '@realm/react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import Router from './src/navigation';
 import {persistor, store} from './src/store';
+import './src/constants/unistyles';
 
 function App(): React.JSX.Element {
   return (
