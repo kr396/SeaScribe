@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import {View} from 'react-native';
 import styles from './styles';
 import {Table, ThemeButton} from '../../components';
