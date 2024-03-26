@@ -1,5 +1,6 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import React, {FC} from 'react';
+import {createStyleSheet, useStyles} from 'react-native-unistyles';
 
 import {colors} from '../constants';
 
@@ -9,10 +10,11 @@ type Props = {
 };
 
 const AncillaryFieldsView: FC<Props> = ({items, onPress}) => {
+  const {styles} = useStyles(stylesheet);
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.row}>
-        <Text>Ancillary Fields</Text>
+        <Text style={styles.label}>Ancillary Fields</Text>
         {typeof items?.length === 'number' ? (
           <View style={styles.badge}>
             <Text style={styles.numberCount}>{items.length}</Text>
@@ -28,7 +30,7 @@ const AncillaryFieldsView: FC<Props> = ({items, onPress}) => {
 
 export default AncillaryFieldsView;
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet(({colors}) => ({
   container: {
     flex: 1,
     borderWidth: 1,
@@ -55,4 +57,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     opacity: 0.8,
   },
-});
+  label: {
+    color: colors.black,
+  },
+}));

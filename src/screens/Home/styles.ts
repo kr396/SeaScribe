@@ -1,4 +1,3 @@
-import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
 import {verticalScale} from '../../utils/scale';
 import {createStyleSheet} from 'react-native-unistyles';
@@ -12,7 +11,7 @@ const stylesheet = createStyleSheet({
   },
   buttonContainer: {
     justifyContent: 'space-between',
-    gap: verticalScale(20),
+    gap: verticalScale(25),
   },
   image: {
     alignSelf: 'center',

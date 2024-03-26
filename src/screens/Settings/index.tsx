@@ -2,25 +2,28 @@ import React, {useState} from 'react';
 import {
   View,
   Text,
-  Switch,
-  TextInput,
   Image,
   FlatList,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+``;
+import Slider from 'react-native-slider';
+import {useStyles} from 'react-native-unistyles';
+
 import {images} from '../../constants/images';
 import {ThemeButton, DropDown, InputText} from '../../components';
-import styles from './styles';
-import Slider from '@react-native-community/slider';
 import {Setting} from '../../types';
 import {RootStackScreenProps} from '../../navigation/types';
 import {CustomColorPicker} from '../../components';
 import CustomSwitch from '../../components/Switch';
 import DropboxModel from '../../components/CustomDropbox';
 import Popup from '../../components/CustomPopup';
+import {AGES, PLUMAGES} from '../../data';
+import stylesheet from './styles';
 
 const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
+  const {theme, styles} = useStyles(stylesheet);
   const [dropboxModalVisible, setDropboxModalVisible] = useState(false);
   const [agePopup, setAgePopup] = useState(false);
   const [behaviorPopup, setBehaviorPopup] = useState(false);
@@ -191,24 +194,10 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
     {id: '45', title: 'Privacy Policy', type: 'custom', showRightArrow: true},
     {id: '46', title: 'About', type: 'custom', showRightArrow: true},
   ];
-  const popupData = [
-    {id: '1', label: 'Ad - Adult [Ad]'},
-    {id: '2', label: 'imm - Immature [Imm]'},
-    {id: '3', label: 'Juv - Juvenile [Juv]'},
-    {id: '4', label: 'Subad - subadult [Subad]'},
-    {id: '5', label: '1C-First cycle [1C]'},
-    {id: '6', label: '2C - Second cycle [2C]'},
-    {id: '7', label: '3C - Third cycle [3C]'},
-    {id: '8', label: '4C - Fourth year [4C]'},
-    {id: '9', label: '1Y - First year [1Y]'},
-    {id: '10', label: '2Y - Second year [2Y]'},
-    {id: '11', label: '3Y - Third year [3Y]'},
-    {id: '12', label: '4Y - Fourth year [4Y]'},
-    {id: '13', label: '5Y - Fifth year [5Y]'},
-    {id: '14', label: '6Y - Sixth year [6Y]'},
-    {id: '15', label: '7Y - Seventh year [7Y]'},
-    {id: '16', label: 'Unknown - Unknown [Unk]'},
-  ];
+  const agesList = AGES.map(age => ({
+    ...age,
+    label: age.hotkeyLabel + ', ' + age.description,
+  }));
   const behaviorData = [
     {
       id: 1,
@@ -394,24 +383,12 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
     },
     {id: 25, label: 'Other', code: 'Oth', description: 'Other', notes: 'Other'},
   ];
-  const plumageData = [
-    {id: 1, label: 'B - Breeding/Alternate spring and summer plumage'},
-    {id: 2, label: 'NB - Non-breeding/Basic fall and winter plumage'},
-    {id: 3, label: 'M - Flight feathers moulting'},
-    {id: 4, label: 'D - Dark phase'},
-    {id: 5, label: 'L - Light phase'},
-    {id: 6, label: 'GP1 - Gannet plumage 1'},
-    {id: 7, label: 'GP2 - Gannet plumage 2'},
-    {id: 8, label: 'GP3 - Gannet plumage 3'},
-    {id: 9, label: 'GP4 - Gannet plumage 4'},
-    {id: 10, label: 'GP5 - Gannet plumage 5'},
-    {id: 11, label: 'GP6 - Gannet plumage 6'},
-    {id: 12, label: 'Unknown - Unknown'},
-  ];
+  const plumageList = PLUMAGES.map(plumage => ({
+    ...plumage,
+    label: plumage.hotkeyLabel + ', ' + plumage.description,
+  }));
 
   const renderItem = ({item}: {item: Setting}) => {
-    const zIndex = zIndexArray[item.id];
-
     switch (item.type) {
       case 'sectionheader':
         return (
@@ -442,9 +419,13 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
         return (
           <View style={styles.textParent}>
             <Text style={styles.text}>{item.title}</Text>
-
             <Slider
               style={styles.slider}
+              minimumTrackTintColor={theme.colors.offWhite}
+              maximumTrackTintColor={theme.colors.offWhite}
+              thumbTintColor={theme.colors.white}
+              thumbStyle={{elevation: 3}}
+              trackStyle={{height: 2}}
               minimumValue={10}
               maximumValue={200}
             />
@@ -462,15 +443,13 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
       case 'dropdown':
         return (
           <DropDown
-            style={[styles.dropDown, zIndex]}
+            style={[styles.dropDown]}
             items={[
               {label: 'Item 1', value: 'item1'},
               {label: 'Item 2', value: 'item2'},
             ]}
             value={null}
             lable={item.title}
-            // zIndex={}
-            // zIndexInverse={}
           />
         );
       case 'custom':
@@ -525,7 +504,7 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
         <Popup
           visible={agePopup}
           title={'Edit Age Hotkeys'}
-          data={popupData}
+          data={agesList}
           onRequestClose={handleClosePopup}
         />
       )}
@@ -542,7 +521,7 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
         <Popup
           visible={plumagePopup}
           title={'Edit Behavior Hotkeys'}
-          data={plumageData}
+          data={plumageList}
           onRequestClose={plumageHotkeysPopup}
         />
       )}

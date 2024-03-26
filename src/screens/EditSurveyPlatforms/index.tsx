@@ -1,4 +1,5 @@
-import {View, ScrollView} from 'react-native';
+import React from 'React';
+import {View} from 'react-native';
 import styles from './styles';
 import {Table, ThemeButton} from '../../components';
 import {useSelector} from 'react-redux';

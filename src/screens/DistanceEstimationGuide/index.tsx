@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {View, Text, TextInput, FlatList, ScrollView} from 'react-native';
+import {View, Text, TextInput, ScrollView} from 'react-native';
 import styles from './styles';
 import {Table, ThemeButton} from '../../components';
 import {RootStackScreenProps} from '../../navigation/types';

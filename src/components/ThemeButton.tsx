@@ -10,7 +10,8 @@ import {
 import React, {useMemo} from 'react';
 
 import {colors} from '../constants';
-import {scale} from '../utils/scale';
+import {scale, verticalScale} from '../utils/scale';
+import {createStyleSheet, useStyles} from 'react-native-unistyles';
 
 type Props = {
   title: string;
@@ -26,6 +27,7 @@ export const ThemeButton = ({
   mode = 'default',
   ...props
 }: Props) => {
+  const {styles} = useStyles(stylesheet);
   const pressableStyle: StyleProp<ViewStyle> = [styles.container];
   if (props.style) {
     pressableStyle.push(props.style);
@@ -56,15 +58,14 @@ export const ThemeButton = ({
   );
 };
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet({
   container: {
-    height: scale(40),
+    height: verticalScale(40),
     backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
+    borderRadius: scale(4),
     paddingHorizontal: scale(16),
-    paddingVertical: 8,
   },
   title: {
     fontSize: scale(14),

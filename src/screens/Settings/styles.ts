@@ -1,14 +1,14 @@
-import {StyleSheet} from 'react-native';
+import {createStyleSheet} from 'react-native-unistyles';
 import {colors} from '../../constants';
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet({
   container: {
     flex: 1,
     padding: 16,
     backgroundColor: colors.white,
   },
   itemContainer: {
-    marginTop: 10, 
+    marginTop: 10,
   },
   boldTextParent: {
     marginTop: 20,
@@ -19,12 +19,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textParent: {
-    marginTop: 10,
-    borderWidth: 1,
     height: 50,
-    borderColor: colors.offWhite,
-    justifyContent: 'space-between',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    paddingRight: 10,
+    borderWidth: 1,
+    borderColor: colors.offWhite,
   },
   text: {
     paddingLeft: 10,
@@ -80,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+export default stylesheet;

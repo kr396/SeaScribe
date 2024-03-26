@@ -1,4 +1,5 @@
-import {View, Text} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
 import styles from './styles';
 import {ThemeButton, Table} from '../../components';
 
@@ -30,7 +31,7 @@ const EditHotkeyGroups = () => {
       </View>
       <Table
         headers={edithotkeygroupsheader}
-        data={editancillaryfieldsdata.map((item, index) => ({
+        data={editancillaryfieldsdata.map(item => ({
           Del: item.Del,
           MethodologyName: item.MethodologyName,
           TransectType: item.TransectType,

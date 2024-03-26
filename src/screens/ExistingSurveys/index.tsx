@@ -9,20 +9,11 @@ const ExistingSurveys = () => {
       <View style={styles.container}>
         <View>
           <Text style={styles.boldText}>Select a Survey:</Text>
-          <ThemeButton
-            title="Start New Transect"
-            style={styles.startTransect}
-          />
-          <ThemeButton
-            title="Resume Most Recent Transect"
-            style={styles.resumeRecentTransect}
-          />
-          <View style={styles.buttons}>
-            <ThemeButton
-              title="Generate Report"
-              style={styles.horizontalButtons}
-            />
-            <ThemeButton title="Submit" style={styles.horizontalButtons} />
+          <View style={styles.buttonParent}>
+            <ThemeButton title="Start New Transect" />
+            <ThemeButton title="Resume Most Recent Transect" />
+            <ThemeButton title="Generate Report" />
+            <ThemeButton title="Submit" />
             <ThemeButton title="Delete" style={styles.deleteButton} />
           </View>
         </View>
@@ -30,21 +21,12 @@ const ExistingSurveys = () => {
           <Text style={styles.boldText}>
             or Select a Transect from the Chosen Survey:
           </Text>
-          <ThemeButton
-            title="Resume Selected Transect"
-            style={styles.resumeSelectedTransect}
-          />
-          <View style={styles.buttons}>
-            <ThemeButton
-              title="Generate Report"
-              style={styles.horizontalButtons}
-            />
-            <ThemeButton
-              title="Open Data Editor"
-              style={styles.horizontalButtons}
-            />
+          <View style={styles.buttonParent}>
+            <ThemeButton title="Resume Selected Transect" />
+            <ThemeButton title="Generate Report" />
+            <ThemeButton title="Open Data Editor" />
+            <ThemeButton title="Delete" style={styles.deleteButton} />
           </View>
-          <ThemeButton title="Delete" style={styles.delete} />
         </View>
       </View>
     </ScrollView>

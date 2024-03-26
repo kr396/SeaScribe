@@ -7,8 +7,6 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {ThemeButton} from '../../../components';
 import {colors} from '../../../constants';
 import {scale} from '../../../utils';
-import {useNavigation} from '@react-navigation/native';
-import Popup from '../../../components/CustomPopup';
 
 type Props = {
   onSavePress: () => void;
@@ -16,7 +14,6 @@ type Props = {
 };
 
 export const ActionContainer: FC<Props> = () => {
-  const navigation = useNavigation();
   const [showRecordingPopup, setShowRecordingPopup] = useState(false);
 
   const onCameraPress = () => {

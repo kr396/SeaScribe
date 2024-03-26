@@ -6,6 +6,7 @@ import {images} from '../../constants/images';
 import {RootStackScreenProps} from '../../navigation/types';
 import {useStyles} from 'react-native-unistyles';
 import stylesheet from './styles';
+import DeviceInfo from 'react-native-device-info';
 
 const Home: FC<RootStackScreenProps<'Home'>> = ({navigation}) => {
   const {styles} = useStyles(stylesheet);
@@ -41,7 +42,9 @@ const Home: FC<RootStackScreenProps<'Home'>> = ({navigation}) => {
           style={styles.buttonStyle}
         />
       </View>
-      <Image source={images.main} style={styles.image} />
+      {DeviceInfo.getDeviceType() === 'Tablet' && (
+        <Image source={images.main} style={styles.image} />
+      )}
     </View>
   );
 };

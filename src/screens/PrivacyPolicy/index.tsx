@@ -1,3 +1,4 @@
+import React from 'react';
 import {ScrollView, Text, TouchableOpacity, View, Linking} from 'react-native';
 import styles from './styles';
 import {ThemeButton} from '../../components';

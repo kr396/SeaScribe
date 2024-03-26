@@ -1,4 +1,4 @@
-import React, {Component, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,9 +9,7 @@ import {
 import {ActionContainer, ObservationForm} from './components';
 import {colors} from '../../constants';
 
-type Props = {};
-
-const RecordObservations = (props: Props) => {
+const RecordObservations = () => {
   const [offset, setOffset] = useState(0);
   const [topLeftHeight, setTopLeftHeight] = useState(40);
   const [bottmLeftHeight, setBottomLeftHeight] = useState(40);

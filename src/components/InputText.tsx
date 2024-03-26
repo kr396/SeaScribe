@@ -1,6 +1,5 @@
 import {
   StyleProp,
-  StyleSheet,
   Text,
   TextInput,
   TextInputProps,
@@ -9,8 +8,7 @@ import {
 } from 'react-native';
 import React, {FC} from 'react';
 import DeviceInfo from 'react-native-device-info';
-
-import {colors} from '../constants';
+import {createStyleSheet, useStyles} from 'react-native-unistyles';
 
 type InputTextProps = {
   lable: string;
@@ -29,9 +27,10 @@ export const InputText: FC<InputTextProps> = ({
   containerStyle,
   errorMessage,
 }) => {
+  const {styles, theme} = useStyles(stylesheet);
   const showRedBorder = isRequired && !inputProps?.value;
   const borderColor =
-    showRedBorder || errorMessage ? colors.red : colors.offWhite;
+    showRedBorder || errorMessage ? theme.colors.red : theme.colors.offWhite;
 
   const deviceViseStyle: StyleProp<ViewStyle> =
     DeviceInfo.getDeviceType() === 'Tablet'
@@ -42,7 +41,7 @@ export const InputText: FC<InputTextProps> = ({
       <View style={[styles.container, {borderColor}, style]}>
         <Text style={[styles.lable]}>{lable}</Text>
         <TextInput
-          selectionColor={colors.black}
+          selectionColor={theme.colors.black}
           {...inputProps}
           style={[styles.input, inputProps?.style]}
         />
@@ -54,7 +53,7 @@ export const InputText: FC<InputTextProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet(({colors}) => ({
   containerStyle: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -76,6 +75,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 2,
+    color: colors.black,
     backgroundColor: colors.offWhite,
     borderRadius: 8,
     minHeight: 30,
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginTop: 8,
   },
-});
+}));

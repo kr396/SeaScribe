@@ -1,9 +1,8 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Image, ScrollView, Text, View, Linking} from 'react-native';
 import styles from './styles';
 import {images} from '../../constants/images';
 import {ThemeButton} from '../../components';
-import {RootStackScreenProps} from '../../navigation/types';
 import {
   Open_Source_Attributions,
   World_Ocean_Base,

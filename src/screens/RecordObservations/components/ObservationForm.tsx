@@ -1,13 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {colors} from '../../../constants';
 import {DropDown, InputText} from '../../../components';
 import {AGES, PLUMAGES, SEXES, SPECIES} from '../../../data';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-type Props = {};
-
-export const ObservationForm = (props: Props) => {
+export const ObservationForm = () => {
   const ages = AGES.map(age => ({
     ...age,
     label: age.hotkeyLabel + ' - ' + age.description,

@@ -28,13 +28,13 @@ const EditAncillaryFields = () => {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.buttons}>
-        <ThemeButton title="New" style={styles.newButton} />
-        <ThemeButton title="Process Deletes" style={styles.deletesButton} />
-      </View>
-      <View style={styles.table}>
-        <Table headers={editancillaryfieldsheader} data={ancillaryFields} />
-      </View>
+        <View style={styles.buttons}>
+          <ThemeButton title="New" style={styles.newButton} />
+          <ThemeButton title="Process Deletes" style={styles.deletesButton} />
+        </View>
+        <View style={styles.table}>
+          <Table headers={editancillaryfieldsheader} data={ancillaryFields} />
+        </View>
       </ScrollView>
     </View>
   );

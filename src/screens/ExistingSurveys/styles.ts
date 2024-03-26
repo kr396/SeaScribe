@@ -13,46 +13,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   buttonParent: {
-    marginTop: 20,
-  },
-  startTransect: {
-    marginTop: 20,
-    height: 50,
-    width: 180,
-    borderRadius: 5,
-  },
-  resumeRecentTransect: {
-    marginTop: 10,
-    height: 50,
-    width: 270,
-    borderRadius: 5,
-  },
-  buttons: {
+    flexWrap: 'wrap',
     flexDirection: 'row',
-    marginTop: 10,
-  },
-  horizontalButtons: {
-    marginRight: 5,
-    borderRadius: 5,
-    height: 50,
+    gap: 16,
+    marginTop: 20,
   },
   deleteButton: {
-    height: 50,
     borderRadius: 5,
     backgroundColor: colors.red,
-  },
-  resumeSelectedTransect: {
-    height: 50,
-    width: 250,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  delete: {
-    height: 50,
-    borderRadius: 5,
-    backgroundColor: colors.red,
-    marginTop: 10,
-    width: 85,
   },
 });
 export default styles;

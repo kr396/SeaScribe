@@ -32,7 +32,7 @@ const AncillaryFields: FC<RootStackScreenProps<'AncillaryFileds'>> = ({
   const [showMethodNamePropmt, setShowMethodNamePropmt] = useState(false);
 
   useEffect(() => {
-    if (route.params?.returnTo == 'start-new-survey') {
+    if (route.params?.returnTo === 'start-new-survey') {
       Alert.alert(
         'Changes Will Produce New Methodology',
         'Ancillary fields are considered intrinsic properties of a methodology.  Therefore, if you make any changes to the selections on this screen, you will be prompted for a new methodology name, and your new survey will automatically be assigned your new methodology.',
@@ -47,7 +47,7 @@ const AncillaryFields: FC<RootStackScreenProps<'AncillaryFileds'>> = ({
   const onSavePress = () => {
     var alreadySelected = JSON.stringify(selectedAncillaryFields);
     var selectedNow = JSON.stringify(selectedFields);
-    if (alreadySelected != selectedNow) {
+    if (alreadySelected !== selectedNow) {
       // User has changed what was selected.
       setShowMethodNamePropmt(true);
     } else {

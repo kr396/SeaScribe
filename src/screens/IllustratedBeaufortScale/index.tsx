@@ -1,3 +1,4 @@
+import React from 'react';
 import {View, Text, Image, FlatList} from 'react-native';
 import styles from './styles';
 import {BEAUFORT_SCALE_ENTRIES} from '../../data';
