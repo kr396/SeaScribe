@@ -7,7 +7,7 @@ export type RootStackParamList = {
   Settings: undefined;
   Tools: undefined;
   NewMethodology: {setMethodology: (id: number) => void} | undefined;
-  AncillaryFileds?: {
+  AncillaryFields?: {
     returnTo: 'start-new-survey' | 'new-methodology';
     selectedMethodologyId?: number;
   };

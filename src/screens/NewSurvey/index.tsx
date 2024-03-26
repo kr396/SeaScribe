@@ -177,7 +177,7 @@ const NewSurvey: FC<RootStackScreenProps<'NewSurvey'>> = ({navigation}) => {
   const onAncillaryFiedsPress = () => {
     if (methodology) {
       dispatch(setSelectedAncillaryFields(selectedAncillaryFieldsList));
-      navigation.navigate('AncillaryFileds', {
+      navigation.navigate('AncillaryFields', {
         returnTo: 'start-new-survey',
         selectedMethodologyId: methodology,
       });

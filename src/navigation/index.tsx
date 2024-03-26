@@ -64,7 +64,7 @@ const Router = () => {
           component={NewMethodology}
         />
         <Stack.Screen
-          name="AncillaryFileds"
+          name="AncillaryFields"
           options={{title: 'Select Ancillary Fields'}}
           component={AncillaryFields}
         />

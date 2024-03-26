@@ -44,7 +44,7 @@ const NewMethodology: FC<RootStackScreenProps<'NewMethodology'>> = ({
   };
 
   const onAncillaryFieldsPress = () => {
-    navigation.navigate('AncillaryFileds');
+    navigation.navigate('AncillaryFields');
   };
 
   const onSavePress = () => {

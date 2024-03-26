@@ -14,7 +14,7 @@ import {
 import Popup from '../../components/Popup';
 import {addNewMethodology, getMethodologies} from '../../store/slices/appSlice';
 
-const AncillaryFields: FC<RootStackScreenProps<'AncillaryFileds'>> = ({
+const AncillaryFields: FC<RootStackScreenProps<'AncillaryFields'>> = ({
   navigation,
   route,
 }) => {
