@@ -47,7 +47,10 @@ const AncillaryFields: FC<RootStackScreenProps<'AncillaryFields'>> = ({
   const onSavePress = () => {
     var alreadySelected = JSON.stringify(selectedAncillaryFields);
     var selectedNow = JSON.stringify(selectedFields);
-    if (alreadySelected !== selectedNow) {
+    if (
+      route.params?.returnTo === 'start-new-survey' &&
+      alreadySelected !== selectedNow
+    ) {
       // User has changed what was selected.
       setShowMethodNamePropmt(true);
     } else {
