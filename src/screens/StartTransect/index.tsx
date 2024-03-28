@@ -65,6 +65,31 @@ const StartTransect: FC<RootStackScreenProps<'StartTransect'>> = ({
   const onIsCorrectPress = () => {
     setIsDateTimeCorrect(value => !value);
   };
+
+  const onStartRecordingObservationsPress = () => {
+    // if (myForm && myForm.$valid) {
+    // 	log.debug("Form is valid");
+    // 	// If a transect name was specified.
+    // 	if ($scope.input.transectName && $scope.input.transectName.trim().length > 0) {
+    // 		// Ensure transect name is unique (within this survey).
+    // 		Transects.getCountMatchingNameWithinSurvey($stateParams.surveyId, $scope.input.transectName).then(function(countResult) {
+    // 			if (countResult['cnt'] == 0) {
+    // 				$scope.saveAndProgress();
+    // 			} else {
+    // 				$ionicPopup.alert({
+    // 					title: 'Validation Error',
+    // 					template: 'If specified, the Transect Name must be unique (within this Survey).'
+    // 				});
+    // 			}
+    // 		});
+    // 	} else {
+    // 		$scope.saveAndProgress();
+    // 	}
+    // } else {
+    // 	log.debug("Form is invalid");
+    // }
+  };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
@@ -136,6 +161,7 @@ const StartTransect: FC<RootStackScreenProps<'StartTransect'>> = ({
           <ThemeButton
             title="Start Recording Observations"
             style={styles.actionButton}
+            onPress={onStartRecordingObservationsPress}
           />
           <ThemeButton
             title="Cancel"

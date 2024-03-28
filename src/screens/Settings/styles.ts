@@ -2,6 +2,10 @@ import {createStyleSheet} from 'react-native-unistyles';
 import {colors} from '../../constants';
 
 const stylesheet = createStyleSheet({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
   container: {
     flex: 1,
     padding: 16,
@@ -51,18 +55,14 @@ const stylesheet = createStyleSheet({
     alignSelf: 'flex-end',
   },
   buttons: {
-    marginTop: 40,
     flexDirection: 'row',
     justifyContent: 'center',
-  },
-  saveButton: {
-    borderRadius: 5,
-    width: 70,
+    gap: 16,
+    marginTop: 40,
+    marginBottom: 20,
   },
   resetToDefaultButton: {
     backgroundColor: colors.red,
-    borderRadius: 5,
-    marginLeft: 5,
   },
   slider: {
     width: '20%',

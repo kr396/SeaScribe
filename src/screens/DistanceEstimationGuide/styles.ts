@@ -2,6 +2,10 @@ import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.white,
@@ -37,22 +41,8 @@ const styles = StyleSheet.create({
   buttonParent: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 32,
-  },
-  buttonCalculate: {
-    height: 50,
-    width: 120,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: colors.offWhite,
-  },
-  buttonClear: {
-    height: 50,
-    width: 80,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: colors.offWhite,
-    marginLeft: 10,
+    marginVertical: 32,
+    gap: 16,
   },
   calculateButtonText: {
     marginTop: 11,
@@ -65,6 +55,9 @@ const styles = StyleSheet.create({
   required: {
     color: colors.red,
     padding: 10,
+  },
+  tableContainer: {
+    alignSelf: 'center',
   },
 });
 

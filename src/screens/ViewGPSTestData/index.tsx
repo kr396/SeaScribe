@@ -1,9 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-type Props = {};
-
-const ViewGPSTestData = (props: Props) => {
+const ViewGPSTestData = () => {
   return (
     <View>
       <Text>ViewGPSTestData</Text>

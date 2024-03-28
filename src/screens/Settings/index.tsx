@@ -6,8 +6,8 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
-``;
 import Slider from 'react-native-slider';
 import {useStyles} from 'react-native-unistyles';
 
@@ -90,12 +90,6 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
       ...prevState,
       [settingId]: color,
     }));
-  };
-
-  const zIndexArray = {
-    4: 999,
-    42: 998,
-    43: 997,
   };
 
   const data: Setting[] = [
@@ -475,57 +469,59 @@ const Settings: React.FC<RootStackScreenProps<'Settings'>> = ({navigation}) => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.content}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          contentContainerStyle={styles.container}
-        />
-        <View style={styles.buttons}>
-          <ThemeButton title="Save" style={styles.saveButton} />
-          <ThemeButton
-            title="Reset to Defaults"
-            style={styles.resetToDefaultButton}
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+        <View style={styles.content}>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            contentContainerStyle={styles.container}
           />
+          <View style={styles.buttons}>
+            <ThemeButton title="Save" />
+            <ThemeButton
+              title="Reset to Defaults"
+              style={styles.resetToDefaultButton}
+            />
+          </View>
         </View>
-      </View>
-      {dropboxModalVisible && (
-        <DropboxModel
-          visible={dropboxModalVisible}
-          onCancel={() => setDropboxModalVisible(false)}
-          onConfirm={() => {
-            setDropboxModalVisible(false);
-          }}
-        />
-      )}
-      {agePopup && (
-        <Popup
-          visible={agePopup}
-          title={'Edit Age Hotkeys'}
-          data={agesList}
-          onRequestClose={handleClosePopup}
-        />
-      )}
+        {dropboxModalVisible && (
+          <DropboxModel
+            visible={dropboxModalVisible}
+            onCancel={() => setDropboxModalVisible(false)}
+            onConfirm={() => {
+              setDropboxModalVisible(false);
+            }}
+          />
+        )}
+        {agePopup && (
+          <Popup
+            visible={agePopup}
+            title={'Edit Age Hotkeys'}
+            data={agesList}
+            onRequestClose={handleClosePopup}
+          />
+        )}
 
-      {behaviorPopup && (
-        <Popup
-          visible={behaviorPopup}
-          title={'Edit Behavior Hotkeys'}
-          data={behaviorData}
-          onRequestClose={behavioraHotkeys}
-        />
-      )}
-      {plumagePopup && (
-        <Popup
-          visible={plumagePopup}
-          title={'Edit Behavior Hotkeys'}
-          data={plumageList}
-          onRequestClose={plumageHotkeysPopup}
-        />
-      )}
-    </ScrollView>
+        {behaviorPopup && (
+          <Popup
+            visible={behaviorPopup}
+            title={'Edit Behavior Hotkeys'}
+            data={behaviorData}
+            onRequestClose={behavioraHotkeys}
+          />
+        )}
+        {plumagePopup && (
+          <Popup
+            visible={plumagePopup}
+            title={'Edit Behavior Hotkeys'}
+            data={plumageList}
+            onRequestClose={plumageHotkeysPopup}
+          />
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

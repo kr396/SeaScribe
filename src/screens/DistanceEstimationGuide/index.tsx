@@ -1,8 +1,14 @@
 import React, {FC, useState} from 'react';
-import {View, Text, TextInput, ScrollView} from 'react-native';
+import {View, Text, TextInput, ScrollView, SafeAreaView} from 'react-native';
 import styles from './styles';
-import {Table, ThemeButton} from '../../components';
+import {Table, TableHeaderItem, ThemeButton} from '../../components';
 import {RootStackScreenProps} from '../../navigation/types';
+import {scale} from '../../utils';
+
+type OutputDeg = {
+  distanceToBeEstimated: number;
+  distanceBelowHorizon: number;
+};
 
 const DistanceEstimationGuide: FC<
   RootStackScreenProps<'DistanceEstimationGuide'>
@@ -12,18 +18,18 @@ const DistanceEstimationGuide: FC<
     h: '12.5',
     d: '50,100,200,300',
   });
-  const [outputDeg, setOutputDeg] = useState([]);
+  const [outputDeg, setOutputDeg] = useState<OutputDeg[]>([]);
   const [required, setRequired] = useState(false);
-  const tableHeaders = [
+  const tableHeaders: TableHeaderItem[] = [
     {
       label: 'Distance To Be Estimated (m)',
       value: 'distanceToBeEstimated',
-      width: '50%',
+      width: scale(175),
     },
     {
       label: 'Distance Below Horizon (mm)',
       value: 'distanceBelowHorizon',
-      width: '50%',
+      width: scale(175),
     },
   ];
 
@@ -83,70 +89,74 @@ const DistanceEstimationGuide: FC<
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={[
-            styles.parents,
-            inputDeg.a.trim() ? styles.parents : styles.parentsInvalidInput,
-          ]}>
-          <Text style={styles.parentsText}>
-            Distance between observer's eye and ruler when observer's arm is
-            fully outstretched (m)
-          </Text>
-          <TextInput
-            style={styles.inputText}
-            value={inputDeg.a}
-            onChangeText={handleChangeA}
-          />
-        </View>
-        {required && <Text style={styles.required}>*Required</Text>}
-        <View
-          style={[
-            styles.parents,
-            inputDeg.h.trim() ? styles.parents : styles.parentsInvalidInput,
-          ]}>
-          <Text style={styles.parentsText}>
-            Height of observer's eye above water at observation point (m)
-          </Text>
-          <TextInput
-            style={styles.inputText}
-            value={inputDeg.h}
-            onChangeText={handleChangeH}
-          />
-        </View>
-        {required && <Text style={styles.required}>*Required</Text>}
-        <View
-          style={[
-            styles.parents,
-            inputDeg.d ? styles.parents : styles.parentsInvalidInput,
-          ]}>
-          <Text style={styles.parentsText}>
-            Distance to be estimated (m, can be a comma-delimited list)
-          </Text>
-          <TextInput
-            style={styles.inputText}
-            value={inputDeg.d}
-            onChangeText={handleChangeD}
-          />
-        </View>
-        {required && <Text style={styles.required}>*Required</Text>}
-        <View style={styles.buttonParent}>
-          <ThemeButton
-            title="Calculate"
-            style={styles.buttonCalculate}
-            onPress={calculateDistanceEstimates}
-          />
-          <ThemeButton
-            mode={'outlined'}
-            title="Clear"
-            style={styles.buttonClear}
-            onPress={clearDistanceEstimates}
-          />
-        </View>
-        <Table headers={tableHeaders} data={outputDeg} />
-      </ScrollView>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+            style={[
+              styles.parents,
+              inputDeg.a.trim() ? styles.parents : styles.parentsInvalidInput,
+            ]}>
+            <Text style={styles.parentsText}>
+              Distance between observer's eye and ruler when observer's arm is
+              fully outstretched (m)
+            </Text>
+            <TextInput
+              style={styles.inputText}
+              value={inputDeg.a}
+              onChangeText={handleChangeA}
+            />
+          </View>
+          {required && <Text style={styles.required}>*Required</Text>}
+          <View
+            style={[
+              styles.parents,
+              inputDeg.h.trim() ? styles.parents : styles.parentsInvalidInput,
+            ]}>
+            <Text style={styles.parentsText}>
+              Height of observer's eye above water at observation point (m)
+            </Text>
+            <TextInput
+              style={styles.inputText}
+              value={inputDeg.h}
+              onChangeText={handleChangeH}
+            />
+          </View>
+          {required && <Text style={styles.required}>*Required</Text>}
+          <View
+            style={[
+              styles.parents,
+              inputDeg.d ? styles.parents : styles.parentsInvalidInput,
+            ]}>
+            <Text style={styles.parentsText}>
+              Distance to be estimated (m, can be a comma-delimited list)
+            </Text>
+            <TextInput
+              style={styles.inputText}
+              value={inputDeg.d}
+              onChangeText={handleChangeD}
+            />
+          </View>
+          {required && <Text style={styles.required}>*Required</Text>}
+          <View style={styles.buttonParent}>
+            <ThemeButton
+              title="Calculate"
+              onPress={calculateDistanceEstimates}
+            />
+            <ThemeButton
+              mode={'outlined'}
+              title="Clear"
+              onPress={clearDistanceEstimates}
+            />
+          </View>
+          {outputDeg.length ? (
+            <View style={styles.tableContainer}>
+              <Table headers={tableHeaders} data={outputDeg} />
+            </View>
+          ) : null}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 

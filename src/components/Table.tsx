@@ -6,14 +6,24 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  DimensionValue,
 } from 'react-native';
 import {colors} from '../constants';
 import CheckBox from '@react-native-community/checkbox';
 
-export const Table: FC<{
-  headers: Array<{label: string; value: string; width: string}>;
+export type TableHeaderItem = {
+  label: string;
+  value: string;
+  width: DimensionValue | undefined;
+  type?: 'checkbox';
+};
+type TProps = {
+  headers: Array<TableHeaderItem>;
   data: any[];
-}> = ({headers = [], data = []}) => {
+  isRowSelectable?: boolean;
+};
+
+export const Table: FC<TProps> = ({headers = [], data = []}) => {
   const [checkedItems, setCheckedItems] = useState<{[key: string]: boolean}>(
     {},
   );
@@ -25,8 +35,12 @@ export const Table: FC<{
     }));
   };
 
-  const renderCell = (item: any, header: any, cellIndex: number) => {
-    if (header.value === 'del') {
+  const renderCell = (
+    item: any,
+    header: TableHeaderItem,
+    cellIndex: number,
+  ) => {
+    if (header.type === 'checkbox') {
       return (
         <TouchableOpacity
           key={cellIndex}
@@ -47,7 +61,9 @@ export const Table: FC<{
             {width: header.width},
             cellIndex === 0 && styles.headerCell,
           ]}>
-          <Text style={styles.cellText}>{item[header.value]}</Text>
+          <Text style={styles.cellText}>
+            {item[header.value] ? String(item[header.value]) : ''}
+          </Text>
         </TouchableOpacity>
       );
     }
@@ -87,32 +103,29 @@ export const Table: FC<{
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      nestedScrollEnabled>
-      <View style={styles.container}>
-        <FlatList
-          data={data}
-          keyExtractor={item => item.id}
-          renderItem={renderItem}
-          ListHeaderComponent={listHeaderComponent}
-          ItemSeparatorComponent={itemSeparatorComponent}
-        />
-      </View>
+      nestedScrollEnabled
+      bounces={false}>
+      <FlatList
+        data={data}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+        ListHeaderComponent={listHeaderComponent}
+        ItemSeparatorComponent={itemSeparatorComponent}
+        bounces={false}
+      />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 5,
-  },
   row: {
     flexDirection: 'row',
   },
   cell: {
     borderWidth: 1,
     borderColor: colors.lightgrey,
-    padding: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },

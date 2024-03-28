@@ -2,6 +2,10 @@ import {StyleSheet} from 'react-native';
 import {colors} from '../../constants';
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
   container: {
     flex: 1,
     padding: 10,
@@ -9,10 +13,10 @@ const styles = StyleSheet.create({
   },
   deletesButton: {
     height: 40,
-    width: 160,
+    alignSelf: 'flex-start',
     backgroundColor: colors.red,
-    borderRadius: 5,
     marginTop: 10,
+    marginBottom: 20,
   },
 });
 export default styles;
